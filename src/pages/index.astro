@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Importar componentes de botones
+import PrimaryButton from '../components/ui/buttons/PrimaryButton.astro';
+import GhostButton from '../components/ui/buttons/GhostButton.astro';
+import NeomorphicButton from '../components/ui/buttons/NeomorphicButton.astro';
+import LoadingButton from '../components/ui/buttons/LoadingButton.astro';
+
+// Importar componentes de tarjetas
+import BasicCard from '../components/ui/cards/BasicCard.astro';
+import ImageCard from '../components/ui/cards/ImageCard.astro';
+import ProfileCard from '../components/ui/cards/ProfileCard.astro';
+
+// Importar componentes de formulario
+import FloatingInput from '../components/ui/forms/FloatingInput.astro';
+import CustomCheckbox from '../components/ui/forms/CustomCheckbox.astro';
+import ToggleSwitch from '../components/ui/forms/ToggleSwitch.astro';
+
+// Importar componentes de navegación
+import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
+---
+
+<Layout title="Catálogo de Componentes CSS">
+	<div class="catalog-container">
+		<header class="catalog-header">
+			<h1>🎨 Catálogo de Componentes CSS</h1>
+			<p>Colección de componentes visuales modernos hechos con HTML y CSS puro</p>
+		</header>
+
+		<nav class="catalog-nav">
+			<a href="#buttons" class="nav-link">Botones</a>
+			<a href="#cards" class="nav-link">Tarjetas</a>
+			<a href="#forms" class="nav-link">Formularios</a>
+			<a href="#navigation" class="nav-link">Navegación</a>
+		</nav>
+
+		<section id="buttons" class="section">
+			<h2>🔘 Botones</h2>
+			<div class="components-grid">
+				<PrimaryButton />
+				<GhostButton />
+				<NeomorphicButton />
+				<LoadingButton />
+			</div>
+		</section>
+
+		<section id="cards" class="section">
+			<h2>📋 Tarjetas</h2>
+			<div class="components-grid">
+				<BasicCard />
+				<ImageCard />
+				<ProfileCard />
+			</div>
+		</section>
+
+		<section id="forms" class="section">
+			<h2>📝 Formularios</h2>
+			<div class="components-grid">
+				<FloatingInput />
+				<CustomCheckbox />
+				<ToggleSwitch />
+			</div>
+		</section>
+
+		<section id="navigation" class="section">
+			<h2>🧭 Navegación</h2>
+			<div class="components-grid">
+				<HorizontalNav />
+			</div>
+		</section>
+
+		<footer class="catalog-footer">
+			<p>Hecho con ❤️ y CSS puro • Sin frameworks externos</p>
+		</footer>
+	</div>
+</Layout>
+
+<style>
+	.catalog-container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.catalog-header {
+		text-align: center;
+		margin-bottom: 3rem;
+		padding: 2rem;
+		background: white;
+		border-radius: 20px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	}
+
+	.catalog-header h1 {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.catalog-header p {
+		font-size: 1.2rem;
+		color: #666;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.catalog-nav {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+		margin-bottom: 3rem;
+		padding: 1.5rem;
+		background: white;
+		border-radius: 50px;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		flex-wrap: wrap;
+	}
+
+	.nav-link {
+		text-decoration: none;
+		color: #666;
+		font-weight: 600;
+		padding: 0.8rem 1.5rem;
+		border-radius: 25px;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.nav-link:hover {
+		color: #667eea;
+		background: rgba(102, 126, 234, 0.1);
+		transform: translateY(-2px);
+	}
+
+	.section {
+		margin-bottom: 4rem;
+	}
+
+	.section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 2rem;
+		text-align: center;
+		color: #333;
+	}
+
+	.components-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		gap: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.catalog-footer {
+		text-align: center;
+		padding: 2rem;
+		margin-top: 4rem;
+		background: white;
+		border-radius: 20px;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	}
+
+	.catalog-footer p {
+		color: #666;
+		font-size: 1.1rem;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.catalog-header h1 {
+			font-size: 2rem;
+		}
+
+		.catalog-header p {
+			font-size: 1rem;
+		}
+
+		.catalog-nav {
+			gap: 1rem;
+			padding: 1rem;
+		}
+
+		.nav-link {
+			padding: 0.6rem 1rem;
+			font-size: 0.9rem;
+		}
+
+		.section h2 {
+			font-size: 2rem;
+		}
+
+		.components-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Scroll margin for anchor navigation */
+	.section {
+		scroll-margin-top: 2rem;
+	}
+</style>

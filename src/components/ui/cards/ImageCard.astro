@@ -1,0 +1,112 @@
+---
+// Tarjeta con imagen - Una tarjeta que incluye imagen de fondo
+---
+
+<div class="card-showcase">
+  <h3>Tarjeta con Imagen</h3>
+  <div class="card-image">
+    <div class="card-img-header"></div>
+    <div class="card-content">
+      <h4>Destino Increíble</h4>
+      <p>Descubre paisajes únicos y experiencias inolvidables en este destino de ensueño.</p>
+      <div class="card-footer">
+        <span class="price">$299</span>
+        <button class="card-btn">Explorar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-showcase {
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    margin: 1rem 0;
+  }
+
+  .card-showcase h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .card-image {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 320px;
+  }
+
+  .card-image:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-img-header {
+    height: 180px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+
+  .card-img-header::before {
+    content: '🏔️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    opacity: 0.8;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .card-content h4 {
+    margin: 0 0 0.8rem 0;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .card-content p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+    font-size: 14px;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+  }
+
+  .card-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .card-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+// Botón de carga - Un botón con spinner de carga
+---
+
+<div class="button-showcase">
+  <h3>Botón de Carga</h3>
+  <button class="btn-loading">
+    <span class="btn-text">Cargando</span>
+    <div class="loading-spinner"></div>
+  </button>
+</div>
+
+<style>
+  .button-showcase {
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    margin: 1rem 0;
+  }
+
+  .button-showcase h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .btn-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #667eea;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-text {
+    transition: opacity 0.3s ease;
+  }
+
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .btn-loading:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+
+  .btn-loading:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>

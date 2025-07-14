@@ -1,0 +1,84 @@
+---
+// Tarjeta básica - Una tarjeta simple con sombra
+---
+
+<div class="card-showcase">
+  <h3>Tarjeta Básica</h3>
+  <div class="card-basic">
+    <div class="card-header">
+      <h4>Título de la Tarjeta</h4>
+    </div>
+    <div class="card-body">
+      <p>Esta es una tarjeta básica con contenido simple. Incluye un título y descripción con un diseño limpio y moderno.</p>
+      <button class="card-btn">Leer más</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-showcase {
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    margin: 1rem 0;
+  }
+
+  .card-showcase h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .card-basic {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+  }
+
+  .card-basic:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .card-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .card-body {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .card-body p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .card-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .card-btn:hover {
+    background: #5a67d8;
+  }
+</style>

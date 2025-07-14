@@ -1,0 +1,84 @@
+---
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Catálogo de componentes CSS puros - Colección de componentes visuales modernos hechos con HTML y CSS" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+<style is:global>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+		min-height: 100vh;
+	}
+
+	body {
+		line-height: 1.6;
+		color: #333;
+		min-height: 100vh;
+	}
+
+	main {
+		min-height: 100vh;
+		padding: 2rem;
+	}
+
+	code {
+		font-family:
+			'Fira Code',
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+		background: #f4f4f4;
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-size: 0.9em;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 600;
+		color: #2d3748;
+	}
+
+	/* Smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Focus styles for accessibility */
+	button:focus,
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: 2px solid #667eea;
+		outline-offset: 2px;
+	}
+</style>

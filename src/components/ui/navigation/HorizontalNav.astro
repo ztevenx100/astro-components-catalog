@@ -1,0 +1,132 @@
+---
+// Navbar horizontal - Barra de navegación moderna
+---
+
+<div class="nav-showcase">
+  <h3>Navbar Horizontal</h3>
+  <nav class="horizontal-nav">
+    <div class="nav-brand">
+      <span class="logo">🎨</span>
+      <span class="brand-text">MiWeb</span>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#" class="nav-link active">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Servicios</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Contacto</a>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-btn">Iniciar Sesión</button>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .nav-showcase {
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    margin: 1rem 0;
+  }
+
+  .nav-showcase h3 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .horizontal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f0f0f0;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link:hover {
+    color: #667eea;
+  }
+
+  .nav-link.active {
+    color: #667eea;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+  }
+
+  .nav-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+</style>
