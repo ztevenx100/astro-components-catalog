@@ -40,10 +40,16 @@
 <style>
   .card-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .card-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .card-showcase h3 {
@@ -53,20 +59,33 @@
     font-weight: 600;
   }
 
+  html.dark .card-showcase h3 {
+    color: var(--header-text-dark);
+  }
+
   .profile-card {
-    background: white;
+    background: var(--card-bg-light);
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     padding: 2rem;
     text-align: center;
     max-width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     position: relative;
+  }
+
+  html.dark .profile-card {
+    background: var(--card-bg-dark);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   }
 
   .profile-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+  }
+
+  html.dark .profile-card:hover {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
   }
 
   .profile-avatar {
@@ -123,6 +142,10 @@
     font-weight: 700;
   }
 
+  html.dark .profile-info h4 {
+    color: var(--header-text-dark);
+  }
+
   .role {
     color: #667eea;
     font-weight: 600;
@@ -135,6 +158,10 @@
     margin: 0 0 1.5rem 0;
   }
 
+  html.dark .location {
+    color: #a0aec0;
+  }
+
   .profile-stats {
     display: flex;
     justify-content: space-around;
@@ -142,6 +169,11 @@
     padding: 1.5rem 0;
     border-top: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
+    transition: border-color 0.3s ease;
+  }
+
+  html.dark .profile-stats {
+    border-color: var(--border-dark);
   }
 
   .stat {
@@ -156,10 +188,18 @@
     color: #2d3748;
   }
 
+  html.dark .stat-number {
+    color: var(--header-text-dark);
+  }
+
   .stat-label {
     font-size: 0.8rem;
     color: #718096;
     font-weight: 500;
+  }
+
+  html.dark .stat-label {
+    color: #a0aec0;
   }
 
   .profile-actions {

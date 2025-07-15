@@ -10,10 +10,16 @@
 <style>
   .button-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .button-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .button-showcase h3 {
@@ -21,6 +27,10 @@
     color: #333;
     font-size: 1.2rem;
     font-weight: 600;
+  }
+
+  html.dark .button-showcase h3 {
+    color: var(--header-text-dark);
   }
 
   .btn-neomorphic {
@@ -39,6 +49,14 @@
     position: relative;
   }
 
+  html.dark .btn-neomorphic {
+    background: #2c3341;
+    color: #b0c4de;
+    box-shadow: 
+      8px 8px 16px #222831,
+      -8px -8px 16px #363e51;
+  }
+
   .btn-neomorphic:hover {
     box-shadow: 
       4px 4px 8px #bebebe,
@@ -46,10 +64,22 @@
     transform: translateY(2px);
   }
 
+  html.dark .btn-neomorphic:hover {
+    box-shadow: 
+      4px 4px 8px #222831,
+      -4px -4px 8px #363e51;
+  }
+
   .btn-neomorphic:active {
     box-shadow: 
       inset 4px 4px 8px #bebebe,
       inset -4px -4px 8px #ffffff;
     transform: translateY(4px);
+  }
+
+  html.dark .btn-neomorphic:active {
+    box-shadow: 
+      inset 4px 4px 8px #222831,
+      inset -4px -4px 8px #363e51;
   }
 </style>

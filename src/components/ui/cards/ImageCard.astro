@@ -20,10 +20,16 @@
 <style>
   .card-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .card-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .card-showcase h3 {
@@ -33,18 +39,31 @@
     font-weight: 600;
   }
 
+  html.dark .card-showcase h3 {
+    color: var(--header-text-dark);
+  }
+
   .card-image {
-    background: white;
+    background: var(--card-bg-light);
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     max-width: 320px;
+  }
+
+  html.dark .card-image {
+    background: var(--card-bg-dark);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 
   .card-image:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  html.dark .card-image:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
   }
 
   .card-img-header {
@@ -74,11 +93,19 @@
     font-weight: 700;
   }
 
+  html.dark .card-content h4 {
+    color: var(--header-text-dark);
+  }
+
   .card-content p {
     color: #666;
     line-height: 1.6;
     margin: 0 0 1.5rem 0;
     font-size: 14px;
+  }
+
+  html.dark .card-content p {
+    color: #a0aec0;
   }
 
   .card-footer {
