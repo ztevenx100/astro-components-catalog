@@ -13,10 +13,16 @@
 <style>
   .form-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .form-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .form-showcase h3 {
@@ -24,6 +30,10 @@
     color: #333;
     font-size: 1.2rem;
     font-weight: 600;
+  }
+
+  html.dark .form-showcase h3 {
+    color: var(--header-text-dark);
   }
 
   .input-group {
@@ -37,10 +47,17 @@
     padding: 15px 12px 8px 12px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     font-size: 16px;
     transition: all 0.3s ease;
     outline: none;
+    color: var(--text-light);
+  }
+
+  html.dark .floating-input {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: var(--text-dark);
   }
 
   .floating-input:focus {
@@ -56,8 +73,13 @@
     color: #999;
     pointer-events: none;
     transition: all 0.3s ease;
-    background: white;
+    background: var(--card-bg-light);
     padding: 0 4px;
+  }
+
+  html.dark .floating-label {
+    background: var(--card-bg-dark);
+    color: #a0aec0;
   }
 
   .floating-input:focus + .floating-label,

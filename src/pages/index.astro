@@ -86,9 +86,15 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		text-align: center;
 		margin-bottom: 3rem;
 		padding: 2rem;
-		background: white;
+		background: var(--card-bg-light);
 		border-radius: 20px;
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		transition: background 0.3s ease;
+	}
+
+	html.dark .catalog-header {
+		background: var(--card-bg-dark);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 	}
 
 	.catalog-header h1 {
@@ -107,16 +113,26 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		margin: 0 auto;
 	}
 
+	html.dark .catalog-header p {
+		color: #a0aec0;
+	}
+
 	.catalog-nav {
 		display: flex;
 		justify-content: center;
 		gap: 2rem;
 		margin-bottom: 3rem;
 		padding: 1.5rem;
-		background: white;
+		background: var(--card-bg-light);
 		border-radius: 50px;
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 		flex-wrap: wrap;
+		transition: background 0.3s ease;
+	}
+
+	html.dark .catalog-nav {
+		background: var(--card-bg-dark);
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 	}
 
 	.nav-link {
@@ -129,10 +145,19 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		position: relative;
 	}
 
+	html.dark .nav-link {
+		color: #a0aec0;
+	}
+
 	.nav-link:hover {
 		color: #667eea;
 		background: rgba(102, 126, 234, 0.1);
 		transform: translateY(-2px);
+	}
+
+	html.dark .nav-link:hover {
+		color: #a3bffa;
+		background: rgba(163, 191, 250, 0.1);
 	}
 
 	.section {
@@ -146,6 +171,10 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		color: #333;
 	}
 
+	html.dark .section h2 {
+		color: #f7fafc;
+	}
+
 	.components-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -157,14 +186,24 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		text-align: center;
 		padding: 2rem;
 		margin-top: 4rem;
-		background: white;
+		background: var(--card-bg-light);
 		border-radius: 20px;
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		transition: background 0.3s ease;
+	}
+
+	html.dark .catalog-footer {
+		background: var(--card-bg-dark);
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 	}
 
 	.catalog-footer p {
 		color: #666;
 		font-size: 1.1rem;
+	}
+
+	html.dark .catalog-footer p {
+		color: #a0aec0;
 	}
 
 	/* Responsive Design */

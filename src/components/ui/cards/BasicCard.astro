@@ -18,10 +18,16 @@
 <style>
   .card-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .card-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .card-showcase h3 {
@@ -31,18 +37,31 @@
     font-weight: 600;
   }
 
+  html.dark .card-showcase h3 {
+    color: var(--header-text-dark);
+  }
+
   .card-basic {
-    background: white;
+    background: var(--card-bg-light);
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     max-width: 300px;
+  }
+
+  html.dark .card-basic {
+    background: var(--card-bg-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .card-basic:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  html.dark .card-basic:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 
   .card-header {
@@ -56,6 +75,10 @@
     font-weight: 700;
   }
 
+  html.dark .card-header h4 {
+    color: var(--header-text-dark);
+  }
+
   .card-body {
     padding: 1rem 1.5rem 1.5rem;
   }
@@ -64,6 +87,10 @@
     color: #666;
     line-height: 1.6;
     margin: 0 0 1.5rem 0;
+  }
+
+  html.dark .card-body p {
+    color: #a0aec0;
   }
 
   .card-btn {

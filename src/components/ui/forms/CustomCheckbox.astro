@@ -21,10 +21,16 @@
 <style>
   .form-showcase {
     padding: 2rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 8px;
-    background: white;
+    background: var(--card-bg-light);
     margin: 1rem 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .form-showcase {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .form-showcase h3 {
@@ -32,6 +38,10 @@
     color: #333;
     font-size: 1.2rem;
     font-weight: 600;
+  }
+
+  html.dark .form-showcase h3 {
+    color: var(--header-text-dark);
   }
 
   .checkbox-group {
@@ -51,6 +61,10 @@
     padding-left: 35px;
   }
 
+  html.dark .custom-checkbox {
+    color: var(--text-dark);
+  }
+
   .custom-checkbox input {
     position: absolute;
     opacity: 0;
@@ -66,10 +80,15 @@
     transform: translateY(-50%);
     height: 20px;
     width: 20px;
-    background-color: white;
+    background-color: var(--card-bg-light);
     border: 2px solid #ddd;
     border-radius: 4px;
     transition: all 0.3s ease;
+  }
+
+  html.dark .checkmark {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
   }
 
   .custom-checkbox:hover input ~ .checkmark {
