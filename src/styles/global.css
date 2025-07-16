@@ -1,0 +1,26 @@
+.component-preview {
+  padding: 2rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--card-bg-light);
+  margin: 1rem 0 0 0; /* Ajustado: 1rem arriba, 0 en los otros lados */
+  transition: background 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+html.dark .component-preview {
+  background: var(--card-bg-dark);
+  border-color: var(--border-dark);
+}
+
+.component-preview h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
