@@ -1,42 +1,16 @@
 ---
-// Botón neomórfico - Un botón con efecto de profundidad 3D
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="button-showcase">
-  <h3>Botón Neomórfico</h3>
-  <button class="btn-neomorphic">Neomórfico</button>
-</div>
+const code = `
+<button class="btn-neomorphic">
+  Neomórfico
+</button>
 
 <style>
-  .button-showcase {
-    padding: 2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    margin: 1rem 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.dark .button-showcase {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
-  }
-
-  .button-showcase h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  html.dark .button-showcase h3 {
-    color: var(--header-text-dark);
-  }
-
   .btn-neomorphic {
-    background: #e0e5ec;
+    background: var(--neo-bg);
     border: none;
-    color: #4a4a4a;
+    color: var(--neo-text);
     padding: 15px 30px;
     font-size: 16px;
     font-weight: 600;
@@ -44,42 +18,62 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 
-      8px 8px 16px #bebebe,
-      -8px -8px 16px #ffffff;
+      8px 8px 16px var(--neo-shadow-dark-val),
+      -8px -8px 16px var(--neo-shadow-light-val);
     position: relative;
-  }
-
-  html.dark .btn-neomorphic {
-    background: #2c3341;
-    color: #b0c4de;
-    box-shadow: 
-      8px 8px 16px #222831,
-      -8px -8px 16px #363e51;
   }
 
   .btn-neomorphic:hover {
     box-shadow: 
-      4px 4px 8px #bebebe,
-      -4px -4px 8px #ffffff;
+      4px 4px 8px var(--neo-shadow-dark-val),
+      -4px -4px 8px var(--neo-shadow-light-val);
     transform: translateY(2px);
-  }
-
-  html.dark .btn-neomorphic:hover {
-    box-shadow: 
-      4px 4px 8px #222831,
-      -4px -4px 8px #363e51;
   }
 
   .btn-neomorphic:active {
     box-shadow: 
-      inset 4px 4px 8px #bebebe,
-      inset -4px -4px 8px #ffffff;
+      inset 4px 4px 8px var(--neo-shadow-dark-val),
+      inset -4px -4px 8px var(--neo-shadow-light-val);
     transform: translateY(4px);
   }
+</style>
+`;
+---
 
-  html.dark .btn-neomorphic:active {
+<div class="component-preview">
+  <button class="btn-neomorphic">Neomórfico</button>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .btn-neomorphic {
+    background: var(--neo-bg);
+    border: none;
+    color: var(--neo-text);
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     box-shadow: 
-      inset 4px 4px 8px #222831,
-      inset -4px -4px 8px #363e51;
+      8px 8px 16px var(--neo-shadow-dark-val),
+      -8px -8px 16px var(--neo-shadow-light-val);
+    position: relative;
+  }
+
+  .btn-neomorphic:hover {
+    box-shadow: 
+      4px 4px 8px var(--neo-shadow-dark-val),
+      -4px -4px 8px var(--neo-shadow-light-val);
+    transform: translateY(2px);
+  }
+
+  .btn-neomorphic:active {
+    box-shadow: 
+      inset 4px 4px 8px var(--neo-shadow-dark-val),
+      inset -4px -4px 8px var(--neo-shadow-light-val);
+    transform: translateY(4px);
   }
 </style>

@@ -1,96 +1,95 @@
 ---
-// Input con animación - Campo de entrada con etiqueta flotante
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="form-showcase">
-  <h3>Input Flotante</h3>
-  <div class="input-group">
-    <input type="text" id="floating-input" class="floating-input" placeholder=" " />
-    <label for="floating-input" class="floating-label">Nombre completo</label>
-  </div>
+const code = `
+<div class="form-group-float">
+  <input type="text" id="username" required>
+  <label for="username">Usuario</label>
 </div>
 
 <style>
-  .form-showcase {
-    padding: 2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    margin: 1rem 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.dark .form-showcase {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
-  }
-
-  .form-showcase h3 {
-    margin: 0 0 2rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  html.dark .form-showcase h3 {
-    color: var(--header-text-dark);
-  }
-
-  .input-group {
+  .form-group-float {
     position: relative;
-    margin: 2rem 0;
+    margin-top: 1.5rem;
+    width: 100%;
     max-width: 300px;
   }
 
-  .floating-input {
+  .form-group-float input {
     width: 100%;
-    padding: 15px 12px 8px 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    font-size: 16px;
-    transition: all 0.3s ease;
-    outline: none;
-    color: var(--text-light);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1rem;
   }
 
-  html.dark .floating-input {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
-    color: var(--text-dark);
-  }
-
-  .floating-input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  .floating-label {
+  .form-group-float label {
     position: absolute;
-    top: 15px;
-    left: 12px;
-    font-size: 16px;
-    color: #999;
+    top: 10px;
+    left: 10px;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
     pointer-events: none;
-    transition: all 0.3s ease;
-    background: var(--card-bg-light);
-    padding: 0 4px;
   }
 
-  html.dark .floating-label {
-    background: var(--card-bg-dark);
-    color: #a0aec0;
+  .form-group-float input:focus + label,
+  .form-group-float input:valid + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.75rem;
+    background: var(--bg-color);
+    padding: 0 5px;
+    color: #007bff;
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <div class="form-group-float">
+    <input type="text" id="username-preview" required>
+    <label for="username-preview">Usuario</label>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .form-group-float {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 300px;
   }
 
-  .floating-input:focus + .floating-label,
-  .floating-input:not(:placeholder-shown) + .floating-label {
-    top: -8px;
-    font-size: 12px;
-    color: #667eea;
-    font-weight: 600;
+  .form-group-float input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1rem;
   }
 
-  .floating-input:focus + .floating-label {
-    color: #667eea;
+  .form-group-float label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+
+  .form-group-float input:focus + label,
+  .form-group-float input:valid + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.75rem;
+    background: var(--bg-color);
+    padding: 0 5px;
+    color: #007bff;
   }
 </style>

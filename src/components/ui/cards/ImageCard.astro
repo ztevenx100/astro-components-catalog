@@ -1,139 +1,87 @@
 ---
-// Tarjeta con imagen - Una tarjeta que incluye imagen de fondo
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="card-showcase">
-  <h3>Tarjeta con Imagen</h3>
-  <div class="card-image">
-    <div class="card-img-header"></div>
-    <div class="card-content">
-      <h4>Destino Increíble</h4>
-      <p>Descubre paisajes únicos y experiencias inolvidables en este destino de ensueño.</p>
-      <div class="card-footer">
-        <span class="price">$299</span>
-        <button class="card-btn">Explorar</button>
-      </div>
-    </div>
+const code = `
+<div class="card-image">
+  <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Montañas nevadas">
+  <div class="card-content">
+    <h4>Tarjeta con Imagen</h4>
+    <p>Una tarjeta que destaca por tener una imagen prominente.</p>
   </div>
 </div>
 
 <style>
-  .card-showcase {
-    padding: 2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    margin: 1rem 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.dark .card-showcase {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
-  }
-
-  .card-showcase h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  html.dark .card-showcase h3 {
-    color: var(--header-text-dark);
-  }
-
   .card-image {
-    background: var(--card-bg-light);
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background: var(--card-bg);
+    border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
     max-width: 320px;
   }
 
-  html.dark .card-image {
-    background: var(--card-bg-dark);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  }
-
   .card-image:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
   }
 
-  html.dark .card-image:hover {
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
   }
 
-  .card-img-header {
-    height: 180px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    position: relative;
-  }
-
-  .card-img-header::before {
-    content: '🏔️';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    opacity: 0.8;
-  }
-
-  .card-content {
+  .card-image .card-content {
     padding: 1.5rem;
   }
 
-  .card-content h4 {
-    margin: 0 0 0.8rem 0;
-    color: #333;
-    font-size: 1.4rem;
-    font-weight: 700;
+  .card-image h4, .card-image p {
+    margin: 0;
+    color: var(--text-color);
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <div class="card-image">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Montañas nevadas">
+    <div class="card-content">
+      <h4>Tarjeta con Imagen</h4>
+      <p>Una tarjeta que destaca por tener una imagen prominente.</p>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .card-image {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    max-width: 320px;
   }
 
-  html.dark .card-content h4 {
-    color: var(--header-text-dark);
+  .card-image:hover {
+    transform: scale(1.03);
   }
 
-  .card-content p {
-    color: #666;
-    line-height: 1.6;
-    margin: 0 0 1.5rem 0;
-    font-size: 14px;
+  .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
   }
 
-  html.dark .card-content p {
-    color: #a0aec0;
+  .card-image .card-content {
+    padding: 1.5rem;
   }
 
-  .card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #667eea;
-  }
-
-  .card-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .card-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  .card-image h4, .card-image p {
+    margin: 0;
+    color: var(--text-color);
   }
 </style>

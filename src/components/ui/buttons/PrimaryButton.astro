@@ -1,38 +1,39 @@
 ---
-// Botón primario - Un botón principal para acciones destacadas
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="button-showcase">
-  <h3>Botón Primario</h3>
-  <button class="btn-primary">Botón Principal</button>
-</div>
+const code = `
+<button class="btn-primary">
+  Botón Primario
+</button>
 
 <style>
-  .button-showcase {
-    padding: 2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    margin: 1rem 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
   }
 
-  html.dark .button-showcase {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
+  .btn-primary:hover {
+    background-color: #0056b3;
   }
+</style>
+`;
+---
 
-  .button-showcase h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
+<div class="component-preview">
+  <button class="btn-primary">
+    Botón Primario
+  </button>
+</div>
 
-  html.dark .button-showcase h3 {
-    color: var(--header-text-dark);
-  }
+<CodeViewer code={code} />
 
+<style>
   .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;

@@ -1,41 +1,13 @@
 ---
-// Botón de carga - Un botón con spinner de carga
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="button-showcase">
-  <h3>Botón de Carga</h3>
-  <button class="btn-loading">
-    <span class="btn-text">Cargando</span>
-    <div class="loading-spinner"></div>
-  </button>
-</div>
+const code = `
+<button class="btn-loading">
+  <span class="btn-text">Cargar</span>
+  <div class="loading-spinner"></div>
+</button>
 
 <style>
-  .button-showcase {
-    padding: 2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--card-bg-light);
-    margin: 1rem 0;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.dark .button-showcase {
-    background: var(--card-bg-dark);
-    border-color: var(--border-dark);
-  }
-
-  .button-showcase h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  html.dark .button-showcase h3 {
-    color: var(--header-text-dark);
-  }
-
   .btn-loading {
     display: flex;
     align-items: center;
@@ -58,6 +30,7 @@
   }
 
   .loading-spinner {
+    display: none; /* Oculto por defecto */
     width: 16px;
     height: 16px;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -66,16 +39,121 @@
     animation: spin 1s linear infinite;
   }
 
+  .btn-loading.loading .btn-text {
+    opacity: 0;
+  }
+
+  .btn-loading.loading .loading-spinner {
+    display: block; /* Se muestra al cargar */
+  }
+
   .btn-loading:hover {
     background: #5a67d8;
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
 
-  .btn-loading:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  // Este script es para la demo, no se incluye en el código copiado.
+  const btn = document.querySelector('.btn-loading');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      btn.classList.add('loading');
+      // Ocultar texto y mostrar spinner
+      setTimeout(() => {
+        btn.classList.remove('loading');
+      }, 3000);
+    });
+  }
+<\/script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Botón de Carga</h3>
+  <button class="btn-loading">
+    <span class="btn-text">Cargar</span>
+    <div class="loading-spinner"></div>
+  </button>
+</div>
+
+<CodeViewer code={code} lang="html" />
+
+<script>
+  // Script para la funcionalidad de la demo en la página
+  const btn = document.querySelector('.component-preview .btn-loading');
+  if (btn) {
+    const text = btn.querySelector('.btn-text');
+    const spinner = btn.querySelector('.loading-spinner');
+
+    btn.addEventListener('click', () => {
+      btn.classList.add('loading');
+      if (text && text instanceof HTMLElement) text.style.opacity = '0';
+      if (spinner && spinner instanceof HTMLElement) spinner.style.display = 'block';
+
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        if (text && text instanceof HTMLElement) text.style.opacity = '1';
+        if (spinner && spinner instanceof HTMLElement) spinner.style.display = 'none';
+      }, 3000);
+    });
+  }
+</script>
+
+<style>
+  .btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #667eea;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 150px; /* Ancho fijo para evitar que cambie de tamaño */
+    height: 48px;
+  }
+
+  .btn-text {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none; /* Oculto por defecto */
+  }
+
+  .btn-loading.loading .btn-text {
+    opacity: 0;
+  }
+
+  .btn-loading.loading .loading-spinner {
+    display: block;
+  }
+
+  .btn-loading:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
 
   @keyframes spin {
