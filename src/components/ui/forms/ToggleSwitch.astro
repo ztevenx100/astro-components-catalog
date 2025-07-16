@@ -1,145 +1,130 @@
 ---
-// Toggle Switch - Interruptor con animación suave
----
+import CodeViewer from '../../util/CodeViewer.astro';
 
-<div class="form-showcase">
-  <h3>Toggle Switch</h3>
-  <div class="toggle-group">
-    <label class="toggle-container">
-      <span class="toggle-label">Notificaciones</span>
-      <input type="checkbox" class="toggle-input" />
-      <span class="toggle-slider"></span>
-    </label>
-    <label class="toggle-container">
-      <span class="toggle-label">Modo oscuro</span>
-      <input type="checkbox" class="toggle-input" checked />
-      <span class="toggle-slider"></span>
-    </label>
-    <label class="toggle-container">
-      <span class="toggle-label">Sonidos</span>
-      <input type="checkbox" class="toggle-input" />
-      <span class="toggle-slider"></span>
-    </label>
-  </div>
-</div>
+const code = `
+<label class="toggle-switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>
 
 <style>
-  .form-showcase {
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <label class="toggle-switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .component-preview {
     padding: 2rem;
     border: 1px solid var(--border-light);
     border-radius: 8px;
     background: var(--card-bg-light);
     margin: 1rem 0;
     transition: background 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  html.dark .form-showcase {
+  html.dark .component-preview {
     background: var(--card-bg-dark);
     border-color: var(--border-dark);
   }
 
-  .form-showcase h3 {
-    margin: 0 0 1.5rem 0;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
   }
 
-  html.dark .form-showcase h3 {
-    color: var(--header-text-dark);
-  }
-
-  .toggle-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-    padding: 0.5rem 0;
-  }
-
-  .toggle-label {
-    font-size: 16px;
-    color: #333;
-    font-weight: 500;
-  }
-
-  html.dark .toggle-label {
-    color: var(--text-dark);
-  }
-
-  .toggle-input {
+  .toggle-switch input {
     opacity: 0;
     width: 0;
     height: 0;
-    position: absolute;
   }
 
-  .toggle-slider {
-    position: relative;
-    width: 50px;
-    height: 24px;
-    background: #ccc;
-    border-radius: 24px;
-    transition: background 0.3s ease;
+  .slider {
+    position: absolute;
     cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
   }
 
-  html.dark .toggle-slider {
-    background: #4a5568;
-  }
-
-  .toggle-slider:before {
-    content: "";
+  .slider:before {
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background: white;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
     border-radius: 50%;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-  .toggle-input:checked + .toggle-slider {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  input:checked + .slider {
+    background-color: #2196F3;
   }
 
-  .toggle-input:checked + .toggle-slider:before {
+  input:checked + .slider:before {
     transform: translateX(26px);
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-  }
-
-  .toggle-container:hover .toggle-slider {
-    box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.1);
-  }
-
-  .toggle-input:focus + .toggle-slider {
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-  }
-
-  /* Variant de tamaño pequeño */
-  .toggle-container:nth-child(3) .toggle-slider {
-    width: 40px;
-    height: 20px;
-    border-radius: 20px;
-  }
-
-  .toggle-container:nth-child(3) .toggle-slider:before {
-    width: 16px;
-    height: 16px;
-    top: 2px;
-    left: 2px;
-  }
-
-  .toggle-container:nth-child(3) .toggle-input:checked + .toggle-slider:before {
-    transform: translateX(20px);
   }
 </style>

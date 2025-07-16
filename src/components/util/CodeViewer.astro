@@ -1,0 +1,79 @@
+---
+interface Props {
+  code: string;
+  lang?: string;
+}
+
+const { code, lang = 'html' } = Astro.props;
+---
+
+<div class="code-viewer">
+  <button class="toggle-code-btn">Mostrar Código</button>
+  <div class="code-container" style="display: none;">
+    <pre><code class={`language-${lang}`}>{code.trim()}</code></pre>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.toggle-code-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const codeContainer = button.nextElementSibling;
+      // Añadimos una comprobación para asegurar que codeContainer existe
+      if (codeContainer && codeContainer instanceof HTMLElement) {
+        const isHidden = codeContainer.style.display === 'none';
+        codeContainer.style.display = isHidden ? 'block' : 'none';
+        button.textContent = isHidden ? 'Ocultar Código' : 'Mostrar Código';
+      }
+    });
+  });
+</script>
+
+<style>
+  .code-viewer {
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .toggle-code-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+
+  .toggle-code-btn:hover {
+    background: var(--card-hover-bg);
+  }
+
+  .code-container {
+    background-color: #f5f5f5;
+  }
+
+  html.dark .code-container {
+    background-color: #2d3748;
+  }
+
+  pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    color: #333;
+  }
+
+  html.dark code {
+    color: #e2e8f0;
+  }
+</style>
