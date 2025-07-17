@@ -24,6 +24,9 @@ const { code, lang = 'html' } = Astro.props;
 </div>
 
 <script>
+  // Hacemos saber a TypeScript que Prism estará disponible globalmente
+  declare const Prism: any;
+
   document.querySelectorAll('.code-viewer').forEach(viewer => {
     const toggleBtn = viewer.querySelector('.toggle-code-btn');
     const copyBtn = viewer.querySelector('.copy-btn');
@@ -31,11 +34,16 @@ const { code, lang = 'html' } = Astro.props;
     const codeEl = viewer.querySelector('code');
     const copyTextEl = viewer.querySelector('.copy-text');
 
-    if (toggleBtn && codeContainer instanceof HTMLElement) {
+    if (toggleBtn && codeContainer instanceof HTMLElement && codeEl) {
       toggleBtn.addEventListener('click', () => {
         const isHidden = codeContainer.style.display === 'none';
         codeContainer.style.display = isHidden ? 'block' : 'none';
         toggleBtn.textContent = isHidden ? 'Ocultar Código' : 'Mostrar Código';
+
+        // Resaltar el código si se está mostrando y no ha sido resaltado antes
+        if (isHidden && !codeEl.hasAttribute('data-highlighted')) {
+          Prism.highlightElement(codeEl);
+        }
       });
     }
 
@@ -124,23 +132,19 @@ const { code, lang = 'html' } = Astro.props;
   }
 
   .code-container {
-    background-color: var(--code-bg, #f8f9fa);
+    /* El fondo ahora es manejado por el tema de Prism */
   }
 
   pre {
     margin: 0;
     padding: 1rem;
     overflow-x: auto;
+    /* Aseguramos que el fondo de <pre> sea transparente para ver el de <code> */
+    background: transparent !important; 
   }
 
-  code {
+  code[class*="language-"] {
     font-family: 'Fira Code', monospace;
     font-size: 0.875rem;
-    color: var(--code-text-color, #212529);
-    background: none;
-  }
-
-  html.dark code {
-    --code-text-color: #e2e8f0;
   }
 </style>
