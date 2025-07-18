@@ -19,6 +19,9 @@ import ToggleSwitch from '../components/ui/forms/ToggleSwitch.astro';
 
 // Importar componentes de navegación
 import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
+
+// Importar componente de demostración del tema
+import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 ---
 
 <Layout title="Catálogo de Componentes CSS">
@@ -29,11 +32,19 @@ import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
 		</header>
 
 		<nav class="catalog-nav">
+			<a href="#theme-demo" class="nav-link">🎨 Tema</a>
 			<a href="#buttons" class="nav-link">Botones</a>
 			<a href="#cards" class="nav-link">Tarjetas</a>
 			<a href="#forms" class="nav-link">Formularios</a>
 			<a href="#navigation" class="nav-link">Navegación</a>
 		</nav>
+
+		<section id="theme-demo" class="section">
+			<h2>🎨 Sistema de Temas</h2>
+			<div class="components-grid">
+				<ThemeDemo />
+			</div>
+		</section>
 
 		<section id="buttons" class="section">
 			<h2>🔘 Botones</h2>

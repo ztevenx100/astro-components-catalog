@@ -24,62 +24,137 @@ const { code, lang = 'html' } = Astro.props;
 </div>
 
 <script>
-  document.querySelectorAll('.code-viewer').forEach(viewer => {
+  // Función para esperar a que Prism.js esté disponible
+  function waitForPrism(): Promise<typeof window.Prism> {
+    return new Promise((resolve, reject) => {
+      if (typeof window !== 'undefined' && window.Prism) {
+        resolve(window.Prism);
+        return;
+      }
+      
+      let attempts = 0;
+      const maxAttempts = 50; // 5 segundos máximo
+      
+      const checkPrism = () => {
+        attempts++;
+        
+        if (typeof window !== 'undefined' && window.Prism) {
+          resolve(window.Prism);
+        } else if (attempts >= maxAttempts) {
+          reject(new Error('Prism.js no pudo cargarse después de 5 segundos'));
+        } else {
+          setTimeout(checkPrism, 100);
+        }
+      };
+      
+      checkPrism();
+    });
+  }
+
+  // Función para inicializar un code viewer
+  function initCodeViewer(viewer: Element) {
     const toggleBtn = viewer.querySelector('.toggle-code-btn');
     const copyBtn = viewer.querySelector('.copy-btn');
     const codeContainer = viewer.querySelector('.code-container');
     const codeEl = viewer.querySelector('code');
     const copyTextEl = viewer.querySelector('.copy-text');
 
-    if (toggleBtn && codeContainer instanceof HTMLElement) {
-      toggleBtn.addEventListener('click', () => {
+    if (toggleBtn && codeContainer instanceof HTMLElement && codeEl) {
+      toggleBtn.addEventListener('click', async () => {
         const isHidden = codeContainer.style.display === 'none';
         codeContainer.style.display = isHidden ? 'block' : 'none';
         toggleBtn.textContent = isHidden ? 'Ocultar Código' : 'Mostrar Código';
+
+        // Resaltar el código si se está mostrando y no ha sido resaltado antes
+        if (isHidden && !codeEl.hasAttribute('data-highlighted')) {
+          try {
+            const prism = await waitForPrism();
+            prism.highlightElement(codeEl);
+            codeEl.setAttribute('data-highlighted', 'true');
+          } catch (err) {
+            console.warn('Prism.js no está disponible, saltando el resaltado de sintaxis:', err);
+          }
+        }
       });
     }
 
     if (copyBtn && codeEl && copyTextEl) {
-      copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(codeEl.innerText).then(() => {
-          copyTextEl.textContent = '¡Copiado!';
+      copyBtn.addEventListener('click', async () => {
+        try {
+          // Obtener el texto del código (sin el HTML de resaltado)
+          const codeText = codeEl.textContent || codeEl.innerText || '';
+          
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(codeText);
+            copyTextEl.textContent = '¡Copiado!';
+          } else {
+            // Fallback para navegadores más antiguos
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            copyTextEl.textContent = '¡Copiado!';
+          }
+          
           setTimeout(() => {
             copyTextEl.textContent = 'Copiar';
           }, 2000);
-        }).catch(err => {
+        } catch (err) {
           console.error('Error al copiar el código: ', err);
           copyTextEl.textContent = 'Error';
-        });
+          setTimeout(() => {
+            copyTextEl.textContent = 'Copiar';
+          }, 2000);
+        }
       });
     }
-  });
+  }
+
+  // Inicializar todos los code viewers cuando el DOM esté listo
+  function initAllCodeViewers() {
+    document.querySelectorAll('.code-viewer').forEach(initCodeViewer);
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllCodeViewers);
+  } else {
+    initAllCodeViewers();
+  }
+
+  // También ejecutar cuando se cargue la página (por si acaso)
+  window.addEventListener('load', initAllCodeViewers);
 </script>
 
 <style>
   .code-viewer {
-    margin-top: 0; /* Eliminado el margen superior para que lo controle el contenedor padre */
+    margin-top: 0;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: var(--code-bg, #f8f9fa);
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    background-color: var(--surface-color);
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
   }
 
-  html.dark .code-viewer {
-    --code-bg: #1a202c;
+  .code-viewer:hover {
+    box-shadow: var(--shadow-md);
   }
 
   .code-viewer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: var(--code-header-bg, #e9ecef);
+    padding: 0.75rem 1rem;
+    background-color: var(--surface-secondary);
     border-bottom: 1px solid var(--border-color);
-  }
-
-  html.dark .code-viewer-header {
-    --code-header-bg: #2d3748;
+    transition: background-color var(--transition-normal);
   }
 
   .lang-tag {
@@ -87,6 +162,16 @@ const { code, lang = 'html' } = Astro.props;
     font-size: 0.8rem;
     color: var(--text-secondary);
     text-transform: uppercase;
+    font-weight: 600;
+    background: var(--primary-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all var(--transition-normal);
+  }
+
+  html.dark .lang-tag {
+    background: var(--primary-dark);
+    color: var(--primary-light);
   }
 
   .header-actions {
@@ -98,49 +183,138 @@ const { code, lang = 'html' } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid transparent;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    background: none;
+    background: var(--surface-color);
     color: var(--text-secondary);
     cursor: pointer;
     font-family: inherit;
     font-size: 0.85rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
   }
 
   .action-btn:hover {
-    background-color: var(--button-hover-bg, #0000001a);
+    background-color: var(--surface-hover);
     color: var(--text-color);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
   }
-  
-  html.dark .action-btn:hover {
-    --button-hover-bg: #ffffff1a;
+
+  .action-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
   }
 
   .action-btn svg {
     width: 16px;
     height: 16px;
+    transition: transform var(--transition-normal);
+  }
+
+  .action-btn:hover svg {
+    transform: scale(1.1);
+  }
+
+  .copy-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .toggle-code-btn:hover {
+    background-color: var(--surface-hover);
   }
 
   .code-container {
-    background-color: var(--code-bg, #f8f9fa);
+    position: relative;
+    overflow: hidden;
   }
 
   pre {
     margin: 0;
-    padding: 1rem;
+    padding: 1.5rem;
     overflow-x: auto;
-  }
-
-  code {
-    font-family: 'Fira Code', monospace;
+    background: transparent !important;
+    border: none;
     font-size: 0.875rem;
-    color: var(--code-text-color, #212529);
-    background: none;
+    line-height: 1.6;
   }
 
-  html.dark code {
-    --code-text-color: #e2e8f0;
+  code[class*="language-"] {
+    font-family: 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Scrollbar personalizada para el código */
+  .code-container pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .code-container pre::-webkit-scrollbar-track {
+    background: var(--surface-secondary);
+    border-radius: 4px;
+  }
+
+  .code-container pre::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 4px;
+  }
+
+  .code-container pre::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  /* Animación para mostrar/ocultar código */
+  .code-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease-out;
+  }
+
+  .code-container[style*="block"] {
+    max-height: 1000px;
+    transition: max-height var(--transition-normal) ease-in;
+  }
+
+  /* Mejorar la accesibilidad */
+  .action-btn:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .code-viewer-header {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .header-actions {
+      align-self: stretch;
+      justify-content: space-between;
+    }
+
+    .action-btn {
+      flex: 1;
+      justify-content: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .action-btn .copy-text {
+      display: none;
+    }
+
+    pre {
+      padding: 1rem;
+      font-size: 0.8rem;
+    }
   }
 </style>
