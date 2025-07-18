@@ -1,0 +1,197 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `<!-- Ejemplo de tema dinámico -->
+<div class="theme-demo">
+  <h2>Sistema de Temas Mejorado</h2>
+  <p>Este componente se adapta automáticamente al tema claro/oscuro</p>
+  
+  <div class="theme-aware card">
+    <h3>Tarjeta con Tema</h3>
+    <p>Esta tarjeta usa las nuevas variables CSS del sistema de temas</p>
+    <button class="btn-primary">Botón Primario</button>
+    <button class="btn-secondary">Botón Secundario</button>
+  </div>
+  
+  <div class="glass">
+    <p>Efecto glassmorphism que se adapta al tema</p>
+  </div>
+</div>`;
+---
+
+<div class="component-preview">
+  <h3>🎨 Sistema de Temas Mejorado</h3>
+  
+  <div class="theme-demo">
+    <div class="demo-section">
+      <h4>Colores Adaptativos</h4>
+      <div class="color-samples">
+        <div class="color-sample primary">
+          <span>Primario</span>
+        </div>
+        <div class="color-sample surface">
+          <span>Superficie</span>
+        </div>
+        <div class="color-sample text">
+          <span>Texto</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h4>Componentes Temáticos</h4>
+      <div class="component-samples">
+        <button class="btn-primary">Botón Primario</button>
+        <button class="btn-secondary">Botón Secundario</button>
+        <div class="card demo-card">
+          <h5>Tarjeta Temática</h5>
+          <p>Esta tarjeta se adapta automáticamente al tema</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h4>Efectos Especiales</h4>
+      <div class="glass demo-glass">
+        <p>Efecto glassmorphism adaptativo</p>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h4>Indicadores de Tema</h4>
+      <div class="theme-indicators">
+        <div class="light-mode-only indicator">
+          <span>🌞 Modo Claro Activo</span>
+        </div>
+        <div class="dark-mode-only indicator">
+          <span>🌙 Modo Oscuro Activo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <CodeViewer code={code} lang="html" />
+</div>
+
+<style>
+  .theme-demo {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .demo-section {
+    margin-bottom: 2rem;
+  }
+  
+  .demo-section h4 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .demo-section h5 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .color-samples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .color-sample {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+  }
+  
+  .color-sample:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .color-sample.primary {
+    background: var(--primary-color);
+    color: white;
+  }
+  
+  .color-sample.surface {
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  .color-sample.text {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+  }
+  
+  .component-samples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .demo-card {
+    max-width: 200px;
+    margin: 0;
+  }
+  
+  .demo-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  
+  .demo-glass {
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .theme-indicators {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .indicator {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    transition: all var(--transition-normal);
+  }
+  
+  .indicator:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  @media (max-width: 768px) {
+    .component-samples {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .demo-card {
+      max-width: none;
+    }
+    
+    .color-samples {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

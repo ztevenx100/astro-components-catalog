@@ -2,26 +2,50 @@
 // Componente para cambiar entre modo claro y oscuro
 ---
 
-<button id="theme-toggle" class="theme-toggle-btn" title="Cambiar tema">
-  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+<button id="theme-toggle" class="theme-toggle-btn" title="Cambiar tema" aria-label="Cambiar entre tema claro y oscuro">
+  <div class="icon-container">
+    <svg class="sun-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </div>
+  <span class="theme-label">Tema</span>
 </button>
 
 <script is:inline>
   const themeToggle = document.getElementById('theme-toggle');
   const sunIcon = document.querySelector('.sun-icon');
   const moonIcon = document.querySelector('.moon-icon');
+  const themeLabel = document.querySelector('.theme-label');
 
   const applyTheme = (theme) => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
       sunIcon.style.display = 'block';
       moonIcon.style.display = 'none';
+      themeLabel.textContent = 'Claro';
     } else {
-      document.documentElement.classList.remove('dark');
       sunIcon.style.display = 'none';
       moonIcon.style.display = 'block';
+      themeLabel.textContent = 'Oscuro';
     }
+    
+    // Agregar clase de transición para animaciones suaves
+    document.documentElement.classList.add('theme-transition');
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transition');
+    }, 300);
   };
 
   const toggleTheme = () => {
@@ -29,39 +53,129 @@
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', newTheme);
     applyTheme(newTheme);
+    
+    // Agregar efecto de click visual
+    themeToggle.classList.add('clicked');
+    setTimeout(() => {
+      themeToggle.classList.remove('clicked');
+    }, 150);
   };
 
-  themeToggle.addEventListener('click', toggleTheme);
-
-  // Apply initial theme on page load
+  // Aplicar tema inicial al cargar la página
   const savedTheme = localStorage.getItem('theme');
   const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   applyTheme(savedTheme || preferredTheme);
+
+  // Escuchar cambios en las preferencias del sistema
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  themeToggle.addEventListener('click', toggleTheme);
 </script>
 
 <style>
   .theme-toggle-btn {
-    background: none;
-    border: none;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
     cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
+    padding: 0.75rem 1rem;
+    border-radius: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     color: var(--text-color);
-    transition: background 0.3s ease, color 0.3s ease;
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
   }
 
   .theme-toggle-btn:hover {
-    background: var(--toggle-hover-bg);
+    background: var(--surface-hover);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
   }
 
-  .sun-icon, .moon-icon {
-    width: 24px;
-    height: 24px;
+  .theme-toggle-btn:active,
+  .theme-toggle-btn.clicked {
+    transform: translateY(0) scale(0.95);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .icon-container {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .theme-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sun-icon {
+    transform: rotate(0deg) scale(1);
+    opacity: 0;
+  }
+
+  .moon-icon {
+    transform: rotate(180deg) scale(0.8);
+    opacity: 1;
+  }
+
+  .theme-label {
+    font-family: inherit;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+
+  /* Animaciones para el cambio de iconos */
+  html.dark .sun-icon {
+    transform: rotate(180deg) scale(1);
+    opacity: 1;
+  }
+
+  html.dark .moon-icon {
+    transform: rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .theme-toggle-btn {
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+    }
+    
+    .theme-label {
+      display: none;
+    }
+  }
+
+  /* Animación de transición global */
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *:before,
+  .theme-transition *:after {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0s !important;
   }
 </style>
