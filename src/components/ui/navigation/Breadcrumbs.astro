@@ -1,0 +1,146 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<nav class="breadcrumbs">
+  <a href="#" class="breadcrumb-item">Inicio</a>
+  <span class="breadcrumb-separator">›</span>
+  <a href="#" class="breadcrumb-item">Productos</a>
+  <span class="breadcrumb-separator">›</span>
+  <a href="#" class="breadcrumb-item">Categoría</a>
+  <span class="breadcrumb-separator">›</span>
+  <span class="breadcrumb-current">Detalle del Producto</span>
+</nav>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface-secondary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .breadcrumb-item:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .breadcrumb-separator {
+    color: var(--text-secondary);
+    font-weight: bold;
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--text-color);
+    font-weight: 500;
+    background: var(--surface-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .breadcrumbs {
+      font-size: 0.8rem;
+      gap: 0.25rem;
+    }
+    
+    .breadcrumb-item,
+    .breadcrumb-current {
+      padding: 0.2rem 0.4rem;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-demo">
+  <h3>Breadcrumbs Navigation</h3>
+  <p>Navegación de migas de pan para mostrar la ubicación actual del usuario.</p>
+  
+  <div class="demo-container">
+    <nav class="breadcrumbs">
+      <a href="#" class="breadcrumb-item">Inicio</a>
+      <span class="breadcrumb-separator">›</span>
+      <a href="#" class="breadcrumb-item">Productos</a>
+      <span class="breadcrumb-separator">›</span>
+      <a href="#" class="breadcrumb-item">Categoría</a>
+      <span class="breadcrumb-separator">›</span>
+      <span class="breadcrumb-current">Detalle del Producto</span>
+    </nav>
+  </div>
+
+  <CodeViewer code={code} lang="html" />
+</div>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface-secondary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .breadcrumb-item:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .breadcrumb-separator {
+    color: var(--text-secondary);
+    font-weight: bold;
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--text-color);
+    font-weight: 500;
+    background: var(--surface-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .breadcrumbs {
+      font-size: 0.8rem;
+      gap: 0.25rem;
+    }
+    
+    .breadcrumb-item,
+    .breadcrumb-current {
+      padding: 0.2rem 0.4rem;
+    }
+  }
+</style>

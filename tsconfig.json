@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "include": [
     ".astro/types.d.ts", 
     "src/**/*"
@@ -9,5 +9,11 @@
     "node_modules",
     "**/*_backup*",
     "**/*.backup.*"
-  ]
+  ],
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
 }

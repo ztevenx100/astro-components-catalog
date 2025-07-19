@@ -16,9 +16,17 @@ import ProfileCard from '../components/ui/cards/ProfileCard.astro';
 import FloatingInput from '../components/ui/forms/FloatingInput.astro';
 import CustomCheckbox from '../components/ui/forms/CustomCheckbox.astro';
 import ToggleSwitch from '../components/ui/forms/ToggleSwitch.astro';
+import SearchInput from '../components/ui/forms/SearchInput.astro';
+import MultiStepForm from '../components/ui/forms/MultiStepForm.astro';
+import RatingInput from '../components/ui/forms/RatingInput.astro';
+import SimpleFileUpload from '../components/ui/forms/SimpleFileUpload.astro';
 
 // Importar componentes de navegación
 import HorizontalNav from '../components/ui/navigation/HorizontalNav.astro';
+import SidebarNav from '../components/ui/navigation/SidebarNav.astro';
+import Breadcrumbs from '../components/ui/navigation/Breadcrumbs.astro';
+import TabNavigation from '../components/ui/navigation/TabNavigation.astro';
+import MobileMenu from '../components/ui/navigation/MobileMenu.astro';
 
 // Importar componente de demostración del tema
 import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
@@ -71,6 +79,10 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				<FloatingInput />
 				<CustomCheckbox />
 				<ToggleSwitch />
+				<SearchInput />
+				<RatingInput />
+				<SimpleFileUpload />
+				<MultiStepForm />
 			</div>
 		</section>
 
@@ -78,6 +90,10 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			<h2>🧭 Navegación</h2>
 			<div class="components-grid">
 				<HorizontalNav />
+				<SidebarNav />
+				<Breadcrumbs />
+				<TabNavigation />
+				<MobileMenu />
 			</div>
 		</section>
 
@@ -97,14 +113,14 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 		text-align: center;
 		margin-bottom: 3rem;
 		padding: 2rem;
-		background: var(--card-bg-light);
+		background: var(--surface-color);
 		border-radius: 20px;
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 		transition: background 0.3s ease;
 	}
 
 	html.dark .catalog-header {
-		background: var(--card-bg-dark);
+		background: var(--surface-color);
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 	}
 
@@ -134,7 +150,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 		gap: 2rem;
 		margin-bottom: 3rem;
 		padding: 1.5rem;
-		background: var(--card-bg-light);
+		background: var(--surface-color);
 		border-radius: 50px;
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 		flex-wrap: wrap;
@@ -142,7 +158,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 	}
 
 	html.dark .catalog-nav {
-		background: var(--card-bg-dark);
+		background: var(--surface-color);
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 	}
 
@@ -193,18 +209,25 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 		margin-bottom: 2rem;
 	}
 
+	/* Componentes que necesitan más espacio */
+	.components-grid :global(.multistep-form) {
+		grid-column: 1 / -1;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
 	.catalog-footer {
 		text-align: center;
 		padding: 2rem;
 		margin-top: 4rem;
-		background: var(--card-bg-light);
+		background: var(--surface-color);
 		border-radius: 20px;
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 		transition: background 0.3s ease;
 	}
 
 	html.dark .catalog-footer {
-		background: var(--card-bg-dark);
+		background: var(--surface-color);
 		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 	}
 

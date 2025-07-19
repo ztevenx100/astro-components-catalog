@@ -7,7 +7,6 @@ html {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background: var(--surface-color);
-  margin: 1rem 0 0 0;
   transition: all var(--transition-normal);
   display: flex;
   justify-content: center;

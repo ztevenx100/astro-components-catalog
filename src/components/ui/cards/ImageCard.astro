@@ -12,16 +12,17 @@ const code = `
 
 <style>
   .card-image {
-    background: var(--card-bg);
+    background: var(--surface-color);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
     max-width: 320px;
   }
 
   .card-image:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
   }
 
   .card-image img {
@@ -29,6 +30,11 @@ const code = `
     height: 200px;
     object-fit: cover;
     display: block;
+    transition: transform var(--transition-normal);
+  }
+
+  .card-image:hover img {
+    transform: scale(1.05);
   }
 
   .card-image .card-content {
@@ -38,6 +44,16 @@ const code = `
   .card-image h4, .card-image p {
     margin: 0;
     color: var(--text-color);
+  }
+
+  .card-image h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .card-image p {
+    color: var(--text-secondary);
+    line-height: 1.5;
   }
 </style>
 `;
@@ -57,16 +73,17 @@ const code = `
 
 <style>
   .card-image {
-    background: var(--card-bg);
+    background: var(--surface-color);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
     max-width: 320px;
   }
 
   .card-image:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
   }
 
   .card-image img {
@@ -74,6 +91,11 @@ const code = `
     height: 200px;
     object-fit: cover;
     display: block;
+    transition: transform var(--transition-normal);
+  }
+
+  .card-image:hover img {
+    transform: scale(1.05);
   }
 
   .card-image .card-content {
@@ -83,5 +105,15 @@ const code = `
   .card-image h4, .card-image p {
     margin: 0;
     color: var(--text-color);
+  }
+
+  .card-image h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .card-image p {
+    color: var(--text-secondary);
+    line-height: 1.5;
   }
 </style>

@@ -1,0 +1,490 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = '<div class="multistep-form">' +
+  '  <div class="form-progress">' +
+  '    <div class="step active" data-step="1">' +
+  '      <div class="step-number">1</div>' +
+  '      <span>Información Personal</span>' +
+  '    </div>' +
+  '    <div class="step" data-step="2">' +
+  '      <div class="step-number">2</div>' +
+  '      <span>Contacto</span>' +
+  '    </div>' +
+  '    <div class="step" data-step="3">' +
+  '      <div class="step-number">3</div>' +
+  '      <span>Confirmación</span>' +
+  '    </div>' +
+  '    <div class="progress-line">' +
+  '      <div class="progress-fill"></div>' +
+  '    </div>' +
+  '  </div>' +
+  '  <form class="form-container">' +
+  '    <div class="form-step active" data-step="1">' +
+  '      <h3>Información Personal</h3>' +
+  '      <div class="form-row">' +
+  '        <div class="form-group">' +
+  '          <label>Nombre</label>' +
+  '          <input type="text" placeholder="Tu nombre" required>' +
+  '        </div>' +
+  '        <div class="form-group">' +
+  '          <label>Apellido</label>' +
+  '          <input type="text" placeholder="Tu apellido" required>' +
+  '        </div>' +
+  '      </div>' +
+  '    </div>' +
+  '    <div class="form-navigation">' +
+  '      <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">← Anterior</button>' +
+  '      <button type="button" class="btn btn-primary" id="nextBtn">Siguiente →</button>' +
+  '      <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">✓ Enviar</button>' +
+  '    </div>' +
+  '  </form>' +
+  '</div>';
+---
+
+<div class="component-demo">
+  <h3>Multi-Step Form</h3>
+  <p>Formulario de múltiples pasos con barra de progreso, validación y resumen.</p>
+  
+  <div class="demo-container">
+    <div class="multistep-form">
+      <!-- Progress Bar -->
+      <div class="form-progress">
+        <div class="step active" data-step="1">
+          <div class="step-number">1</div>
+          <span>Información Personal</span>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-number">2</div>
+          <span>Contacto</span>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-number">3</div>
+          <span>Confirmación</span>
+        </div>
+        <div class="progress-line">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Form Steps -->
+      <form class="form-container">
+        <!-- Step 1: Personal Info -->
+        <div class="form-step active" data-step="1">
+          <h3>Información Personal</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label>Apellido</label>
+              <input type="text" placeholder="Tu apellido" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Fecha de Nacimiento</label>
+            <input type="date" required>
+          </div>
+          <div class="form-group">
+            <label>Género</label>
+            <select required>
+              <option value="">Seleccionar</option>
+              <option value="male">Masculino</option>
+              <option value="female">Femenino</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 2: Contact Info -->
+        <div class="form-step" data-step="2">
+          <h3>Información de Contacto</h3>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+1 234 567 8900" required>
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <textarea placeholder="Tu dirección completa" rows="3" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ciudad</label>
+              <input type="text" placeholder="Ciudad" required>
+            </div>
+            <div class="form-group">
+              <label>Código Postal</label>
+              <input type="text" placeholder="12345" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Confirmation -->
+        <div class="form-step" data-step="3">
+          <h3>Confirmación</h3>
+          <div class="confirmation-summary">
+            <p>Por favor, revisa la información proporcionada:</p>
+            <div class="summary-item">
+              <strong>Nombre:</strong> <span id="summaryName">-</span>
+            </div>
+            <div class="summary-item">
+              <strong>Email:</strong> <span id="summaryEmail">-</span>
+            </div>
+            <div class="summary-item">
+              <strong>Teléfono:</strong> <span id="summaryPhone">-</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-container">
+              <input type="checkbox" required>
+              <span class="checkmark"></span>
+              Acepto los términos y condiciones
+            </label>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="form-navigation">
+          <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+            ← Anterior
+          </button>
+          <button type="button" class="btn btn-primary" id="nextBtn">
+            Siguiente →
+          </button>
+          <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+            ✓ Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <CodeViewer code={code} lang="html" />
+</div>
+
+<style>
+  .multistep-form {
+    max-width: 600px;
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface-secondary);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+
+  .step.active .step-number {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+  }
+
+  .step.completed .step-number {
+    background: #10b981;
+    border-color: #10b981;
+    color: white;
+  }
+
+  .progress-line {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .form-container {
+    min-height: 400px;
+  }
+
+  .form-step {
+    display: none;
+  }
+
+  .form-step.active {
+    display: block;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--surface-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .confirmation-summary {
+    background: var(--surface-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  .checkbox-container input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .checkbox-container input:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .checkbox-container input:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 0.9rem;
+  }
+
+  .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .btn-secondary {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+
+  .btn-success {
+    background: #10b981;
+    color: white;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .multistep-form {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let currentStep = 1;
+    const totalSteps = 3;
+    
+    const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+    const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+    const progressFill = document.querySelector('.progress-fill') as HTMLElement;
+
+    function updateStep(step: number) {
+      // Update form steps
+      document.querySelectorAll('.form-step').forEach(stepEl => {
+        stepEl.classList.remove('active');
+      });
+      const activeStep = document.querySelector('[data-step="' + step + '"].form-step') as HTMLElement;
+      if (activeStep) activeStep.classList.add('active');
+
+      // Update progress steps
+      document.querySelectorAll('.step').forEach((stepEl, index) => {
+        const stepNumber = index + 1;
+        stepEl.classList.remove('active', 'completed');
+        
+        if (stepNumber < step) {
+          stepEl.classList.add('completed');
+        } else if (stepNumber === step) {
+          stepEl.classList.add('active');
+        }
+      });
+
+      // Update progress bar
+      const progress = ((step - 1) / (totalSteps - 1)) * 100;
+      if (progressFill) progressFill.style.width = progress + '%';
+
+      // Update buttons
+      if (prevBtn) prevBtn.style.display = step === 1 ? 'none' : 'block';
+      if (nextBtn) nextBtn.style.display = step === totalSteps ? 'none' : 'block';
+      if (submitBtn) submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+
+      // Update summary on step 3
+      if (step === 3) {
+        updateSummary();
+      }
+    }
+
+    function updateSummary() {
+      const nameInput = document.querySelector('input[placeholder="Tu nombre"]') as HTMLInputElement;
+      const lastNameInput = document.querySelector('input[placeholder="Tu apellido"]') as HTMLInputElement;
+      const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+      const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement;
+      
+      const name = (nameInput?.value || '') + ' ' + (lastNameInput?.value || '');
+      const email = emailInput?.value || '';
+      const phone = phoneInput?.value || '';
+
+      const summaryName = document.getElementById('summaryName');
+      const summaryEmail = document.getElementById('summaryEmail');
+      const summaryPhone = document.getElementById('summaryPhone');
+      
+      if (summaryName) summaryName.textContent = name.trim() || '-';
+      if (summaryEmail) summaryEmail.textContent = email || '-';
+      if (summaryPhone) summaryPhone.textContent = phone || '-';
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          updateStep(currentStep);
+        }
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        if (currentStep > 1) {
+          currentStep--;
+          updateStep(currentStep);
+        }
+      });
+    }
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('¡Formulario enviado exitosamente!');
+      });
+    }
+
+    // Initialize
+    updateStep(1);
+  });
+</script>
