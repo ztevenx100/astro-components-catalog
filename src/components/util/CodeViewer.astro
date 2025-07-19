@@ -84,22 +84,34 @@ const { code, lang = 'html' } = Astro.props;
           // Obtener el texto del código (sin el HTML de resaltado)
           const codeText = codeEl.textContent || codeEl.innerText || '';
           
+          // Intentar usar la API moderna de portapapeles
           if (navigator.clipboard && navigator.clipboard.writeText) {
             await navigator.clipboard.writeText(codeText);
             copyTextEl.textContent = '¡Copiado!';
           } else {
-            // Fallback para navegadores más antiguos
+            // Fallback: crear un elemento temporal y usar selección
             const textArea = document.createElement('textarea');
             textArea.value = codeText;
             textArea.style.position = 'fixed';
             textArea.style.left = '-999999px';
             textArea.style.top = '-999999px';
+            textArea.style.opacity = '0';
+            textArea.setAttribute('readonly', '');
             document.body.appendChild(textArea);
+            
+            // Seleccionar el texto
             textArea.focus();
             textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            copyTextEl.textContent = '¡Copiado!';
+            textArea.setSelectionRange(0, 99999); // Para dispositivos móviles
+            
+            // Para navegadores que no soportan clipboard API
+            // mostrar instrucciones al usuario
+            copyTextEl.textContent = 'Usa Ctrl+C';
+            
+            // Limpiar después de un tiempo
+            setTimeout(() => {
+              document.body.removeChild(textArea);
+            }, 100);
           }
           
           setTimeout(() => {

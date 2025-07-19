@@ -1,0 +1,171 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = '<div class="tab-navigation">' +
+  '  <div class="tab-list">' +
+  '    <button class="tab-button active" data-tab="tab1">Dashboard</button>' +
+  '    <button class="tab-button" data-tab="tab2">Perfil</button>' +
+  '    <button class="tab-button" data-tab="tab3">Configuración</button>' +
+  '    <button class="tab-button" data-tab="tab4">Ayuda</button>' +
+  '  </div>' +
+  '  <div class="tab-content">' +
+  '    <div class="tab-panel active" id="tab1">' +
+  '      <h4>Dashboard</h4>' +
+  '      <p>Vista general de la aplicación con estadísticas principales.</p>' +
+  '    </div>' +
+  '    <div class="tab-panel" id="tab2">' +
+  '      <h4>Perfil</h4>' +
+  '      <p>Información personal y configuración de la cuenta.</p>' +
+  '    </div>' +
+  '    <div class="tab-panel" id="tab3">' +
+  '      <h4>Configuración</h4>' +
+  '      <p>Ajustes de la aplicación y preferencias.</p>' +
+  '    </div>' +
+  '    <div class="tab-panel" id="tab4">' +
+  '      <h4>Ayuda</h4>' +
+  '      <p>Documentación y soporte técnico.</p>' +
+  '    </div>' +
+  '  </div>' +
+  '</div>';
+---
+
+<div class="component-demo">
+  <h3>Tab Navigation</h3>
+  <p>Navegación por pestañas con contenido dinámico y animaciones suaves.</p>
+  
+  <div class="demo-container">
+    <div class="tab-navigation">
+      <div class="tab-list">
+        <button class="tab-button active" data-tab="tab1">Dashboard</button>
+        <button class="tab-button" data-tab="tab2">Perfil</button>
+        <button class="tab-button" data-tab="tab3">Configuración</button>
+        <button class="tab-button" data-tab="tab4">Ayuda</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-panel active" id="tab1">
+          <h4>Dashboard</h4>
+          <p>Vista general de la aplicación con estadísticas principales.</p>
+        </div>
+        <div class="tab-panel" id="tab2">
+          <h4>Perfil</h4>
+          <p>Información personal y configuración de la cuenta.</p>
+        </div>
+        <div class="tab-panel" id="tab3">
+          <h4>Configuración</h4>
+          <p>Ajustes de la aplicación y preferencias.</p>
+        </div>
+        <div class="tab-panel" id="tab4">
+          <h4>Ayuda</h4>
+          <p>Documentación y soporte técnico.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <CodeViewer code={code} lang="html" />
+</div>
+
+<style>
+  .tab-navigation {
+    width: 100%;
+    max-width: 500px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  .tab-list {
+    display: flex;
+    background: var(--surface-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .tab-button {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .tab-button:hover {
+    background: var(--surface-color);
+    color: var(--text-color);
+  }
+
+  .tab-button.active {
+    background: var(--surface-color);
+    color: var(--primary-color);
+  }
+
+  .tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-color);
+  }
+
+  .tab-content {
+    padding: 1.5rem;
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .tab-panel h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+  }
+
+  .tab-panel p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button') as NodeListOf<HTMLButtonElement>;
+    const tabPanels = document.querySelectorAll('.tab-panel') as NodeListOf<HTMLElement>;
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.dataset.tab;
+        
+        if (targetTab) {
+          // Remove active class from all buttons and panels
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabPanels.forEach(panel => panel.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding panel
+          button.classList.add('active');
+          const targetPanel = document.getElementById(targetTab);
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
+        }
+      });
+    });
+  });
+</script>
