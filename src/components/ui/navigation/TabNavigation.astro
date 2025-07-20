@@ -1,32 +1,34 @@
 ---
 import CodeViewer from '../../util/CodeViewer.astro';
 
-const code = '<div class="tab-navigation">' +
-  '  <div class="tab-list">' +
-  '    <button class="tab-button active" data-tab="tab1">Dashboard</button>' +
-  '    <button class="tab-button" data-tab="tab2">Perfil</button>' +
-  '    <button class="tab-button" data-tab="tab3">Configuración</button>' +
-  '    <button class="tab-button" data-tab="tab4">Ayuda</button>' +
-  '  </div>' +
-  '  <div class="tab-content">' +
-  '    <div class="tab-panel active" id="tab1">' +
-  '      <h4>Dashboard</h4>' +
-  '      <p>Vista general de la aplicación con estadísticas principales.</p>' +
-  '    </div>' +
-  '    <div class="tab-panel" id="tab2">' +
-  '      <h4>Perfil</h4>' +
-  '      <p>Información personal y configuración de la cuenta.</p>' +
-  '    </div>' +
-  '    <div class="tab-panel" id="tab3">' +
-  '      <h4>Configuración</h4>' +
-  '      <p>Ajustes de la aplicación y preferencias.</p>' +
-  '    </div>' +
-  '    <div class="tab-panel" id="tab4">' +
-  '      <h4>Ayuda</h4>' +
-  '      <p>Documentación y soporte técnico.</p>' +
-  '    </div>' +
-  '  </div>' +
-  '</div>';
+const code = `
+<div class="tab-navigation">
+  <div class="tab-list">
+    <button class="tab-button active" data-tab="tab1">Dashboard</button>
+    <button class="tab-button" data-tab="tab2">Perfil</button>
+    <button class="tab-button" data-tab="tab3">Configuración</button>
+    <button class="tab-button" data-tab="tab4">Ayuda</button>
+  </div>
+  <div class="tab-content">
+    <div class="tab-panel active" id="tab1">
+      <h4>Dashboard</h4>
+      <p>Vista general de la aplicación con estadísticas principales.</p>
+    </div>
+    <div class="tab-panel" id="tab2">
+      <h4>Perfil</h4>
+      <p>Información personal y configuración de la cuenta.</p>
+    </div>
+    <div class="tab-panel" id="tab3">
+      <h4>Configuración</h4>
+      <p>Ajustes de la aplicación y preferencias.</p>
+    </div>
+    <div class="tab-panel" id="tab4">
+      <h4>Ayuda</h4>
+      <p>Documentación y soporte técnico.</p>
+    </div>
+  </div>
+</div>
+`;
 ---
 
 <div class="component-preview">

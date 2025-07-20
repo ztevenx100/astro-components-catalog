@@ -24,75 +24,22 @@ const { code, lang = 'html' } = Astro.props;
 </div>
 
 <script is:inline>
-  // Función mejorada para aplicar resaltado básico sin Prism.js
+  // Función ULTRA SIMPLE - solo escapar HTML, sin resaltado problemático
   function applyBasicSyntaxHighlight(codeEl) {
+    console.log('Aplicando resaltado básico...');
     const code = codeEl.textContent || '';
-    const language = codeEl.className.replace('language-', '');
     
-    let highlightedCode = code;
-    
-    // Escapar HTML básico para evitar problemas
-    highlightedCode = highlightedCode
+    // Solo escapar HTML para mostrar el código de forma segura
+    // SIN aplicar ningún resaltado de colores que pueda romper el código
+    const safeCode = code
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
     
-    // Resaltado mejorado para HTML
-    if (language === 'html' || language === 'xml') {
-      highlightedCode = highlightedCode
-        .replace(/(&lt;!--.*?--&gt;)/gs, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/(&lt;[!/]?)([\w-]+)/g, '<span style="color: #dc2626; font-weight: 600;">$1$2</span>')
-        .replace(/([\w-]+)(=)/g, '<span style="color: #0369a1;">$1</span><span style="color: var(--text-color);">$2</span>')
-        .replace(/=(&quot;[^&]*?&quot;|&#39;[^&]*?&#39;)/g, '=<span style="color: #059669; font-weight: 500;">$1</span>')
-        .replace(/(&gt;)/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>');
-    }
-    
-    // Resaltado mejorado para CSS
-    else if (language === 'css' || language === 'scss' || language === 'less') {
-      highlightedCode = highlightedCode
-        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/([.#][\w-]+)/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>')
-        .replace(/^(\s*)([\w-]+)(\s*:)/gm, '$1<span style="color: #0369a1; font-weight: 600;">$2</span>$3')
-        .replace(/(:\s*)([^;{\n}]+)/g, '$1<span style="color: #059669;">$2</span>')
-        .replace(/([{}])/g, '<span style="color: var(--primary-color); font-weight: bold;">$1</span>')
-        .replace(/@([\w-]+)/g, '<span style="color: #7c3aed; font-weight: 600;">@$1</span>');
-    }
-    
-    // Resaltado mejorado para JavaScript/TypeScript
-    else if (language === 'javascript' || language === 'js' || language === 'typescript' || language === 'ts') {
-      highlightedCode = highlightedCode
-        .replace(/(\/\/.*$)/gm, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/\b(function|const|let|var|if|else|for|while|return|class|export|import|async|await|try|catch|finally|throw|new|this|typeof|instanceof)\b/g, 
-          '<span style="color: #7c3aed; font-weight: 600;">$1</span>')
-        .replace(/\b(true|false|null|undefined)\b/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>')
-        .replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #0369a1;">$1</span>')
-        .replace(/([`"'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span style="color: #059669;">$1$2$1</span>')
-        .replace(/\b([A-Z][a-zA-Z0-9]*)\b/g, '<span style="color: #dc2626;">$1</span>');
-    }
-    
-    // Resaltado mejorado para JSON
-    else if (language === 'json') {
-      highlightedCode = highlightedCode
-        .replace(/(&quot;[\w-]+&quot;)(\s*:)/g, '<span style="color: #0369a1; font-weight: 600;">$1</span>$2')
-        .replace(/(:\s*)(&quot;[^&]*?&quot;)/g, '$1<span style="color: #059669;">$2</span>')
-        .replace(/(:\s*)(true|false|null)/g, '$1<span style="color: #dc2626; font-weight: 600;">$2</span>')
-        .replace(/(:\s*)(\d+\.?\d*)/g, '$1<span style="color: #0369a1;">$2</span>')
-        .replace(/([{}[\]])/g, '<span style="color: var(--primary-color); font-weight: bold;">$1</span>');
-    }
-    
-    // Resaltado general para otros lenguajes
-    else {
-      highlightedCode = highlightedCode
-        .replace(/(\/\/.*$|#.*$)/gm, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
-        .replace(/([`"'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span style="color: #059669;">$1$2$1</span>')
-        .replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #0369a1;">$1</span>');
-    }
-    
-    codeEl.innerHTML = highlightedCode;
+    codeEl.innerHTML = safeCode;
+    console.log('Código escapado correctamente');
   }
 
   // Ejecutar cuando el DOM esté listo
@@ -277,11 +224,12 @@ const { code, lang = 'html' } = Astro.props;
   pre {
     margin: 0;
     padding: 1.5rem;
-    overflow-x: auto;
+    overflow: visible; /* Dejar que el contenedor padre maneje el scroll */
     background: transparent !important;
     border: none;
     font-size: 0.875rem;
     line-height: 1.6;
+    white-space: pre; /* Preservar espacios y saltos de línea */
   }
 
   code[class*="language-"] {
@@ -318,8 +266,31 @@ const { code, lang = 'html' } = Astro.props;
   }
 
   .code-container.show {
-    max-height: 1000px;
+    max-height: 400px; /* Altura máxima más controlada */
     transition: max-height var(--transition-normal) ease-in;
+    overflow-y: auto; /* Scroll vertical cuando sea necesario */
+    overflow-x: auto; /* Scroll horizontal para código largo */
+  }
+
+  /* Scrollbar personalizada para el contenedor de código */
+  .code-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .code-container::-webkit-scrollbar-track {
+    background: var(--surface-secondary);
+    border-radius: 4px;
+  }
+
+  .code-container::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 4px;
+    transition: background var(--transition-fast);
+  }
+
+  .code-container::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
   }
 
   /* Mejorar la accesibilidad */
