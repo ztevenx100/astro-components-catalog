@@ -18,130 +18,158 @@ const { code, lang = 'html' } = Astro.props;
       <button class="action-btn toggle-code-btn">Mostrar Código</button>
     </div>
   </div>
-  <div class="code-container" style="display: none;">
+  <div class="code-container">
     <pre><code class={`language-${lang}`}>{code.trim()}</code></pre>
   </div>
 </div>
 
-<script>
-  // Función para esperar a que Prism.js esté disponible
-  function waitForPrism(): Promise<typeof window.Prism> {
-    return new Promise((resolve, reject) => {
-      if (typeof window !== 'undefined' && window.Prism) {
-        resolve(window.Prism);
-        return;
-      }
-      
-      let attempts = 0;
-      const maxAttempts = 50; // 5 segundos máximo
-      
-      const checkPrism = () => {
-        attempts++;
-        
-        if (typeof window !== 'undefined' && window.Prism) {
-          resolve(window.Prism);
-        } else if (attempts >= maxAttempts) {
-          reject(new Error('Prism.js no pudo cargarse después de 5 segundos'));
-        } else {
-          setTimeout(checkPrism, 100);
-        }
-      };
-      
-      checkPrism();
-    });
-  }
-
-  // Función para inicializar un code viewer
-  function initCodeViewer(viewer: Element) {
-    const toggleBtn = viewer.querySelector('.toggle-code-btn');
-    const copyBtn = viewer.querySelector('.copy-btn');
-    const codeContainer = viewer.querySelector('.code-container');
-    const codeEl = viewer.querySelector('code');
-    const copyTextEl = viewer.querySelector('.copy-text');
-
-    if (toggleBtn && codeContainer instanceof HTMLElement && codeEl) {
-      toggleBtn.addEventListener('click', async () => {
-        const isHidden = codeContainer.style.display === 'none';
-        codeContainer.style.display = isHidden ? 'block' : 'none';
-        toggleBtn.textContent = isHidden ? 'Ocultar Código' : 'Mostrar Código';
-
-        // Resaltar el código si se está mostrando y no ha sido resaltado antes
-        if (isHidden && !codeEl.hasAttribute('data-highlighted')) {
-          try {
-            const prism = await waitForPrism();
-            prism.highlightElement(codeEl);
-            codeEl.setAttribute('data-highlighted', 'true');
-          } catch (err) {
-            console.warn('Prism.js no está disponible, saltando el resaltado de sintaxis:', err);
-          }
-        }
-      });
+<script is:inline>
+  // Función mejorada para aplicar resaltado básico sin Prism.js
+  function applyBasicSyntaxHighlight(codeEl) {
+    const code = codeEl.textContent || '';
+    const language = codeEl.className.replace('language-', '');
+    
+    let highlightedCode = code;
+    
+    // Escapar HTML básico para evitar problemas
+    highlightedCode = highlightedCode
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+    
+    // Resaltado mejorado para HTML
+    if (language === 'html' || language === 'xml') {
+      highlightedCode = highlightedCode
+        .replace(/(&lt;!--.*?--&gt;)/gs, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/(&lt;[!/]?)([\w-]+)/g, '<span style="color: #dc2626; font-weight: 600;">$1$2</span>')
+        .replace(/([\w-]+)(=)/g, '<span style="color: #0369a1;">$1</span><span style="color: var(--text-color);">$2</span>')
+        .replace(/=(&quot;[^&]*?&quot;|&#39;[^&]*?&#39;)/g, '=<span style="color: #059669; font-weight: 500;">$1</span>')
+        .replace(/(&gt;)/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>');
     }
-
-    if (copyBtn && codeEl && copyTextEl) {
-      copyBtn.addEventListener('click', async () => {
-        try {
-          // Obtener el texto del código (sin el HTML de resaltado)
-          const codeText = codeEl.textContent || codeEl.innerText || '';
-          
-          // Intentar usar la API moderna de portapapeles
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(codeText);
-            copyTextEl.textContent = '¡Copiado!';
-          } else {
-            // Fallback: crear un elemento temporal y usar selección
-            const textArea = document.createElement('textarea');
-            textArea.value = codeText;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            textArea.style.opacity = '0';
-            textArea.setAttribute('readonly', '');
-            document.body.appendChild(textArea);
-            
-            // Seleccionar el texto
-            textArea.focus();
-            textArea.select();
-            textArea.setSelectionRange(0, 99999); // Para dispositivos móviles
-            
-            // Para navegadores que no soportan clipboard API
-            // mostrar instrucciones al usuario
-            copyTextEl.textContent = 'Usa Ctrl+C';
-            
-            // Limpiar después de un tiempo
-            setTimeout(() => {
-              document.body.removeChild(textArea);
-            }, 100);
-          }
-          
-          setTimeout(() => {
-            copyTextEl.textContent = 'Copiar';
-          }, 2000);
-        } catch (err) {
-          console.error('Error al copiar el código: ', err);
-          copyTextEl.textContent = 'Error';
-          setTimeout(() => {
-            copyTextEl.textContent = 'Copiar';
-          }, 2000);
-        }
-      });
+    
+    // Resaltado mejorado para CSS
+    else if (language === 'css' || language === 'scss' || language === 'less') {
+      highlightedCode = highlightedCode
+        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/([.#][\w-]+)/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>')
+        .replace(/^(\s*)([\w-]+)(\s*:)/gm, '$1<span style="color: #0369a1; font-weight: 600;">$2</span>$3')
+        .replace(/(:\s*)([^;{\n}]+)/g, '$1<span style="color: #059669;">$2</span>')
+        .replace(/([{}])/g, '<span style="color: var(--primary-color); font-weight: bold;">$1</span>')
+        .replace(/@([\w-]+)/g, '<span style="color: #7c3aed; font-weight: 600;">@$1</span>');
     }
-  }
-
-  // Inicializar todos los code viewers cuando el DOM esté listo
-  function initAllCodeViewers() {
-    document.querySelectorAll('.code-viewer').forEach(initCodeViewer);
+    
+    // Resaltado mejorado para JavaScript/TypeScript
+    else if (language === 'javascript' || language === 'js' || language === 'typescript' || language === 'ts') {
+      highlightedCode = highlightedCode
+        .replace(/(\/\/.*$)/gm, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/\b(function|const|let|var|if|else|for|while|return|class|export|import|async|await|try|catch|finally|throw|new|this|typeof|instanceof)\b/g, 
+          '<span style="color: #7c3aed; font-weight: 600;">$1</span>')
+        .replace(/\b(true|false|null|undefined)\b/g, '<span style="color: #dc2626; font-weight: 600;">$1</span>')
+        .replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #0369a1;">$1</span>')
+        .replace(/([`"'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span style="color: #059669;">$1$2$1</span>')
+        .replace(/\b([A-Z][a-zA-Z0-9]*)\b/g, '<span style="color: #dc2626;">$1</span>');
+    }
+    
+    // Resaltado mejorado para JSON
+    else if (language === 'json') {
+      highlightedCode = highlightedCode
+        .replace(/(&quot;[\w-]+&quot;)(\s*:)/g, '<span style="color: #0369a1; font-weight: 600;">$1</span>$2')
+        .replace(/(:\s*)(&quot;[^&]*?&quot;)/g, '$1<span style="color: #059669;">$2</span>')
+        .replace(/(:\s*)(true|false|null)/g, '$1<span style="color: #dc2626; font-weight: 600;">$2</span>')
+        .replace(/(:\s*)(\d+\.?\d*)/g, '$1<span style="color: #0369a1;">$2</span>')
+        .replace(/([{}[\]])/g, '<span style="color: var(--primary-color); font-weight: bold;">$1</span>');
+    }
+    
+    // Resaltado general para otros lenguajes
+    else {
+      highlightedCode = highlightedCode
+        .replace(/(\/\/.*$|#.*$)/gm, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: var(--text-muted); font-style: italic;">$1</span>')
+        .replace(/([`"'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span style="color: #059669;">$1$2$1</span>')
+        .replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #0369a1;">$1</span>');
+    }
+    
+    codeEl.innerHTML = highlightedCode;
   }
 
   // Ejecutar cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllCodeViewers);
-  } else {
-    initAllCodeViewers();
+  console.log('Estado del DOM:', document.readyState);
+  
+  // Función simple para inicializar inmediatamente
+  function initNow() {
+    console.log('=== INICIANDO CODEVIEWER ===');
+    const viewers = document.querySelectorAll('.code-viewer');
+    console.log('Viewers encontrados:', viewers.length);
+    
+    if (viewers.length === 0) {
+      console.log('No hay viewers, reintentando...');
+      setTimeout(initNow, 500);
+      return;
+    }
+    
+    viewers.forEach((viewer, index) => {
+      console.log(`=== Configurando viewer ${index + 1} ===`);
+      
+      const toggleBtn = viewer.querySelector('.toggle-code-btn');
+      const codeContainer = viewer.querySelector('.code-container');
+      const codeEl = viewer.querySelector('code');
+      
+      console.log('Elementos:', {
+        viewer: viewer,
+        toggleBtn: toggleBtn,
+        codeContainer: codeContainer,
+        codeEl: codeEl
+      });
+      
+      if (toggleBtn && codeContainer && codeEl) {
+        console.log('Agregando click listener...');
+        
+        toggleBtn.onclick = function(event) {
+          console.log('=== CLICK DETECTADO ===', event);
+          
+          const isCurrentlyHidden = !codeContainer.classList.contains('show');
+          console.log('¿Está oculto?', isCurrentlyHidden);
+          
+          if (isCurrentlyHidden) {
+            console.log('Mostrando código...');
+            codeContainer.classList.add('show');
+            toggleBtn.textContent = 'Ocultar Código';
+            
+            // Aplicar resaltado si es necesario
+            if (!codeEl.hasAttribute('data-highlighted')) {
+              console.log('Aplicando resaltado...');
+              applyBasicSyntaxHighlight(codeEl);
+              codeEl.setAttribute('data-highlighted', 'basic');
+            }
+          } else {
+            console.log('Ocultando código...');
+            codeContainer.classList.remove('show');
+            toggleBtn.textContent = 'Mostrar Código';
+          }
+        };
+        
+        console.log('Event listener agregado exitosamente');
+      } else {
+        console.error('Faltan elementos:', {
+          toggleBtn: !!toggleBtn,
+          codeContainer: !!codeContainer,
+          codeEl: !!codeEl
+        });
+      }
+    });
   }
-
-  // También ejecutar cuando se cargue la página (por si acaso)
-  window.addEventListener('load', initAllCodeViewers);
+  
+  // Ejecutar inmediatamente si el DOM está listo, sino esperar
+  if (document.readyState === 'loading') {
+    console.log('DOM cargando, esperando...');
+    document.addEventListener('DOMContentLoaded', initNow);
+  } else {
+    console.log('DOM listo, ejecutando ahora...');
+    setTimeout(initNow, 100);
+  }
 </script>
 
 <style>
@@ -289,7 +317,7 @@ const { code, lang = 'html' } = Astro.props;
     transition: max-height var(--transition-normal) ease-out;
   }
 
-  .code-container[style*="block"] {
+  .code-container.show {
     max-height: 1000px;
     transition: max-height var(--transition-normal) ease-in;
   }
