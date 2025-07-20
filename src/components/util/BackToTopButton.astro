@@ -11,16 +11,31 @@
   const backToTopButton = document.getElementById('back-to-top');
 
   if (backToTopButton) {
+    let isVisible = false;
+
     window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
+      const shouldShow = window.pageYOffset > 300;
+      
+      if (shouldShow && !isVisible) {
+        isVisible = true;
         backToTopButton.style.display = 'block';
-      } else {
-        backToTopButton.style.display = 'none';
+        backToTopButton.classList.add('show');
+      } else if (!shouldShow && isVisible) {
+        isVisible = false;
+        backToTopButton.classList.remove('show');
+        setTimeout(() => {
+          if (!isVisible) {
+            backToTopButton.style.display = 'none';
+          }
+        }, 300);
       }
     });
 
     backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
     });
   }
 </script>
@@ -31,25 +46,47 @@
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background-color: var(--accent-color, #667eea);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
     z-index: 1000;
   }
 
   #back-to-top:hover {
-    opacity: 0.8;
-    transform: translateY(-3px);
+    background-color: var(--primary-hover);
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
 
-  html.dark #back-to-top {
-    background-color: var(--accent-color-dark, #a3bffa);
-    color: #1a202c;
+  #back-to-top:active {
+    transform: translateY(-1px) scale(1.05);
+  }
+
+  #back-to-top:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  /* Animación de aparición */
+  #back-to-top.show {
+    display: block;
+    animation: fadeInScale 0.3s ease-out;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 </style>

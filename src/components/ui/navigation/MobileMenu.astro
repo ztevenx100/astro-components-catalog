@@ -1,0 +1,317 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<div class="mobile-menu">
+  <div class="mobile-header">
+    <h3 class="mobile-logo">Mi App</h3>
+    <button class="hamburger" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  
+  <nav class="mobile-nav" id="mobileNav">
+    <ul class="mobile-nav-list">
+      <li><a href="#" class="mobile-nav-link active">🏠 Inicio</a></li>
+      <li><a href="#" class="mobile-nav-link">📱 Productos</a></li>
+      <li><a href="#" class="mobile-nav-link">ℹ️ Acerca de</a></li>
+      <li><a href="#" class="mobile-nav-link">📧 Contacto</a></li>
+      <li><a href="#" class="mobile-nav-link">⚙️ Configuración</a></li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .mobile-menu {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--surface-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-logo {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+  .hamburger:hover {
+    background: var(--surface-color);
+  }
+
+  .hamburger span {
+    width: 20px;
+    height: 2px;
+    background: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 1px;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .mobile-nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .mobile-nav.open {
+    max-height: 300px;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    border-left-color: var(--primary-color);
+    padding-left: 2rem;
+  }
+
+  .mobile-nav-link.active {
+    background: var(--surface-secondary);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (menuToggle && mobileNav) {
+      menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('open');
+      });
+
+      // Close menu when clicking on a link
+      const navLinks = mobileNav.querySelectorAll('.mobile-nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('open');
+          
+          // Update active state
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    }
+  });
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Mobile Menu (Hamburger)</h3>
+  <p>Menú móvil con animación de hamburguesa y navegación colapsible.</p>
+  
+  <div class="demo-container">
+    <div class="mobile-menu">
+      <div class="mobile-header">
+        <h3 class="mobile-logo">Mi App</h3>
+        <button class="hamburger" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      
+      <nav class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-list">
+          <li><a href="#" class="mobile-nav-link active">🏠 Inicio</a></li>
+          <li><a href="#" class="mobile-nav-link">📱 Productos</a></li>
+          <li><a href="#" class="mobile-nav-link">ℹ️ Acerca de</a></li>
+          <li><a href="#" class="mobile-nav-link">📧 Contacto</a></li>
+          <li><a href="#" class="mobile-nav-link">⚙️ Configuración</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+
+<CodeViewer code={code} lang="html" />
+
+<style>
+  .mobile-menu {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--surface-secondary);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-logo {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+  .hamburger:hover {
+    background: var(--surface-color);
+  }
+
+  .hamburger span {
+    width: 20px;
+    height: 2px;
+    background: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 1px;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .mobile-nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .mobile-nav.open {
+    max-height: 300px;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    border-left-color: var(--primary-color);
+    padding-left: 2rem;
+  }
+
+  .mobile-nav-link.active {
+    background: var(--surface-secondary);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (menuToggle && mobileNav) {
+      menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('open');
+      });
+
+      // Close menu when clicking on a link
+      const navLinks = mobileNav.querySelectorAll('.mobile-nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('open');
+          
+          // Update active state
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    }
+  });
+</script>

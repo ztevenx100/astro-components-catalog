@@ -18,118 +18,105 @@ const { code, lang = 'html' } = Astro.props;
       <button class="action-btn toggle-code-btn">Mostrar Código</button>
     </div>
   </div>
-  <div class="code-container" style="display: none;">
+  <div class="code-container">
     <pre><code class={`language-${lang}`}>{code.trim()}</code></pre>
   </div>
 </div>
 
-<script>
-  // Función para esperar a que Prism.js esté disponible
-  function waitForPrism(): Promise<typeof window.Prism> {
-    return new Promise((resolve, reject) => {
-      if (typeof window !== 'undefined' && window.Prism) {
-        resolve(window.Prism);
-        return;
-      }
-      
-      let attempts = 0;
-      const maxAttempts = 50; // 5 segundos máximo
-      
-      const checkPrism = () => {
-        attempts++;
-        
-        if (typeof window !== 'undefined' && window.Prism) {
-          resolve(window.Prism);
-        } else if (attempts >= maxAttempts) {
-          reject(new Error('Prism.js no pudo cargarse después de 5 segundos'));
-        } else {
-          setTimeout(checkPrism, 100);
-        }
-      };
-      
-      checkPrism();
-    });
-  }
-
-  // Función para inicializar un code viewer
-  function initCodeViewer(viewer: Element) {
-    const toggleBtn = viewer.querySelector('.toggle-code-btn');
-    const copyBtn = viewer.querySelector('.copy-btn');
-    const codeContainer = viewer.querySelector('.code-container');
-    const codeEl = viewer.querySelector('code');
-    const copyTextEl = viewer.querySelector('.copy-text');
-
-    if (toggleBtn && codeContainer instanceof HTMLElement && codeEl) {
-      toggleBtn.addEventListener('click', async () => {
-        const isHidden = codeContainer.style.display === 'none';
-        codeContainer.style.display = isHidden ? 'block' : 'none';
-        toggleBtn.textContent = isHidden ? 'Ocultar Código' : 'Mostrar Código';
-
-        // Resaltar el código si se está mostrando y no ha sido resaltado antes
-        if (isHidden && !codeEl.hasAttribute('data-highlighted')) {
-          try {
-            const prism = await waitForPrism();
-            prism.highlightElement(codeEl);
-            codeEl.setAttribute('data-highlighted', 'true');
-          } catch (err) {
-            console.warn('Prism.js no está disponible, saltando el resaltado de sintaxis:', err);
-          }
-        }
-      });
-    }
-
-    if (copyBtn && codeEl && copyTextEl) {
-      copyBtn.addEventListener('click', async () => {
-        try {
-          // Obtener el texto del código (sin el HTML de resaltado)
-          const codeText = codeEl.textContent || codeEl.innerText || '';
-          
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(codeText);
-            copyTextEl.textContent = '¡Copiado!';
-          } else {
-            // Fallback para navegadores más antiguos
-            const textArea = document.createElement('textarea');
-            textArea.value = codeText;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            copyTextEl.textContent = '¡Copiado!';
-          }
-          
-          setTimeout(() => {
-            copyTextEl.textContent = 'Copiar';
-          }, 2000);
-        } catch (err) {
-          console.error('Error al copiar el código: ', err);
-          copyTextEl.textContent = 'Error';
-          setTimeout(() => {
-            copyTextEl.textContent = 'Copiar';
-          }, 2000);
-        }
-      });
-    }
-  }
-
-  // Inicializar todos los code viewers cuando el DOM esté listo
-  function initAllCodeViewers() {
-    document.querySelectorAll('.code-viewer').forEach(initCodeViewer);
+<script is:inline>
+  // Función ULTRA SIMPLE - solo escapar HTML, sin resaltado problemático
+  function applyBasicSyntaxHighlight(codeEl) {
+    console.log('Aplicando resaltado básico...');
+    const code = codeEl.textContent || '';
+    
+    // Solo escapar HTML para mostrar el código de forma segura
+    // SIN aplicar ningún resaltado de colores que pueda romper el código
+    const safeCode = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+    
+    codeEl.innerHTML = safeCode;
+    console.log('Código escapado correctamente');
   }
 
   // Ejecutar cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllCodeViewers);
-  } else {
-    initAllCodeViewers();
+  console.log('Estado del DOM:', document.readyState);
+  
+  // Función simple para inicializar inmediatamente
+  function initNow() {
+    console.log('=== INICIANDO CODEVIEWER ===');
+    const viewers = document.querySelectorAll('.code-viewer');
+    console.log('Viewers encontrados:', viewers.length);
+    
+    if (viewers.length === 0) {
+      console.log('No hay viewers, reintentando...');
+      setTimeout(initNow, 500);
+      return;
+    }
+    
+    viewers.forEach((viewer, index) => {
+      console.log(`=== Configurando viewer ${index + 1} ===`);
+      
+      const toggleBtn = viewer.querySelector('.toggle-code-btn');
+      const codeContainer = viewer.querySelector('.code-container');
+      const codeEl = viewer.querySelector('code');
+      
+      console.log('Elementos:', {
+        viewer: viewer,
+        toggleBtn: toggleBtn,
+        codeContainer: codeContainer,
+        codeEl: codeEl
+      });
+      
+      if (toggleBtn && codeContainer && codeEl) {
+        console.log('Agregando click listener...');
+        
+        toggleBtn.onclick = function(event) {
+          console.log('=== CLICK DETECTADO ===', event);
+          
+          const isCurrentlyHidden = !codeContainer.classList.contains('show');
+          console.log('¿Está oculto?', isCurrentlyHidden);
+          
+          if (isCurrentlyHidden) {
+            console.log('Mostrando código...');
+            codeContainer.classList.add('show');
+            toggleBtn.textContent = 'Ocultar Código';
+            
+            // Aplicar resaltado si es necesario
+            if (!codeEl.hasAttribute('data-highlighted')) {
+              console.log('Aplicando resaltado...');
+              applyBasicSyntaxHighlight(codeEl);
+              codeEl.setAttribute('data-highlighted', 'basic');
+            }
+          } else {
+            console.log('Ocultando código...');
+            codeContainer.classList.remove('show');
+            toggleBtn.textContent = 'Mostrar Código';
+          }
+        };
+        
+        console.log('Event listener agregado exitosamente');
+      } else {
+        console.error('Faltan elementos:', {
+          toggleBtn: !!toggleBtn,
+          codeContainer: !!codeContainer,
+          codeEl: !!codeEl
+        });
+      }
+    });
   }
-
-  // También ejecutar cuando se cargue la página (por si acaso)
-  window.addEventListener('load', initAllCodeViewers);
+  
+  // Ejecutar inmediatamente si el DOM está listo, sino esperar
+  if (document.readyState === 'loading') {
+    console.log('DOM cargando, esperando...');
+    document.addEventListener('DOMContentLoaded', initNow);
+  } else {
+    console.log('DOM listo, ejecutando ahora...');
+    setTimeout(initNow, 100);
+  }
 </script>
 
 <style>
@@ -237,11 +224,12 @@ const { code, lang = 'html' } = Astro.props;
   pre {
     margin: 0;
     padding: 1.5rem;
-    overflow-x: auto;
+    overflow: visible; /* Dejar que el contenedor padre maneje el scroll */
     background: transparent !important;
     border: none;
     font-size: 0.875rem;
     line-height: 1.6;
+    white-space: pre; /* Preservar espacios y saltos de línea */
   }
 
   code[class*="language-"] {
@@ -277,9 +265,32 @@ const { code, lang = 'html' } = Astro.props;
     transition: max-height var(--transition-normal) ease-out;
   }
 
-  .code-container[style*="block"] {
-    max-height: 1000px;
+  .code-container.show {
+    max-height: 400px; /* Altura máxima más controlada */
     transition: max-height var(--transition-normal) ease-in;
+    overflow-y: auto; /* Scroll vertical cuando sea necesario */
+    overflow-x: auto; /* Scroll horizontal para código largo */
+  }
+
+  /* Scrollbar personalizada para el contenedor de código */
+  .code-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .code-container::-webkit-scrollbar-track {
+    background: var(--surface-secondary);
+    border-radius: 4px;
+  }
+
+  .code-container::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 4px;
+    transition: background var(--transition-fast);
+  }
+
+  .code-container::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
   }
 
   /* Mejorar la accesibilidad */
