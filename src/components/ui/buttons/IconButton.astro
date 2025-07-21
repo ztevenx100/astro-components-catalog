@@ -1,0 +1,505 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<button class="icon-button">
+  <span class="icon">📧</span>
+  <span class="text">Enviar Email</span>
+</button>
+
+<button class="icon-button icon-right">
+  <span class="text">Siguiente</span>
+  <span class="icon">→</span>
+</button>
+
+<button class="icon-button icon-only">
+  <span class="icon">♥</span>
+</button>
+
+<style>
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 48px;
+  }
+
+  .icon-button:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .icon-button:active {
+    transform: translateY(0);
+  }
+
+  .icon-button .icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+  }
+
+  .icon-button .text {
+    transition: transform 0.3s ease;
+  }
+
+  .icon-button:hover .icon {
+    transform: scale(1.1);
+  }
+
+  .icon-button.icon-right {
+    flex-direction: row;
+  }
+
+  .icon-button.icon-right:hover .icon {
+    transform: translateX(2px);
+  }
+
+  .icon-button.icon-only {
+    padding: 12px;
+    border-radius: 50%;
+    min-width: 48px;
+    min-height: 48px;
+    gap: 0;
+  }
+
+  .icon-button.icon-only .icon {
+    font-size: 1.2rem;
+  }
+
+  .icon-button.icon-only:hover .icon {
+    transform: scale(1.2);
+  }
+
+  /* Variantes de estilo */
+  .icon-button.filled {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .icon-button.filled:hover {
+    background: var(--accent-color, var(--primary-color));
+    border-color: var(--accent-color, var(--primary-color));
+    filter: brightness(1.1);
+  }
+
+  .icon-button.ghost {
+    border: none;
+    background: var(--surface-secondary);
+    color: var(--text-color);
+  }
+
+  .icon-button.ghost:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .icon-button.soft {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+    border-color: transparent;
+    color: var(--primary-color);
+  }
+
+  .icon-button.soft:hover {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+  }
+
+  /* Estados de color */
+  .icon-button.success {
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .icon-button.success:hover {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .icon-button.danger {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  .icon-button.danger:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .icon-button.warning {
+    border-color: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .icon-button.warning:hover {
+    background: #f59e0b;
+    color: white;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+  }
+
+  /* Estados de interacción */
+  .icon-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .icon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .icon-button:disabled:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Animación de carga */
+  .icon-button.loading .icon {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .icon-button {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      min-height: 44px;
+    }
+
+    .icon-button.icon-only {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 10px;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Botones con Iconos</h3>
+  <p>Botones versátiles con iconos, múltiples variantes y estados interactivos.</p>
+  
+  <div class="demo-container">
+    <div class="button-group">
+      <h4>Con Texto</h4>
+      <button class="icon-button">
+        <span class="icon">📧</span>
+        <span class="text">Enviar Email</span>
+      </button>
+      
+      <button class="icon-button icon-right">
+        <span class="text">Siguiente</span>
+        <span class="icon">→</span>
+      </button>
+    </div>
+
+    <div class="button-group">
+      <h4>Solo Icono</h4>
+      <button class="icon-button icon-only">
+        <span class="icon">♥</span>
+      </button>
+      
+      <button class="icon-button icon-only success">
+        <span class="icon">✓</span>
+      </button>
+      
+      <button class="icon-button icon-only danger">
+        <span class="icon">×</span>
+      </button>
+    </div>
+
+    <div class="button-group">
+      <h4>Variantes</h4>
+      <button class="icon-button filled">
+        <span class="icon">⚡</span>
+        <span class="text">Rellenado</span>
+      </button>
+      
+      <button class="icon-button soft">
+        <span class="icon">🌟</span>
+        <span class="text">Suave</span>
+      </button>
+      
+      <button class="icon-button ghost">
+        <span class="icon">👻</span>
+        <span class="text">Fantasma</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 48px;
+  }
+
+  .icon-button:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .icon-button:active {
+    transform: translateY(0);
+  }
+
+  .icon-button .icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+  }
+
+  .icon-button .text {
+    transition: transform 0.3s ease;
+  }
+
+  .icon-button:hover .icon {
+    transform: scale(1.1);
+  }
+
+  .icon-button.icon-right {
+    flex-direction: row;
+  }
+
+  .icon-button.icon-right:hover .icon {
+    transform: translateX(2px);
+  }
+
+  .icon-button.icon-only {
+    padding: 12px;
+    border-radius: 50%;
+    min-width: 48px;
+    min-height: 48px;
+    gap: 0;
+  }
+
+  .icon-button.icon-only .icon {
+    font-size: 1.2rem;
+  }
+
+  .icon-button.icon-only:hover .icon {
+    transform: scale(1.2);
+  }
+
+  .icon-button.filled {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+  }
+
+  .icon-button.filled:hover {
+    background: var(--accent-color, var(--primary-color));
+    border-color: var(--accent-color, var(--primary-color));
+    filter: brightness(1.1);
+  }
+
+  .icon-button.ghost {
+    border: none;
+    background: var(--surface-secondary);
+    color: var(--text-color);
+  }
+
+  .icon-button.ghost:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .icon-button.soft {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+    border-color: transparent;
+    color: var(--primary-color);
+  }
+
+  .icon-button.soft:hover {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+  }
+
+  .icon-button.success {
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .icon-button.success:hover {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .icon-button.danger {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  .icon-button.danger:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .icon-button.warning {
+    border-color: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .icon-button.warning:hover {
+    background: #f59e0b;
+    color: white;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+  }
+
+  .icon-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .icon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .icon-button:disabled:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .icon-button.loading .icon {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    .icon-button {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      min-height: 44px;
+    }
+
+    .icon-button.icon-only {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 10px;
+    }
+  }
+
+  /* Estilos del contenedor preview */
+  .component-preview {
+    padding: 3rem 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-color);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .button-group h4 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .button-group > :not(h4) {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .demo-container {
+      gap: 1.5rem;
+    }
+    
+    .button-group > :not(h4) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

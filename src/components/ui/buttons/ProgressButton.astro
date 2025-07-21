@@ -1,0 +1,764 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<button class="progress-button" data-progress="0">
+  <span class="progress-track"></span>
+  <span class="button-content">
+    <span class="button-text">Descargar</span>
+    <span class="progress-text">0%</span>
+  </span>
+</button>
+
+<button class="progress-button circular" data-progress="0">
+  <div class="circular-progress">
+    <svg class="progress-ring" width="60" height="60">
+      <circle
+        class="progress-ring-circle"
+        stroke="currentColor"
+        stroke-width="4"
+        fill="transparent"
+        r="26"
+        cx="30"
+        cy="30"
+      />
+    </svg>
+  </div>
+  <span class="button-content">
+    <span class="button-icon">⬇</span>
+    <span class="progress-percent">0%</span>
+  </span>
+</button>
+
+<style>
+  .progress-button {
+    position: relative;
+    padding: 14px 32px;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    min-height: 52px;
+  }
+
+  .progress-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+
+  .button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .progress-text {
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+  }
+
+  /* Estados de progreso */
+  .progress-button[data-progress="0"] {
+    cursor: pointer;
+  }
+
+  .progress-button[data-progress="0"]:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .progress-button:not([data-progress="0"]):not([data-progress="100"]) {
+    cursor: not-allowed;
+    color: white;
+  }
+
+  .progress-button:not([data-progress="0"]) .progress-text {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .progress-button[data-progress="100"] {
+    border-color: #10b981;
+    color: white;
+    background: #10b981;
+    cursor: default;
+  }
+
+  .progress-button[data-progress="100"] .progress-track {
+    background: #10b981;
+  }
+
+  .progress-button[data-progress="100"] .button-text::after {
+    content: ' ✓';
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  @keyframes checkmark {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Botón circular con progreso */
+  .progress-button.circular {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 0;
+    min-width: auto;
+    min-height: auto;
+  }
+
+  .circular-progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-ring-circle {
+    stroke-dasharray: 163.36; /* 2 * PI * r */
+    stroke-dashoffset: 163.36;
+    transition: stroke-dashoffset 0.5s ease;
+    opacity: 0.3;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .progress-ring {
+    opacity: 1;
+  }
+
+  .progress-button.circular .button-content {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .button-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .button-icon {
+    transform: scale(0.8);
+  }
+
+  .progress-percent {
+    font-size: 0.7rem;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .progress-percent {
+    opacity: 1;
+  }
+
+  .progress-button.circular[data-progress="100"] .button-icon {
+    transform: scale(1.2);
+  }
+
+  .progress-button.circular[data-progress="100"] .button-icon::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #10b981;
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  /* Variantes de color */
+  .progress-button.success {
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .progress-button.success .progress-track {
+    background: #10b981;
+  }
+
+  .progress-button.success:hover {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .progress-button.danger {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  .progress-button.danger .progress-track {
+    background: #ef4444;
+  }
+
+  .progress-button.danger:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .progress-button.warning {
+    border-color: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .progress-button.warning .progress-track {
+    background: #f59e0b;
+  }
+
+  .progress-button.warning:hover {
+    background: #f59e0b;
+    color: white;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+  }
+
+  /* Animación de pulsación para carga */
+  .progress-button:not([data-progress="0"]):not([data-progress="100"]) {
+    animation: loadingPulse 2s infinite;
+  }
+
+  @keyframes loadingPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(var(--primary-color-rgb, 59, 130, 246), 0);
+    }
+  }
+
+  /* Estados de focus */
+  .progress-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .progress-button {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      min-width: 140px;
+      min-height: 48px;
+    }
+
+    .progress-button.circular {
+      width: 72px;
+      height: 72px;
+    }
+
+    .circular-progress svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    .progress-ring-circle {
+      r: 22;
+      cx: 28;
+      cy: 28;
+      stroke-dasharray: 138.23;
+      stroke-dashoffset: 138.23;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Botones con Progreso</h3>
+  <p>Botones que muestran el progreso de operaciones asíncronas con barras y círculos de progreso.</p>
+  
+  <div class="demo-container">
+    <div class="progress-group">
+      <h4>Progreso Linear</h4>
+      <button class="progress-button" data-progress="0" onclick="simulateProgress(this)">
+        <span class="progress-track"></span>
+        <span class="button-content">
+          <span class="button-text">Descargar</span>
+          <span class="progress-text">0%</span>
+        </span>
+      </button>
+      
+      <button class="progress-button success" data-progress="0" onclick="simulateProgress(this)">
+        <span class="progress-track"></span>
+        <span class="button-content">
+          <span class="button-text">Subir Archivo</span>
+          <span class="progress-text">0%</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="progress-group">
+      <h4>Progreso Circular</h4>
+      <button class="progress-button circular" data-progress="0" onclick="simulateCircularProgress(this)">
+        <div class="circular-progress">
+          <svg class="progress-ring" width="60" height="60">
+            <circle
+              class="progress-ring-circle"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="transparent"
+              r="26"
+              cx="30"
+              cy="30"
+            />
+          </svg>
+        </div>
+        <span class="button-content">
+          <span class="button-icon">⬇</span>
+          <span class="progress-percent">0%</span>
+        </span>
+      </button>
+      
+      <button class="progress-button circular danger" data-progress="0" onclick="simulateCircularProgress(this)">
+        <div class="circular-progress">
+          <svg class="progress-ring" width="60" height="60">
+            <circle
+              class="progress-ring-circle"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="transparent"
+              r="26"
+              cx="30"
+              cy="30"
+            />
+          </svg>
+        </div>
+        <span class="button-content">
+          <span class="button-icon">📤</span>
+          <span class="progress-percent">0%</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+  function simulateProgress(button) {
+    if (button.getAttribute('data-progress') !== '0') return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      }
+      
+      updateProgressButton(button, Math.round(progress));
+    }, 300);
+  }
+  
+  function simulateCircularProgress(button) {
+    if (button.getAttribute('data-progress') !== '0') return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 12;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      }
+      
+      updateCircularProgressButton(button, Math.round(progress));
+    }, 250);
+  }
+  
+  function updateProgressButton(button, progress) {
+    button.setAttribute('data-progress', progress.toString());
+    
+    const track = button.querySelector('.progress-track');
+    const progressText = button.querySelector('.progress-text');
+    
+    track.style.width = `${progress}%`;
+    progressText.textContent = `${progress}%`;
+    
+    if (progress === 100) {
+      setTimeout(() => {
+        // Reset after 2 seconds
+        button.setAttribute('data-progress', '0');
+        track.style.width = '0%';
+        progressText.textContent = '0%';
+      }, 2000);
+    }
+  }
+  
+  function updateCircularProgressButton(button, progress) {
+    button.setAttribute('data-progress', progress.toString());
+    
+    const circle = button.querySelector('.progress-ring-circle');
+    const progressPercent = button.querySelector('.progress-percent');
+    
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (progress / 100) * circumference;
+    
+    circle.style.strokeDashoffset = offset;
+    progressPercent.textContent = `${progress}%`;
+    
+    if (progress === 100) {
+      setTimeout(() => {
+        // Reset after 2 seconds
+        button.setAttribute('data-progress', '0');
+        circle.style.strokeDashoffset = circumference;
+        progressPercent.textContent = '0%';
+      }, 2000);
+    }
+  }
+</script>
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .progress-button {
+    position: relative;
+    padding: 14px 32px;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    min-height: 52px;
+  }
+
+  .progress-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+    z-index: 1;
+  }
+
+  .button-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .progress-text {
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+  }
+
+  .progress-button[data-progress="0"] {
+    cursor: pointer;
+  }
+
+  .progress-button[data-progress="0"]:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .progress-button:not([data-progress="0"]):not([data-progress="100"]) {
+    cursor: not-allowed;
+    color: white;
+  }
+
+  .progress-button:not([data-progress="0"]) .progress-text {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .progress-button[data-progress="100"] {
+    border-color: #10b981;
+    color: white;
+    background: #10b981;
+    cursor: default;
+  }
+
+  .progress-button[data-progress="100"] .progress-track {
+    background: #10b981;
+  }
+
+  .progress-button[data-progress="100"] .button-text::after {
+    content: ' ✓';
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  @keyframes checkmark {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .progress-button.circular {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 0;
+    min-width: auto;
+    min-height: auto;
+  }
+
+  .circular-progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-ring-circle {
+    stroke-dasharray: 163.36;
+    stroke-dashoffset: 163.36;
+    transition: stroke-dashoffset 0.5s ease;
+    opacity: 0.3;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .progress-ring {
+    opacity: 1;
+  }
+
+  .progress-button.circular .button-content {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .button-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .button-icon {
+    transform: scale(0.8);
+  }
+
+  .progress-percent {
+    font-size: 0.7rem;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-button.circular:not([data-progress="0"]) .progress-percent {
+    opacity: 1;
+  }
+
+  .progress-button.circular[data-progress="100"] .button-icon {
+    transform: scale(1.2);
+  }
+
+  .progress-button.circular[data-progress="100"] .button-icon::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #10b981;
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  .progress-button.success {
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .progress-button.success .progress-track {
+    background: #10b981;
+  }
+
+  .progress-button.success:hover {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .progress-button.danger {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  .progress-button.danger .progress-track {
+    background: #ef4444;
+  }
+
+  .progress-button.danger:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .progress-button.warning {
+    border-color: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .progress-button.warning .progress-track {
+    background: #f59e0b;
+  }
+
+  .progress-button.warning:hover {
+    background: #f59e0b;
+    color: white;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+  }
+
+  .progress-button:not([data-progress="0"]):not([data-progress="100"]) {
+    animation: loadingPulse 2s infinite;
+  }
+
+  @keyframes loadingPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(var(--primary-color-rgb, 59, 130, 246), 0);
+    }
+  }
+
+  .progress-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .progress-button {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      min-width: 140px;
+      min-height: 48px;
+    }
+
+    .progress-button.circular {
+      width: 72px;
+      height: 72px;
+    }
+
+    .circular-progress svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    .progress-ring-circle {
+      r: 22;
+      cx: 28;
+      cy: 28;
+      stroke-dasharray: 138.23;
+      stroke-dashoffset: 138.23;
+    }
+  }
+
+  /* Estilos del contenedor preview */
+  .component-preview {
+    padding: 3rem 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-color);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .progress-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .progress-group h4 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .progress-group > :not(h4) {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+  }
+
+  @media (max-width: 768px) {
+    .demo-container {
+      gap: 1.5rem;
+    }
+    
+    .progress-group > :not(h4) {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>
