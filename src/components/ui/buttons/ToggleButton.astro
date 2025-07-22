@@ -1,0 +1,541 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<button class="toggle-button" data-toggle="false">
+  <span class="toggle-track">
+    <span class="toggle-thumb"></span>
+  </span>
+  <span class="toggle-text">Desactivado</span>
+</button>
+
+<button class="toggle-button vertical" data-toggle="true">
+  <span class="toggle-icon">🌙</span>
+  <span class="toggle-text">Modo Oscuro</span>
+</button>
+
+<style>
+  .toggle-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .toggle-button:hover {
+    background: var(--surface-secondary);
+  }
+
+  .toggle-track {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background: var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Estado activo */
+  .toggle-button[data-toggle="true"] .toggle-track {
+    background: var(--primary-color);
+  }
+
+  .toggle-button[data-toggle="true"] .toggle-thumb {
+    transform: translateX(24px);
+  }
+
+  .toggle-button[data-toggle="true"] .toggle-text {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  /* Variante vertical con icono */
+  .toggle-button.vertical {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 16px;
+    border-radius: 16px;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .toggle-icon {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-button.vertical[data-toggle="true"] {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+    color: var(--primary-color);
+  }
+
+  .toggle-button.vertical[data-toggle="true"] .toggle-icon {
+    transform: scale(1.1);
+  }
+
+  /* Efectos hover */
+  .toggle-button:hover .toggle-track {
+    transform: scale(1.05);
+  }
+
+  .toggle-button:hover .toggle-thumb {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Estados de focus */
+  .toggle-button:focus {
+    outline: none;
+    background: var(--surface-secondary);
+  }
+
+  .toggle-button:focus .toggle-track {
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Animación de ondas al hacer clic */
+  .toggle-button::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    pointer-events: none;
+  }
+
+  .toggle-button.ripple::after {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Variantes de color */
+  .toggle-button.success[data-toggle="true"] .toggle-track {
+    background: #10b981;
+  }
+
+  .toggle-button.success[data-toggle="true"] .toggle-text {
+    color: #10b981;
+  }
+
+  .toggle-button.danger[data-toggle="true"] .toggle-track {
+    background: #ef4444;
+  }
+
+  .toggle-button.danger[data-toggle="true"] .toggle-text {
+    color: #ef4444;
+  }
+
+  .toggle-button.warning[data-toggle="true"] .toggle-track {
+    background: #f59e0b;
+  }
+
+  .toggle-button.warning[data-toggle="true"] .toggle-text {
+    color: #f59e0b;
+  }
+
+  /* Estados deshabilitado */
+  .toggle-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .toggle-button:disabled:hover {
+    background: transparent;
+  }
+
+  .toggle-button:disabled:hover .toggle-track {
+    transform: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .toggle-button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+
+    .toggle-track {
+      width: 44px;
+      height: 22px;
+    }
+
+    .toggle-thumb {
+      width: 18px;
+      height: 18px;
+    }
+
+    .toggle-button[data-toggle="true"] .toggle-thumb {
+      transform: translateX(22px);
+    }
+
+    .toggle-button.vertical {
+      padding: 12px;
+      min-width: 70px;
+    }
+
+    .toggle-icon {
+      font-size: 1.3rem;
+    }
+  }
+
+  /* Tema oscuro */
+  html.dark .toggle-thumb {
+    background: var(--surface-color);
+  }
+
+  html.dark .toggle-track {
+    background: var(--surface-secondary);
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Botones Toggle/Switch</h3>
+  <p>Interruptores interactivos con diferentes estilos y estados de activación.</p>
+  
+  <div class="demo-container">
+    <div class="toggle-group">
+      <h4>Switches Básicos</h4>
+      <button class="toggle-button" data-toggle="false" onclick="toggleState(this)">
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-text">Notificaciones</span>
+      </button>
+      
+      <button class="toggle-button success" data-toggle="true" onclick="toggleState(this)">
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-text">Activado</span>
+      </button>
+    </div>
+
+    <div class="toggle-group">
+      <h4>Toggles Verticales</h4>
+      <button class="toggle-button vertical" data-toggle="false" onclick="toggleState(this)">
+        <span class="toggle-icon">🌞</span>
+        <span class="toggle-text">Claro</span>
+      </button>
+      
+      <button class="toggle-button vertical" data-toggle="true" onclick="toggleState(this)">
+        <span class="toggle-icon">🌙</span>
+        <span class="toggle-text">Oscuro</span>
+      </button>
+      
+      <button class="toggle-button vertical danger" data-toggle="false" onclick="toggleState(this)">
+        <span class="toggle-icon">🔇</span>
+        <span class="toggle-text">Silencio</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+  function toggleState(button) {
+    const currentState = button.getAttribute('data-toggle') === 'true';
+    const newState = !currentState;
+    
+    button.setAttribute('data-toggle', newState.toString());
+    
+    // Agregar efecto de ripple
+    button.classList.add('ripple');
+    setTimeout(() => {
+      button.classList.remove('ripple');
+    }, 300);
+    
+    // Actualizar texto si es necesario
+    const textElement = button.querySelector('.toggle-text');
+    if (textElement) {
+      if (textElement.textContent === 'Activado' || textElement.textContent === 'Desactivado') {
+        textElement.textContent = newState ? 'Activado' : 'Desactivado';
+      }
+      if (textElement.textContent === 'Claro' || textElement.textContent === 'Oscuro') {
+        textElement.textContent = newState ? 'Oscuro' : 'Claro';
+        const icon = button.querySelector('.toggle-icon');
+        if (icon) {
+          icon.textContent = newState ? '🌙' : '🌞';
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .toggle-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .toggle-button:hover {
+    background: var(--surface-secondary);
+  }
+
+  .toggle-track {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background: var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-button[data-toggle="true"] .toggle-track {
+    background: var(--primary-color);
+  }
+
+  .toggle-button[data-toggle="true"] .toggle-thumb {
+    transform: translateX(24px);
+  }
+
+  .toggle-button[data-toggle="true"] .toggle-text {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .toggle-button.vertical {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 16px;
+    border-radius: 16px;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .toggle-icon {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-button.vertical[data-toggle="true"] {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+    color: var(--primary-color);
+  }
+
+  .toggle-button.vertical[data-toggle="true"] .toggle-icon {
+    transform: scale(1.1);
+  }
+
+  .toggle-button:hover .toggle-track {
+    transform: scale(1.05);
+  }
+
+  .toggle-button:hover .toggle-thumb {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .toggle-button:focus {
+    outline: none;
+    background: var(--surface-secondary);
+  }
+
+  .toggle-button:focus .toggle-track {
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .toggle-button::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    pointer-events: none;
+  }
+
+  .toggle-button.ripple::after {
+    width: 60px;
+    height: 60px;
+  }
+
+  .toggle-button.success[data-toggle="true"] .toggle-track {
+    background: #10b981;
+  }
+
+  .toggle-button.success[data-toggle="true"] .toggle-text {
+    color: #10b981;
+  }
+
+  .toggle-button.danger[data-toggle="true"] .toggle-track {
+    background: #ef4444;
+  }
+
+  .toggle-button.danger[data-toggle="true"] .toggle-text {
+    color: #ef4444;
+  }
+
+  .toggle-button.warning[data-toggle="true"] .toggle-track {
+    background: #f59e0b;
+  }
+
+  .toggle-button.warning[data-toggle="true"] .toggle-text {
+    color: #f59e0b;
+  }
+
+  .toggle-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .toggle-button:disabled:hover {
+    background: transparent;
+  }
+
+  .toggle-button:disabled:hover .toggle-track {
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    .toggle-button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+
+    .toggle-track {
+      width: 44px;
+      height: 22px;
+    }
+
+    .toggle-thumb {
+      width: 18px;
+      height: 18px;
+    }
+
+    .toggle-button[data-toggle="true"] .toggle-thumb {
+      transform: translateX(22px);
+    }
+
+    .toggle-button.vertical {
+      padding: 12px;
+      min-width: 70px;
+    }
+
+    .toggle-icon {
+      font-size: 1.3rem;
+    }
+  }
+
+  html.dark .toggle-thumb {
+    background: var(--surface-color);
+  }
+
+  html.dark .toggle-track {
+    background: var(--surface-secondary);
+  }
+
+  /* Estilos del contenedor preview */
+  .component-preview {
+    padding: 3rem 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-color);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .toggle-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .toggle-group h4 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .toggle-group > :not(h4) {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .demo-container {
+      gap: 1.5rem;
+    }
+    
+    .toggle-group > :not(h4) {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+</style>

@@ -129,3 +129,8 @@ html {
     font-size: 0.875rem;
   }
 }
+
+html.dark .component-preview {
+  background: var(--surface-color);
+  border-color: var(--border-dark);
+}
