@@ -1,0 +1,701 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<div class="pricing-card">
+  <div class="pricing-header">
+    <div class="plan-badge">Más Popular</div>
+    <h4 class="plan-name">Plan Pro</h4>
+    <div class="plan-price">
+      <span class="currency">$</span>
+      <span class="amount">29</span>
+      <span class="period">/mes</span>
+    </div>
+    <p class="plan-description">Perfecto para equipos pequeños y medianos</p>
+  </div>
+  
+  <div class="pricing-features">
+    <ul class="features-list">
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">Hasta 50 usuarios</span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">100GB de almacenamiento</span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">Soporte 24/7</span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">Análisis avanzados</span>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="pricing-footer">
+    <button class="pricing-btn">Comenzar Ahora</button>
+    <p class="trial-info">Prueba gratuita de 14 días</p>
+  </div>
+</div>
+
+<div class="pricing-card basic">
+  <div class="pricing-header">
+    <h4 class="plan-name">Plan Básico</h4>
+    <div class="plan-price">
+      <span class="currency">$</span>
+      <span class="amount">9</span>
+      <span class="period">/mes</span>
+    </div>
+    <p class="plan-description">Ideal para proyectos personales</p>
+  </div>
+  
+  <div class="pricing-features">
+    <ul class="features-list">
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">Hasta 5 usuarios</span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">10GB de almacenamiento</span>
+      </li>
+      <li class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span class="feature-text">Soporte por email</span>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="pricing-footer">
+    <button class="pricing-btn secondary">Comenzar Gratis</button>
+  </div>
+</div>
+
+<style>
+  .pricing-card {
+    background: var(--surface-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .pricing-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+  }
+
+  .pricing-card.basic {
+    border-color: var(--border-color);
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .plan-name {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  .pricing-card:hover .plan-name {
+    color: var(--primary-color);
+  }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 1rem;
+    gap: 0.25rem;
+  }
+
+  .currency {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .amount {
+    color: var(--text-color);
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 0.9;
+    transition: color 0.3s ease;
+  }
+
+  .pricing-card:hover .amount {
+    color: var(--primary-color);
+  }
+
+  .period {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .plan-description {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .pricing-features {
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .feature-item:last-child {
+    border-bottom: none;
+  }
+
+  .feature-item:hover {
+    padding-left: 0.5rem;
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
+    border-radius: 8px;
+    border-bottom-color: transparent;
+  }
+
+  .feature-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .pricing-footer {
+    text-align: center;
+  }
+
+  .pricing-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    letter-spacing: 0.025em;
+  }
+
+  .pricing-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .pricing-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .pricing-btn:hover::before {
+    left: 100%;
+  }
+
+  .pricing-btn.secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+
+  .pricing-btn.secondary:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .trial-info {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pricing-card {
+      max-width: 100%;
+      padding: 1.5rem;
+    }
+
+    .plan-price .amount {
+      font-size: 2.5rem;
+    }
+
+    .pricing-btn {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Tarjetas de Precios</h3>
+  <p>Tarjetas elegantes para mostrar planes de precios con características destacadas.</p>
+  
+  <div class="demo-container">
+    <div class="pricing-showcase">
+      <div class="pricing-card basic">
+        <div class="pricing-header">
+          <h4 class="plan-name">Plan Básico</h4>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">9</span>
+            <span class="period">/mes</span>
+          </div>
+          <p class="plan-description">Ideal para proyectos personales</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">Hasta 5 usuarios</span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">10GB de almacenamiento</span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">Soporte por email</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="pricing-footer">
+          <button class="pricing-btn secondary">Comenzar Gratis</button>
+        </div>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <div class="plan-badge">Más Popular</div>
+          <h4 class="plan-name">Plan Pro</h4>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">29</span>
+            <span class="period">/mes</span>
+          </div>
+          <p class="plan-description">Perfecto para equipos pequeños y medianos</p>
+        </div>
+        
+        <div class="pricing-features">
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">Hasta 50 usuarios</span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">100GB de almacenamiento</span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">Soporte 24/7</span>
+            </li>
+            <li class="feature-item">
+              <span class="feature-icon">✓</span>
+              <span class="feature-text">Análisis avanzados</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="pricing-footer">
+          <button class="pricing-btn">Comenzar Ahora</button>
+          <p class="trial-info">Prueba gratuita de 14 días</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .pricing-card {
+    background: var(--surface-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .pricing-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+  }
+
+  .pricing-card.basic {
+    border-color: var(--border-color);
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .plan-name {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  .pricing-card:hover .plan-name {
+    color: var(--primary-color);
+  }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 1rem;
+    gap: 0.25rem;
+  }
+
+  .currency {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .amount {
+    color: var(--text-color);
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 0.9;
+    transition: color 0.3s ease;
+  }
+
+  .pricing-card:hover .amount {
+    color: var(--primary-color);
+  }
+
+  .period {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .plan-description {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .pricing-features {
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .feature-item:last-child {
+    border-bottom: none;
+  }
+
+  .feature-item:hover {
+    padding-left: 0.5rem;
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
+    border-radius: 8px;
+    border-bottom-color: transparent;
+  }
+
+  .feature-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .pricing-footer {
+    text-align: center;
+  }
+
+  .pricing-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    letter-spacing: 0.025em;
+  }
+
+  .pricing-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .pricing-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .pricing-btn:hover::before {
+    left: 100%;
+  }
+
+  .pricing-btn.secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+
+  .pricing-btn.secondary:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .trial-info {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .pricing-card {
+      max-width: 100%;
+      padding: 1.5rem;
+    }
+
+    .plan-price .amount {
+      font-size: 2.5rem;
+    }
+
+    .pricing-btn {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Estilos del contenedor de preview */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  .pricing-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 700px;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .pricing-showcase {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
