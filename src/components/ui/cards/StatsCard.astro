@@ -1,8 +1,9 @@
 ---
 import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
 
 const code = `
-<div class="stats-card">
+<div class="card-base card-stats">
   <div class="stats-icon">
     <span class="icon">📊</span>
   </div>
@@ -16,7 +17,7 @@ const code = `
   </div>
 </div>
 
-<div class="stats-card negative">
+<div class="card-stats negative">
   <div class="stats-icon">
     <span class="icon">👥</span>
   </div>
@@ -31,7 +32,7 @@ const code = `
 </div>
 
 <style>
-  .stats-card {
+  .card-stats {
     background: var(--surface-color);
     border-radius: 16px;
     padding: 1.5rem;
@@ -46,10 +47,10 @@ const code = `
     gap: 1rem;
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
   }
 
-  .stats-card::before {
+  .card-stats::before {
     content: '';
     position: absolute;
     top: 0;
@@ -62,11 +63,11 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover::before {
+  .card-stats:hover::before {
     transform: scaleY(1);
   }
 
-  .stats-card:hover {
+  .card-stats:hover {
     transform: translateY(-6px) scale(1.02);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.08);
   }
@@ -83,7 +84,7 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover .stats-icon {
+  .card-stats:hover .stats-icon {
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -107,7 +108,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .stats-card:hover .stats-title {
+  .card-stats:hover .stats-title {
     color: var(--text-color);
   }
 
@@ -120,7 +121,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .stats-card:hover .stats-value {
+  .card-stats:hover .stats-value {
     color: var(--primary-color);
   }
 
@@ -145,19 +146,19 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover .change-icon {
+  .card-stats:hover .change-icon {
     transform: scale(1.2);
   }
 
   /* Variante negativa */
-  .stats-card.negative .stats-icon {
+  .card-stats.negative .stats-icon {
     background: linear-gradient(135deg, #ef4444, #dc2626);
   }
 
   /* Responsive */
   @media (max-width: 768px) {
-    .stats-card {
-      max-width: 100%;
+    .card-stats {
+      max-width: 320px;
       min-width: 0;
       padding: 1.25rem;
       flex-direction: row;
@@ -187,8 +188,8 @@ const code = `
   <p>Tarjetas diseñadas para mostrar métricas y datos importantes con indicadores visuales.</p>
   
   <div class="demo-container">
-    <div class="stats-showcase">
-      <div class="stats-card">
+    <div class="card-showcase">
+      <div class="card-base card-stats">
         <div class="stats-icon">
           <span class="icon">📊</span>
         </div>
@@ -202,7 +203,7 @@ const code = `
         </div>
       </div>
       
-      <div class="stats-card">
+      <div class="card-base card-stats">
         <div class="stats-icon">
           <span class="icon">👥</span>
         </div>
@@ -216,7 +217,7 @@ const code = `
         </div>
       </div>
       
-      <div class="stats-card">
+      <div class="card-base card-stats">
         <div class="stats-icon">
           <span class="icon">⭐</span>
         </div>
@@ -237,7 +238,7 @@ const code = `
 
 <style>
   /* Estilos duplicados para el funcionamiento del preview */
-  .stats-card {
+  .card-stats {
     background: var(--surface-color);
     border-radius: 16px;
     padding: 1.5rem;
@@ -252,10 +253,10 @@ const code = `
     gap: 1rem;
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
   }
 
-  .stats-card::before {
+  .card-stats::before {
     content: '';
     position: absolute;
     top: 0;
@@ -268,11 +269,11 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover::before {
+  .card-stats:hover::before {
     transform: scaleY(1);
   }
 
-  .stats-card:hover {
+  .card-stats:hover {
     transform: translateY(-6px) scale(1.02);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.08);
   }
@@ -289,7 +290,7 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover .stats-icon {
+  .card-stats:hover .stats-icon {
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -313,7 +314,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .stats-card:hover .stats-title {
+  .card-stats:hover .stats-title {
     color: var(--text-color);
   }
 
@@ -326,7 +327,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .stats-card:hover .stats-value {
+  .card-stats:hover .stats-value {
     color: var(--primary-color);
   }
 
@@ -351,17 +352,17 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .stats-card:hover .change-icon {
+  .card-stats:hover .change-icon {
     transform: scale(1.2);
   }
 
-  .stats-card.negative .stats-icon {
+  .card-stats.negative .stats-icon {
     background: linear-gradient(135deg, #ef4444, #dc2626);
   }
 
   @media (max-width: 768px) {
-    .stats-card {
-      max-width: 100%;
+    .card-stats {
+      max-width: 320px;
       min-width: 0;
       padding: 1.25rem;
       flex-direction: row;
@@ -419,16 +420,16 @@ const code = `
     min-height: 200px;
   }
 
-  .stats-showcase {
+  .card-showcase {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-    max-width: 100%;
+    max-width: 320px;
     width: 100%;
   }
 
   @media (max-width: 768px) {
-    .stats-showcase {
+    .card-showcase {
       grid-template-columns: 1fr;
       gap: 1rem;
     }

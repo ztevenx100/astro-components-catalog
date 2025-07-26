@@ -1,8 +1,9 @@
 ---
 import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
 
 const code = `
-<div class="notification-card success">
+<div class="card-notification success">
   <div class="notification-icon">
     <span class="icon">✓</span>
   </div>
@@ -17,7 +18,7 @@ const code = `
   <button class="notification-close">×</button>
 </div>
 
-<div class="notification-card warning">
+<div class="card-notification warning">
   <div class="notification-icon">
     <span class="icon">⚠</span>
   </div>
@@ -31,7 +32,7 @@ const code = `
   <button class="notification-close">×</button>
 </div>
 
-<div class="notification-card error">
+<div class="card-notification error">
   <div class="notification-icon">
     <span class="icon">✗</span>
   </div>
@@ -42,7 +43,7 @@ const code = `
   <button class="notification-close">×</button>
 </div>
 
-<div class="notification-card info compact">
+<div class="card-notification info compact">
   <div class="notification-icon">
     <span class="icon">ℹ</span>
   </div>
@@ -53,23 +54,23 @@ const code = `
 </div>
 
 <style>
-  .notification-card {
+  .card-notification {
     background: var(--surface-color);
     border-radius: 16px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    width: 100%; min-width: 280px; max-width: 100%;
+    width: 100%; min-width: 280px; max-width: 320px;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
   }
 
-  .notification-card::before {
+  .card-notification::before {
     content: '';
     position: absolute;
     top: 0;
@@ -80,28 +81,28 @@ const code = `
     transition: all 0.3s ease;
   }
 
-  .notification-card.success::before {
+  .card-notification.success::before {
     background: linear-gradient(180deg, #10b981, #059669);
   }
 
-  .notification-card.warning::before {
+  .card-notification.warning::before {
     background: linear-gradient(180deg, #f59e0b, #d97706);
   }
 
-  .notification-card.error::before {
+  .card-notification.error::before {
     background: linear-gradient(180deg, #ef4444, #dc2626);
   }
 
-  .notification-card.info::before {
+  .card-notification.info::before {
     background: linear-gradient(180deg, #3b82f6, #2563eb);
   }
 
-  .notification-card:hover {
+  .card-notification:hover {
     transform: translateY(-4px) scale(1.01);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 20px rgba(0, 0, 0, 0.08);
   }
 
-  .notification-card.compact {
+  .card-notification.compact {
     padding: 1rem;
     align-items: center;
   }
@@ -117,32 +118,32 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .notification-card.compact .notification-icon {
+  .card-notification.compact .notification-icon {
     width: 40px;
     height: 40px;
   }
 
-  .notification-card.success .notification-icon {
+  .card-notification.success .notification-icon {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
   }
 
-  .notification-card.warning .notification-icon {
+  .card-notification.warning .notification-icon {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
   }
 
-  .notification-card.error .notification-icon {
+  .card-notification.error .notification-icon {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
   }
 
-  .notification-card.info .notification-icon {
+  .card-notification.info .notification-icon {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
   }
 
-  .notification-card:hover .notification-icon {
+  .card-notification:hover .notification-icon {
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -151,7 +152,7 @@ const code = `
     font-weight: 700;
   }
 
-  .notification-card.compact .notification-icon .icon {
+  .card-notification.compact .notification-icon .icon {
     font-size: 1rem;
   }
 
@@ -168,7 +169,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .notification-card:hover .notification-title {
+  .card-notification:hover .notification-title {
     color: var(--primary-color);
   }
 
@@ -180,7 +181,7 @@ const code = `
     margin-bottom: 1rem;
   }
 
-  .notification-card.compact .notification-message {
+  .card-notification.compact .notification-message {
     margin-bottom: 0;
     font-size: 0.85rem;
   }
@@ -251,7 +252,7 @@ const code = `
   }
 
   /* Animación de entrada */
-  .notification-card {
+  .card-notification {
     animation: slideInRight 0.5s ease-out;
   }
 
@@ -268,7 +269,7 @@ const code = `
 
   /* Responsive */
   @media (max-width: 768px) {
-    .notification-card {
+    .card-notification {
       width: 100%;
       min-width: 0;
       padding: 1rem;
@@ -309,8 +310,8 @@ const code = `
   <p>Tarjetas diseñadas para mostrar alertas, mensajes y notificaciones con diferentes estados.</p>
   
   <div class="demo-container">
-    <div class="notification-showcase">
-      <div class="notification-card success">
+    <div class="card-showcase">
+      <div class="card-notification success">
         <div class="notification-icon">
           <span class="icon">✓</span>
         </div>
@@ -325,7 +326,7 @@ const code = `
         <button class="notification-close">×</button>
       </div>
 
-      <div class="notification-card warning">
+      <div class="card-notification warning">
         <div class="notification-icon">
           <span class="icon">⚠</span>
         </div>
@@ -339,7 +340,7 @@ const code = `
         <button class="notification-close">×</button>
       </div>
 
-      <div class="notification-card error">
+      <div class="card-notification error">
         <div class="notification-icon">
           <span class="icon">✗</span>
         </div>
@@ -350,7 +351,7 @@ const code = `
         <button class="notification-close">×</button>
       </div>
 
-      <div class="notification-card info compact">
+      <div class="card-notification info compact">
         <div class="notification-icon">
           <span class="icon">ℹ</span>
         </div>
@@ -367,23 +368,23 @@ const code = `
 
 <style>
   /* Estilos duplicados para el funcionamiento del preview */
-  .notification-card {
+  .card-notification {
     background: var(--surface-color);
     border-radius: 16px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    width: 100%; min-width: 280px; max-width: 100%;
+    width: 100%; min-width: 280px; max-width: 320px;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
   }
 
-  .notification-card::before {
+  .card-notification::before {
     content: '';
     position: absolute;
     top: 0;
@@ -394,28 +395,28 @@ const code = `
     transition: all 0.3s ease;
   }
 
-  .notification-card.success::before {
+  .card-notification.success::before {
     background: linear-gradient(180deg, #10b981, #059669);
   }
 
-  .notification-card.warning::before {
+  .card-notification.warning::before {
     background: linear-gradient(180deg, #f59e0b, #d97706);
   }
 
-  .notification-card.error::before {
+  .card-notification.error::before {
     background: linear-gradient(180deg, #ef4444, #dc2626);
   }
 
-  .notification-card.info::before {
+  .card-notification.info::before {
     background: linear-gradient(180deg, #3b82f6, #2563eb);
   }
 
-  .notification-card:hover {
+  .card-notification:hover {
     transform: translateY(-4px) scale(1.01);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 20px rgba(0, 0, 0, 0.08);
   }
 
-  .notification-card.compact {
+  .card-notification.compact {
     padding: 1rem;
     align-items: center;
   }
@@ -431,32 +432,32 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .notification-card.compact .notification-icon {
+  .card-notification.compact .notification-icon {
     width: 40px;
     height: 40px;
   }
 
-  .notification-card.success .notification-icon {
+  .card-notification.success .notification-icon {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
   }
 
-  .notification-card.warning .notification-icon {
+  .card-notification.warning .notification-icon {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
   }
 
-  .notification-card.error .notification-icon {
+  .card-notification.error .notification-icon {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
   }
 
-  .notification-card.info .notification-icon {
+  .card-notification.info .notification-icon {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
   }
 
-  .notification-card:hover .notification-icon {
+  .card-notification:hover .notification-icon {
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -465,7 +466,7 @@ const code = `
     font-weight: 700;
   }
 
-  .notification-card.compact .notification-icon .icon {
+  .card-notification.compact .notification-icon .icon {
     font-size: 1rem;
   }
 
@@ -482,7 +483,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .notification-card:hover .notification-title {
+  .card-notification:hover .notification-title {
     color: var(--primary-color);
   }
 
@@ -494,7 +495,7 @@ const code = `
     margin-bottom: 1rem;
   }
 
-  .notification-card.compact .notification-message {
+  .card-notification.compact .notification-message {
     margin-bottom: 0;
     font-size: 0.85rem;
   }
@@ -564,7 +565,7 @@ const code = `
     transform: scale(1.1);
   }
 
-  .notification-card {
+  .card-notification {
     animation: slideInRight 0.5s ease-out;
   }
 
@@ -580,8 +581,8 @@ const code = `
   }
 
   @media (max-width: 768px) {
-    .notification-card {
-      max-width: 100%;
+    .card-notification {
+      max-width: 320px;
       padding: 1rem;
     }
 
@@ -648,7 +649,7 @@ const code = `
     min-height: 300px;
   }
 
-  .notification-showcase {
+  .card-showcase {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
@@ -656,7 +657,7 @@ const code = `
   }
 
   @media (max-width: 768px) {
-    .notification-showcase {
+    .card-showcase {
       grid-template-columns: 1fr;
       gap: 1rem;
     }
