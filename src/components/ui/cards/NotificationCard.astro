@@ -63,7 +63,7 @@ const code = `
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    max-width: 400px;
+    width: 100%; min-width: 280px; max-width: 100%;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
@@ -269,7 +269,8 @@ const code = `
   /* Responsive */
   @media (max-width: 768px) {
     .notification-card {
-      max-width: 100%;
+      width: 100%;
+      min-width: 0;
       padding: 1rem;
     }
 
@@ -376,7 +377,7 @@ const code = `
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    max-width: 400px;
+    width: 100%; min-width: 280px; max-width: 100%;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
@@ -649,9 +650,8 @@ const code = `
 
   .notification-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
-    max-width: 900px;
     width: 100%;
   }
 

@@ -118,7 +118,13 @@ const code = `
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    max-width: 300px;
+    width: 100%;
+    min-width: 280px;
+    max-width: 320px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
   .dashboard-card::before {
@@ -617,14 +623,20 @@ const code = `
   .dashboard-card {
     background: var(--surface-color);
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 1rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+    width: 100%;
+    min-width: 280px;
     max-width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
   .dashboard-card::before {
@@ -1035,11 +1047,12 @@ const code = `
 
   .dashboard-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
     gap: 1.5rem;
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
-    justify-items: center;
+    justify-content: center;
+    justify-items: stretch;
   }
 
   @media (max-width: 768px) {

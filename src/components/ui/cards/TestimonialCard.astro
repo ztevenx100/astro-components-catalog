@@ -79,7 +79,9 @@ const code = `
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    max-width: 380px;
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
   }
 
   .testimonial-card::before {
@@ -106,7 +108,7 @@ const code = `
 
   .testimonial-card.compact {
     padding: 1.25rem;
-    max-width: 320px;
+    
   }
 
   .testimonial-card.compact::before {
@@ -278,6 +280,7 @@ const code = `
   @media (max-width: 768px) {
     .testimonial-card {
       max-width: 100%;
+      min-width: 0;
       padding: 1.25rem;
     }
 
@@ -396,7 +399,9 @@ const code = `
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    max-width: 380px;
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
   }
 
   .testimonial-card::before {
@@ -423,7 +428,7 @@ const code = `
 
   .testimonial-card.compact {
     padding: 1.25rem;
-    max-width: 320px;
+    
   }
 
   .testimonial-card.compact::before {
@@ -597,6 +602,7 @@ const code = `
   @media (max-width: 768px) {
     .testimonial-card {
       max-width: 100%;
+      min-width: 0;
       padding: 1.25rem;
     }
 
@@ -661,9 +667,9 @@ const code = `
 
   .testimonial-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 800px;
+    max-width: 100%;
     width: 100%;
   }
 
