@@ -1,8 +1,9 @@
 ---
 import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
 
 const code = `
-<div class="product-card">
+<div class="card-base card-product">
   <div class="product-image">
     <img src="https://via.placeholder.com/300x200/4F46E5/ffffff?text=Producto+Premium" alt="Producto Premium">
     <div class="product-badge">Nuevo</div>
@@ -28,7 +29,7 @@ const code = `
   </div>
 </div>
 
-<div class="product-card compact">
+<div class="card-product compact">
   <div class="product-image">
     <img src="https://via.placeholder.com/120x120/10B981/ffffff?text=Oferta" alt="Producto en Oferta">
     <div class="product-badge sale">Oferta</div>
@@ -47,7 +48,7 @@ const code = `
   </div>
 </div>
 
-<div class="product-card horizontal">
+<div class="card-product horizontal">
   <div class="product-image">
     <img src="https://via.placeholder.com/150x150/F59E0B/ffffff?text=Laptop" alt="Laptop">
     <div class="product-badge hot">Popular</div>
@@ -71,7 +72,7 @@ const code = `
 </div>
 
 <style>
-  .product-card {
+  .card-product {
     background: var(--surface-color);
     border-radius: 16px;
     overflow: hidden;
@@ -81,30 +82,30 @@ const code = `
     backdrop-filter: blur(10px);
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
     position: relative;
   }
 
-  .product-card:hover {
+  .card-product:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
-  .product-card.compact {
+  .card-product.compact {
     width: 100%;
     min-width: 200px;
-    max-width: 100%;
+    max-width: 320px;
   }
 
-  .product-card.horizontal {
+  .card-product.horizontal {
     width: 100%;
     min-width: 400px;
-    max-width: 100%;
+    max-width: 320px;
     display: flex;
     flex-direction: row;
   }
 
-  .product-card.horizontal .product-image {
+  .card-product.horizontal .product-image {
     width: 150px;
     height: 150px;
     flex-shrink: 0;
@@ -117,7 +118,7 @@ const code = `
     background: linear-gradient(135deg, var(--surface-secondary), var(--background-color));
   }
 
-  .product-card.compact .product-image {
+  .card-product.compact .product-image {
     height: 120px;
   }
 
@@ -128,7 +129,7 @@ const code = `
     transition: transform 0.4s ease;
   }
 
-  .product-card:hover .product-image img {
+  .card-product:hover .product-image img {
     transform: scale(1.1);
   }
 
@@ -167,7 +168,7 @@ const code = `
     transition: all 0.3s ease;
   }
 
-  .product-card:hover .product-actions {
+  .card-product:hover .product-actions {
     opacity: 1;
     transform: translateX(0);
   }
@@ -199,7 +200,7 @@ const code = `
     padding: 1.25rem;
   }
 
-  .product-card.compact .product-info {
+  .card-product.compact .product-info {
     padding: 1rem;
   }
 
@@ -221,12 +222,12 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .product-card.compact .product-title {
+  .card-product.compact .product-title {
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
   }
 
-  .product-card:hover .product-title {
+  .card-product:hover .product-title {
     color: var(--primary-color);
   }
 
@@ -237,7 +238,7 @@ const code = `
     line-height: 1.6;
   }
 
-  .product-card.compact .product-description {
+  .card-product.compact .product-description {
     display: none;
   }
 
@@ -248,7 +249,7 @@ const code = `
     margin-bottom: 1rem;
   }
 
-  .product-card.compact .product-rating {
+  .card-product.compact .product-rating {
     margin-bottom: 0.75rem;
   }
 
@@ -271,7 +272,7 @@ const code = `
     flex-wrap: wrap;
   }
 
-  .product-card.compact .product-pricing {
+  .card-product.compact .product-pricing {
     margin-bottom: 1rem;
     gap: 0.5rem;
   }
@@ -282,7 +283,7 @@ const code = `
     font-weight: 700;
   }
 
-  .product-card.compact .current-price {
+  .card-product.compact .current-price {
     font-size: 1.1rem;
   }
 
@@ -316,7 +317,7 @@ const code = `
     letter-spacing: 0.025em;
   }
 
-  .product-card.compact .add-to-cart-btn {
+  .card-product.compact .add-to-cart-btn {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
@@ -352,18 +353,18 @@ const code = `
 
   /* Responsive */
   @media (max-width: 768px) {
-    .product-card {
+    .card-product {
       width: 100%;
       min-width: 0;
     }
 
-    .product-card.horizontal {
+    .card-product.horizontal {
       flex-direction: column;
       width: 100%;
       min-width: 0;
     }
 
-    .product-card.horizontal .product-image {
+    .card-product.horizontal .product-image {
       width: 100%;
       height: 200px;
     }
@@ -390,8 +391,8 @@ const code = `
   <p>Tarjetas elegantes para mostrar productos con imágenes, precios, reseñas y acciones.</p>
   
   <div class="demo-container">
-    <div class="product-showcase">
-      <div class="product-card">
+    <div class="card-showcase">
+      <div class="card-base card-product">
         <div class="product-image">
           <img src="https://via.placeholder.com/300x200/4F46E5/ffffff?text=Producto+Premium" alt="Producto Premium">
           <div class="product-badge">Nuevo</div>
@@ -417,7 +418,7 @@ const code = `
         </div>
       </div>
 
-      <div class="product-card compact">
+      <div class="card-product compact">
         <div class="product-image">
           <img src="https://via.placeholder.com/120x120/10B981/ffffff?text=Oferta" alt="Producto en Oferta">
           <div class="product-badge sale">Oferta</div>
@@ -436,7 +437,7 @@ const code = `
         </div>
       </div>
 
-      <div class="product-card horizontal">
+      <div class="card-product horizontal">
         <div class="product-image">
           <img src="https://via.placeholder.com/150x150/F59E0B/ffffff?text=Laptop" alt="Laptop">
           <div class="product-badge hot">Popular</div>
@@ -466,7 +467,7 @@ const code = `
 
 <style>
   /* Estilos duplicados para el funcionamiento del preview */
-  .product-card {
+  .card-product {
     background: var(--surface-color);
     border-radius: 16px;
     overflow: hidden;
@@ -476,30 +477,30 @@ const code = `
     backdrop-filter: blur(10px);
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
     position: relative;
   }
 
-  .product-card:hover {
+  .card-product:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
-  .product-card.compact {
+  .card-product.compact {
     width: 100%;
     min-width: 200px;
-    max-width: 100%;
+    max-width: 320px;
   }
 
-  .product-card.horizontal {
+  .card-product.horizontal {
     width: 100%;
     min-width: 400px;
-    max-width: 100%;
+    max-width: 320px;
     display: flex;
     flex-direction: row;
   }
 
-  .product-card.horizontal .product-image {
+  .card-product.horizontal .product-image {
     width: 150px;
     height: 150px;
     flex-shrink: 0;
@@ -512,7 +513,7 @@ const code = `
     background: linear-gradient(135deg, var(--surface-secondary), var(--background-color));
   }
 
-  .product-card.compact .product-image {
+  .card-product.compact .product-image {
     height: 120px;
   }
 
@@ -523,7 +524,7 @@ const code = `
     transition: transform 0.4s ease;
   }
 
-  .product-card:hover .product-image img {
+  .card-product:hover .product-image img {
     transform: scale(1.1);
   }
 
@@ -562,7 +563,7 @@ const code = `
     transition: all 0.3s ease;
   }
 
-  .product-card:hover .product-actions {
+  .card-product:hover .product-actions {
     opacity: 1;
     transform: translateX(0);
   }
@@ -594,7 +595,7 @@ const code = `
     padding: 1.25rem;
   }
 
-  .product-card.compact .product-info {
+  .card-product.compact .product-info {
     padding: 1rem;
   }
 
@@ -616,12 +617,12 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .product-card.compact .product-title {
+  .card-product.compact .product-title {
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
   }
 
-  .product-card:hover .product-title {
+  .card-product:hover .product-title {
     color: var(--primary-color);
   }
 
@@ -632,7 +633,7 @@ const code = `
     line-height: 1.6;
   }
 
-  .product-card.compact .product-description {
+  .card-product.compact .product-description {
     display: none;
   }
 
@@ -643,7 +644,7 @@ const code = `
     margin-bottom: 1rem;
   }
 
-  .product-card.compact .product-rating {
+  .card-product.compact .product-rating {
     margin-bottom: 0.75rem;
   }
 
@@ -666,7 +667,7 @@ const code = `
     flex-wrap: wrap;
   }
 
-  .product-card.compact .product-pricing {
+  .card-product.compact .product-pricing {
     margin-bottom: 1rem;
     gap: 0.5rem;
   }
@@ -677,7 +678,7 @@ const code = `
     font-weight: 700;
   }
 
-  .product-card.compact .current-price {
+  .card-product.compact .current-price {
     font-size: 1.1rem;
   }
 
@@ -711,7 +712,7 @@ const code = `
     letter-spacing: 0.025em;
   }
 
-  .product-card.compact .add-to-cart-btn {
+  .card-product.compact .add-to-cart-btn {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
@@ -746,18 +747,18 @@ const code = `
   }
 
   @media (max-width: 768px) {
-    .product-card {
+    .card-product {
       width: 100%;
       min-width: 0;
     }
 
-    .product-card.horizontal {
+    .card-product.horizontal {
       flex-direction: column;
       width: 100%;
       min-width: 0;
     }
 
-    .product-card.horizontal .product-image {
+    .card-product.horizontal .product-image {
       width: 100%;
       height: 200px;
     }
@@ -812,7 +813,7 @@ const code = `
     min-height: 400px;
   }
 
-  .product-showcase {
+  .card-showcase {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
@@ -821,7 +822,7 @@ const code = `
   }
 
   @media (max-width: 768px) {
-    .product-showcase {
+    .card-showcase {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }

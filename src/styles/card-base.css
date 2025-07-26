@@ -1,0 +1,118 @@
+/* ===============================================
+   ESTILOS BASE PARA COMPONENTES DE TARJETAS
+   =============================================== */
+
+/* Variables CSS para tarjetas */
+:root {
+  --card-padding: 1.5rem;
+  --card-padding-compact: 1rem;
+  --card-border-radius: 16px;
+  --card-min-width: 280px;
+  --card-max-width: 300px;
+  --card-max-width-compact: 280px;
+  --card-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --card-hover-transition: all 0.3s ease;
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Clase base para todas las tarjetas */
+.card-base {
+  background: var(--surface-color);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--card-transition);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: var(--card-min-width);
+  max-width: var(--card-max-width);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Variante compacta */
+.card-base.card-compact {
+  padding: var(--card-padding-compact);
+  max-width: var(--card-max-width-compact);
+}
+
+/* Hover effects */
+.card-base:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Grid layout estándar para showcases */
+.card-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+  gap: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  justify-items: stretch;
+}
+
+/* Contenedor demo estándar */
+.demo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* Responsive design estándar */
+@media (max-width: 768px) {
+  .card-base {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+  
+  .card-base.card-compact {
+    padding: 0.875rem;
+  }
+  
+  .card-showcase {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .demo-container {
+    min-height: 300px;
+  }
+}
+
+/* Estilos del contenedor de preview estándar */
+.component-preview {
+  padding: 2rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+  transition: all 0.3s ease;
+}
+
+.component-preview h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.component-preview p {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  text-align: center;
+  font-size: 1rem;
+}
