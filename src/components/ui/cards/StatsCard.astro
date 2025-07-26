@@ -1,0 +1,436 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<div class="stats-card">
+  <div class="stats-icon">
+    <span class="icon">📊</span>
+  </div>
+  <div class="stats-content">
+    <h4 class="stats-title">Ventas Totales</h4>
+    <div class="stats-value">$24,567</div>
+    <div class="stats-change positive">
+      <span class="change-icon">↗</span>
+      <span class="change-text">+12.5%</span>
+    </div>
+  </div>
+</div>
+
+<div class="stats-card negative">
+  <div class="stats-icon">
+    <span class="icon">👥</span>
+  </div>
+  <div class="stats-content">
+    <h4 class="stats-title">Usuarios Activos</h4>
+    <div class="stats-value">1,234</div>
+    <div class="stats-change negative">
+      <span class="change-icon">↘</span>
+      <span class="change-text">-2.3%</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .stats-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
+  }
+
+  .stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .stats-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover .stats-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .stats-icon .icon {
+    font-size: 1.5rem;
+    filter: brightness(0) invert(1);
+  }
+
+  .stats-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stats-title {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+  }
+
+  .stats-card:hover .stats-title {
+    color: var(--text-color);
+  }
+
+  .stats-value {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-color);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .stats-card:hover .stats-value {
+    color: var(--primary-color);
+  }
+
+  .stats-change {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .stats-change.positive {
+    color: #10b981;
+  }
+
+  .stats-change.negative {
+    color: #ef4444;
+  }
+
+  .change-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover .change-icon {
+    transform: scale(1.2);
+  }
+
+  /* Variante negativa */
+  .stats-card.negative .stats-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .stats-card {
+      max-width: 100%;
+      min-width: 0;
+      padding: 1.25rem;
+      flex-direction: row;
+      gap: 0.75rem;
+    }
+
+    .stats-icon {
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .stats-icon .icon {
+      font-size: 1.25rem;
+    }
+
+    .stats-value {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Tarjetas de Estadísticas</h3>
+  <p>Tarjetas diseñadas para mostrar métricas y datos importantes con indicadores visuales.</p>
+  
+  <div class="demo-container">
+    <div class="stats-showcase">
+      <div class="stats-card">
+        <div class="stats-icon">
+          <span class="icon">📊</span>
+        </div>
+        <div class="stats-content">
+          <h4 class="stats-title">Ventas Totales</h4>
+          <div class="stats-value">$24,567</div>
+          <div class="stats-change positive">
+            <span class="change-icon">↗</span>
+            <span class="change-text">+12.5%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-card">
+        <div class="stats-icon">
+          <span class="icon">👥</span>
+        </div>
+        <div class="stats-content">
+          <h4 class="stats-title">Usuarios Activos</h4>
+          <div class="stats-value">1,234</div>
+          <div class="stats-change negative">
+            <span class="change-icon">↘</span>
+            <span class="change-text">-2.3%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-card">
+        <div class="stats-icon">
+          <span class="icon">⭐</span>
+        </div>
+        <div class="stats-content">
+          <h4 class="stats-title">Rating Promedio</h4>
+          <div class="stats-value">4.8</div>
+          <div class="stats-change positive">
+            <span class="change-icon">↗</span>
+            <span class="change-text">+0.2%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .stats-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
+  }
+
+  .stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .stats-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover .stats-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .stats-icon .icon {
+    font-size: 1.5rem;
+    filter: brightness(0) invert(1);
+  }
+
+  .stats-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stats-title {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+  }
+
+  .stats-card:hover .stats-title {
+    color: var(--text-color);
+  }
+
+  .stats-value {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-color);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .stats-card:hover .stats-value {
+    color: var(--primary-color);
+  }
+
+  .stats-change {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .stats-change.positive {
+    color: #10b981;
+  }
+
+  .stats-change.negative {
+    color: #ef4444;
+  }
+
+  .change-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover .change-icon {
+    transform: scale(1.2);
+  }
+
+  .stats-card.negative .stats-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+
+  @media (max-width: 768px) {
+    .stats-card {
+      max-width: 100%;
+      min-width: 0;
+      padding: 1.25rem;
+      flex-direction: row;
+      gap: 0.75rem;
+    }
+
+    .stats-icon {
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .stats-icon .icon {
+      font-size: 1.25rem;
+    }
+
+    .stats-value {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Estilos del contenedor de preview */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+
+  .stats-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .stats-showcase {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

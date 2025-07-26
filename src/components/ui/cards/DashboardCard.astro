@@ -1,0 +1,1068 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<div class="dashboard-card">
+  <div class="card-header">
+    <div class="card-icon primary">
+      <span class="icon">👥</span>
+    </div>
+    <div class="card-actions">
+      <button class="action-menu">⋯</button>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="metric-title">Usuarios Activos</h3>
+    <div class="metric-value">2,847</div>
+    <div class="metric-change positive">
+      <span class="change-icon">↗</span>
+      <span class="change-value">+12.5%</span>
+      <span class="change-period">vs mes anterior</span>
+    </div>
+  </div>
+  <div class="card-chart">
+    <div class="mini-chart">
+      <div class="chart-bar" style="height: 20%"></div>
+      <div class="chart-bar" style="height: 40%"></div>
+      <div class="chart-bar" style="height: 60%"></div>
+      <div class="chart-bar" style="height: 80%"></div>
+      <div class="chart-bar" style="height: 100%"></div>
+      <div class="chart-bar" style="height: 90%"></div>
+      <div class="chart-bar" style="height: 70%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-card">
+  <div class="card-header">
+    <div class="card-icon success">
+      <span class="icon">💰</span>
+    </div>
+    <div class="status-indicator">
+      <span class="status-dot active"></span>
+      <span class="status-text">En vivo</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="metric-title">Ingresos</h3>
+    <div class="metric-value">$48,692</div>
+    <div class="metric-change positive">
+      <span class="change-icon">↗</span>
+      <span class="change-value">+8.2%</span>
+      <span class="change-period">esta semana</span>
+    </div>
+  </div>
+  <div class="card-progress">
+    <div class="progress-label">
+      <span>Meta: $50,000</span>
+      <span>97.4%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 97.4%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-card warning">
+  <div class="card-header">
+    <div class="card-icon warning">
+      <span class="icon">⚠️</span>
+    </div>
+    <div class="alert-badge">
+      <span class="badge urgent">Urgente</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3 class="metric-title">Sistema</h3>
+    <div class="metric-value">85% CPU</div>
+    <div class="metric-change negative">
+      <span class="change-icon">↑</span>
+      <span class="change-value">+15%</span>
+      <span class="change-period">última hora</span>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="action-btn">Ver detalles</button>
+    <button class="action-btn secondary">Optimizar</button>
+  </div>
+</div>
+
+<div class="dashboard-card compact">
+  <div class="compact-content">
+    <div class="compact-icon">📊</div>
+    <div class="compact-info">
+      <div class="compact-title">Conversiones</div>
+      <div class="compact-value">324</div>
+      <div class="compact-change positive">+5.8%</div>
+    </div>
+    <div class="compact-trend">
+      <div class="trend-line">
+        <div class="trend-point" style="bottom: 10%"></div>
+        <div class="trend-point" style="bottom: 30%"></div>
+        <div class="trend-point" style="bottom: 20%"></div>
+        <div class="trend-point" style="bottom: 60%"></div>
+        <div class="trend-point" style="bottom: 80%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-width: 280px;
+    max-width: 320px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transition: all 0.3s ease;
+  }
+
+  .dashboard-card.warning::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .dashboard-card.compact {
+    padding: 1rem;
+    max-width: 200px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .card-icon.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+  }
+
+  .card-icon.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  .card-icon.warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+
+  .dashboard-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .card-icon .icon {
+    font-size: 1.5rem;
+  }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .action-menu {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .action-menu:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+  }
+
+  .status-dot.active {
+    background: #10b981;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .status-text {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .alert-badge {
+    display: flex;
+    align-items: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .badge.urgent {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .card-content {
+    margin-bottom: 1.5rem;
+  }
+
+  .metric-title {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .metric-value {
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  .dashboard-card:hover .metric-value {
+    color: var(--primary-color);
+  }
+
+  .metric-change {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .metric-change.positive {
+    color: #10b981;
+  }
+
+  .metric-change.negative {
+    color: #ef4444;
+  }
+
+  .change-icon {
+    font-weight: 700;
+  }
+
+  .change-value {
+    font-weight: 600;
+  }
+
+  .change-period {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+  }
+
+  .card-chart {
+    margin-top: 1.5rem;
+  }
+
+  .mini-chart {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    height: 40px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    border-radius: 2px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  .dashboard-card:hover .chart-bar {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+
+  .card-progress {
+    margin-top: 1.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--surface-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    transition: width 0.3s ease;
+  }
+
+  .card-footer {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .action-btn {
+    flex: 1;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+  }
+
+  .action-btn:not(.secondary) {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+  }
+
+  .action-btn.secondary {
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .action-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .action-btn:not(.secondary):hover {
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .action-btn.secondary:hover {
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  /* Compact variant */
+  .compact-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .compact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .compact-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .compact-title {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 0.25rem;
+  }
+
+  .compact-value {
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  .compact-change {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .compact-change.positive {
+    color: #10b981;
+  }
+
+  .compact-trend {
+    width: 60px;
+    height: 30px;
+    position: relative;
+  }
+
+  .trend-line {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .trend-point {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    left: calc(var(--i, 0) * 20%);
+  }
+
+  .trend-point:nth-child(1) { left: 0%; }
+  .trend-point:nth-child(2) { left: 20%; }
+  .trend-point:nth-child(3) { left: 40%; }
+  .trend-point:nth-child(4) { left: 60%; }
+  .trend-point:nth-child(5) { left: 80%; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard-card {
+      max-width: 100%;
+      padding: 1.25rem;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+    }
+
+    .card-footer {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 100%;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Tarjetas de Dashboard</h3>
+  <p>Tarjetas especializadas para mostrar métricas, estadísticas y datos importantes en interfaces administrativas.</p>
+  
+  <div class="demo-container">
+    <div class="dashboard-showcase">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <div class="card-icon primary">
+            <span class="icon">👥</span>
+          </div>
+          <div class="card-actions">
+            <button class="action-menu">⋯</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="metric-title">Usuarios Activos</h3>
+          <div class="metric-value">2,847</div>
+          <div class="metric-change positive">
+            <span class="change-icon">↗</span>
+            <span class="change-value">+12.5%</span>
+            <span class="change-period">vs mes anterior</span>
+          </div>
+        </div>
+        <div class="card-chart">
+          <div class="mini-chart">
+            <div class="chart-bar" style="height: 20%"></div>
+            <div class="chart-bar" style="height: 40%"></div>
+            <div class="chart-bar" style="height: 60%"></div>
+            <div class="chart-bar" style="height: 80%"></div>
+            <div class="chart-bar" style="height: 100%"></div>
+            <div class="chart-bar" style="height: 90%"></div>
+            <div class="chart-bar" style="height: 70%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <div class="card-icon success">
+            <span class="icon">💰</span>
+          </div>
+          <div class="status-indicator">
+            <span class="status-dot active"></span>
+            <span class="status-text">En vivo</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="metric-title">Ingresos</h3>
+          <div class="metric-value">$48,692</div>
+          <div class="metric-change positive">
+            <span class="change-icon">↗</span>
+            <span class="change-value">+8.2%</span>
+            <span class="change-period">esta semana</span>
+          </div>
+        </div>
+        <div class="card-progress">
+          <div class="progress-label">
+            <span>Meta: $50,000</span>
+            <span>97.4%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 97.4%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card warning">
+        <div class="card-header">
+          <div class="card-icon warning">
+            <span class="icon">⚠️</span>
+          </div>
+          <div class="alert-badge">
+            <span class="badge urgent">Urgente</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="metric-title">Sistema</h3>
+          <div class="metric-value">85% CPU</div>
+          <div class="metric-change negative">
+            <span class="change-icon">↑</span>
+            <span class="change-value">+15%</span>
+            <span class="change-period">última hora</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="action-btn">Ver detalles</button>
+          <button class="action-btn secondary">Optimizar</button>
+        </div>
+      </div>
+
+      <div class="dashboard-card compact">
+        <div class="compact-content">
+          <div class="compact-icon">📊</div>
+          <div class="compact-info">
+            <div class="compact-title">Conversiones</div>
+            <div class="compact-value">324</div>
+            <div class="compact-change positive">+5.8%</div>
+          </div>
+          <div class="compact-trend">
+            <div class="trend-line">
+              <div class="trend-point" style="bottom: 10%"></div>
+              <div class="trend-point" style="bottom: 30%"></div>
+              <div class="trend-point" style="bottom: 20%"></div>
+              <div class="trend-point" style="bottom: 60%"></div>
+              <div class="trend-point" style="bottom: 80%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos duplicados para el funcionamiento del preview */
+  .dashboard-card {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-width: 280px;
+    max-width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    transition: all 0.3s ease;
+  }
+
+  .dashboard-card.warning::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .dashboard-card.compact {
+    padding: 1rem;
+    max-width: 200px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .card-icon.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+  }
+
+  .card-icon.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  .card-icon.warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+
+  .dashboard-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .card-icon .icon {
+    font-size: 1.5rem;
+  }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .action-menu {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .action-menu:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+  }
+
+  .status-dot.active {
+    background: #10b981;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .status-text {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .alert-badge {
+    display: flex;
+    align-items: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .badge.urgent {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .card-content {
+    margin-bottom: 1.5rem;
+  }
+
+  .metric-title {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .metric-value {
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+  }
+
+  .dashboard-card:hover .metric-value {
+    color: var(--primary-color);
+  }
+
+  .metric-change {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .metric-change.positive {
+    color: #10b981;
+  }
+
+  .metric-change.negative {
+    color: #ef4444;
+  }
+
+  .change-icon {
+    font-weight: 700;
+  }
+
+  .change-value {
+    font-weight: 600;
+  }
+
+  .change-period {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+  }
+
+  .card-chart {
+    margin-top: 1.5rem;
+  }
+
+  .mini-chart {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    height: 40px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    border-radius: 2px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  .dashboard-card:hover .chart-bar {
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+
+  .card-progress {
+    margin-top: 1.5rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--surface-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    transition: width 0.3s ease;
+  }
+
+  .card-footer {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .action-btn {
+    flex: 1;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+  }
+
+  .action-btn:not(.secondary) {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+  }
+
+  .action-btn.secondary {
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .action-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .action-btn:not(.secondary):hover {
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .action-btn.secondary:hover {
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .compact-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .compact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .compact-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .compact-title {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 0.25rem;
+  }
+
+  .compact-value {
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  .compact-change {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .compact-change.positive {
+    color: #10b981;
+  }
+
+  .compact-trend {
+    width: 60px;
+    height: 30px;
+    position: relative;
+  }
+
+  .trend-line {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .trend-point {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    left: calc(var(--i, 0) * 20%);
+  }
+
+  .trend-point:nth-child(1) { left: 0%; }
+  .trend-point:nth-child(2) { left: 20%; }
+  .trend-point:nth-child(3) { left: 40%; }
+  .trend-point:nth-child(4) { left: 60%; }
+  .trend-point:nth-child(5) { left: 80%; }
+
+  @media (max-width: 768px) {
+    .dashboard-card {
+      max-width: 100%;
+      padding: 1.25rem;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+    }
+
+    .card-footer {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 100%;
+    }
+  }
+
+  /* Estilos del contenedor de preview */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  .dashboard-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    gap: 1.5rem;
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+    justify-items: stretch;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-showcase {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .demo-container {
+      min-height: 300px;
+    }
+  }
+</style>
