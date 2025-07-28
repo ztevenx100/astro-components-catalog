@@ -1,8 +1,9 @@
 ---
 import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
 
 const code = `
-<div class="pricing-card">
+<div class="card-base card-pricing">
   <div class="pricing-header">
     <div class="plan-badge">Más Popular</div>
     <h4 class="plan-name">Plan Pro</h4>
@@ -41,7 +42,7 @@ const code = `
   </div>
 </div>
 
-<div class="pricing-card basic">
+<div class="card-pricing basic">
   <div class="pricing-header">
     <h4 class="plan-name">Plan Básico</h4>
     <div class="plan-price">
@@ -75,10 +76,10 @@ const code = `
 </div>
 
 <style>
-  .pricing-card {
+  .card-pricing {
     background: var(--surface-color);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
     border: 2px solid var(--border-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -87,12 +88,12 @@ const code = `
     backdrop-filter: blur(10px);
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
     display: flex;
     flex-direction: column;
   }
 
-  .pricing-card::before {
+  .card-pricing::before {
     content: '';
     position: absolute;
     top: 0;
@@ -105,17 +106,17 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .pricing-card:hover::before {
+  .card-pricing:hover::before {
     transform: scaleX(1);
   }
 
-  .pricing-card:hover {
+  .card-pricing:hover {
     transform: translateY(-12px) scale(1.03);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
     border-color: var(--primary-color);
   }
 
-  .pricing-card.basic {
+  .card-pricing.basic {
     border-color: var(--border-color);
   }
 
@@ -133,7 +134,7 @@ const code = `
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 16px;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -149,7 +150,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .pricing-card:hover .plan-name {
+  .card-pricing:hover .plan-name {
     color: var(--primary-color);
   }
 
@@ -175,7 +176,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .pricing-card:hover .amount {
+  .card-pricing:hover .amount {
     color: var(--primary-color);
   }
 
@@ -305,8 +306,8 @@ const code = `
 
   /* Responsive */
   @media (max-width: 768px) {
-    .pricing-card {
-      max-width: 100%;
+    .card-pricing {
+      max-width: 320px;
       min-width: 0;
       padding: 1.5rem;
     }
@@ -329,8 +330,8 @@ const code = `
   <p>Tarjetas elegantes para mostrar planes de precios con características destacadas.</p>
   
   <div class="demo-container">
-    <div class="pricing-showcase">
-      <div class="pricing-card basic">
+    <div class="card-showcase">
+      <div class="card-pricing basic">
         <div class="pricing-header">
           <h4 class="plan-name">Plan Básico</h4>
           <div class="plan-price">
@@ -363,7 +364,7 @@ const code = `
         </div>
       </div>
 
-      <div class="pricing-card">
+      <div class="card-base card-pricing">
         <div class="pricing-header">
           <div class="plan-badge">Más Popular</div>
           <h4 class="plan-name">Plan Pro</h4>
@@ -409,10 +410,10 @@ const code = `
 
 <style>
   /* Estilos duplicados para el funcionamiento del preview */
-  .pricing-card {
+  .card-pricing {
     background: var(--surface-color);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
     border: 2px solid var(--border-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -421,12 +422,12 @@ const code = `
     backdrop-filter: blur(10px);
     width: 100%;
     min-width: 280px;
-    max-width: 100%;
+    max-width: 320px;
     display: flex;
     flex-direction: column;
   }
 
-  .pricing-card::before {
+  .card-pricing::before {
     content: '';
     position: absolute;
     top: 0;
@@ -439,17 +440,17 @@ const code = `
     transition: transform 0.3s ease;
   }
 
-  .pricing-card:hover::before {
+  .card-pricing:hover::before {
     transform: scaleX(1);
   }
 
-  .pricing-card:hover {
+  .card-pricing:hover {
     transform: translateY(-12px) scale(1.03);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
     border-color: var(--primary-color);
   }
 
-  .pricing-card.basic {
+  .card-pricing.basic {
     border-color: var(--border-color);
   }
 
@@ -467,7 +468,7 @@ const code = `
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 16px;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -483,7 +484,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .pricing-card:hover .plan-name {
+  .card-pricing:hover .plan-name {
     color: var(--primary-color);
   }
 
@@ -509,7 +510,7 @@ const code = `
     transition: color 0.3s ease;
   }
 
-  .pricing-card:hover .amount {
+  .card-pricing:hover .amount {
     color: var(--primary-color);
   }
 
@@ -638,8 +639,8 @@ const code = `
   }
 
   @media (max-width: 768px) {
-    .pricing-card {
-      max-width: 100%;
+    .card-pricing {
+      max-width: 320px;
       min-width: 0;
       padding: 1.5rem;
     }
@@ -690,16 +691,16 @@ const code = `
     min-height: 400px;
   }
 
-  .pricing-showcase {
+  .card-showcase {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 100%;
+    max-width: 320px;
     width: 100%;
   }
 
   @media (max-width: 768px) {
-    .pricing-showcase {
+    .card-showcase {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
