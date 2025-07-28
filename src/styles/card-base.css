@@ -53,10 +53,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
   gap: 1.5rem;
-  max-width: 1200px;
+  max-width: 100%;
   width: 100%;
   justify-content: center;
   justify-items: stretch;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* Contenedor demo estándar */
@@ -68,6 +70,13 @@
 }
 
 /* Responsive design estándar */
+@media (max-width: 1200px) {
+  .card-showcase {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .card-base {
     max-width: 100%;
@@ -81,10 +90,23 @@
   .card-showcase {
     grid-template-columns: 1fr;
     gap: 1rem;
+    padding: 0 1rem;
   }
   
   .demo-container {
     min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-showcase {
+    padding: 0 0.5rem;
+    gap: 0.75rem;
+  }
+  
+  .card-base {
+    padding: 1rem;
+    min-width: 250px;
   }
 }
 
