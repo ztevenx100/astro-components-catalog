@@ -39,6 +39,11 @@ import Breadcrumbs from '../components/ui/navigation/Breadcrumbs.astro';
 import TabNavigation from '../components/ui/navigation/TabNavigation.astro';
 import MobileMenu from '../components/ui/navigation/MobileMenu.astro';
 
+// Importar componentes de feedback
+import ToastNotification from '../components/ui/feedback/ToastNotification.astro';
+import StatusBadge from '../components/ui/feedback/StatusBadge.astro';
+import ProgressBar from '../components/ui/feedback/ProgressBar.astro';
+
 // Importar componente de demostración del tema
 import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 ---
@@ -55,6 +60,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			<a href="#buttons" class="nav-link">Botones</a>
 			<a href="#cards" class="nav-link">Tarjetas</a>
 			<a href="#forms" class="nav-link">Formularios</a>
+			<a href="#feedback" class="nav-link">💬 Feedback</a>
 			<a href="#navigation" class="nav-link">Navegación</a>
 		</nav>
 
@@ -105,6 +111,15 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				<RatingInput />
 				<SimpleFileUpload />
 				<MultiStepForm />
+			</div>
+		</section>
+
+		<section id="feedback" class="section">
+			<h2>💬 Feedback</h2>
+			<div class="components-grid">
+				<ToastNotification />
+				<StatusBadge />
+				<ProgressBar />
 			</div>
 		</section>
 

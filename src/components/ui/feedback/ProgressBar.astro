@@ -1,0 +1,525 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Progress Bar Básica -->
+<div class="progress-container">
+  <div class="progress-bar" data-progress="75">
+    <div class="progress-fill"></div>
+    <span class="progress-text">75%</span>
+  </div>
+</div>
+
+<!-- Progress Bar con Label -->
+<div class="progress-container">
+  <div class="progress-label">
+    <span>Descargando archivo...</span>
+    <span class="progress-value">65%</span>
+  </div>
+  <div class="progress-bar success" data-progress="65">
+    <div class="progress-fill"></div>
+  </div>
+</div>
+
+<!-- Progress Bars de Colores -->
+<div class="progress-container">
+  <div class="progress-bar success" data-progress="85">
+    <div class="progress-fill"></div>
+    <span class="progress-text">Completado 85%</span>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar warning" data-progress="45">
+    <div class="progress-fill"></div>
+    <span class="progress-text">En progreso 45%</span>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar error" data-progress="25">
+    <div class="progress-fill"></div>
+    <span class="progress-text">Error 25%</span>
+  </div>
+</div>
+
+<!-- Progress Bar Animada -->
+<div class="progress-container">
+  <div class="progress-label">
+    <span>Procesando...</span>
+    <span class="progress-value">Loading...</span>
+  </div>
+  <div class="progress-bar animated">
+    <div class="progress-fill-animated"></div>
+  </div>
+</div>
+
+<!-- Progress Bar Compacta -->
+<div class="progress-container compact">
+  <div class="progress-bar compact success" data-progress="90">
+    <div class="progress-fill"></div>
+  </div>
+</div>
+
+<style>
+  .progress-container {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .progress-container.compact {
+    margin-bottom: 0.75rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .progress-value {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .progress-bar {
+    position: relative;
+    height: 12px;
+    background: var(--surface-secondary);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .progress-bar.compact {
+    height: 8px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    border-radius: 50px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 50px;
+  }
+
+  /* Colores específicos */
+  .progress-bar.success .progress-fill {
+    background: linear-gradient(90deg, #10b981, #059669);
+  }
+
+  .progress-bar.warning .progress-fill {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+  }
+
+  .progress-bar.error .progress-fill {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+  }
+
+  .progress-bar.info .progress-fill {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .progress-bar.compact .progress-text {
+    display: none;
+  }
+
+  /* Progress Bar Animada */
+  .progress-bar.animated {
+    background: linear-gradient(90deg, #e5e7eb, #f3f4f6);
+    animation: shimmer 1.5s infinite;
+  }
+
+  .progress-fill-animated {
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    border-radius: 50px;
+    animation: loading 2s infinite;
+    width: 100%;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: -200% 0; }
+    50% { background-position: 200% 0; }
+  }
+
+  @keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Hover Effects */
+  .progress-bar:hover {
+    transform: scale(1.02);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+// Animar progress bars al cargar
+document.addEventListener('DOMContentLoaded', function() {
+  const progressBars = document.querySelectorAll('.progress-bar[data-progress]');
+  
+  progressBars.forEach(bar => {
+    const progress = bar.getAttribute('data-progress');
+    const fill = bar.querySelector('.progress-fill');
+    
+    setTimeout(() => {
+      (fill as HTMLElement).style.width = progress + '%';
+    }, 300);
+  });
+});
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Progress Bars</h3>
+  <p>Indicadores de progreso animados para mostrar el estado de tareas, cargas y procesos en tiempo real.</p>
+  
+  <div class="demo-container">
+    <div class="progress-showcase">
+      
+      <div class="progress-section">
+        <h4>Progress Bars Básicas</h4>
+        
+        <div class="progress-container">
+          <div class="progress-bar" data-progress="75">
+            <div class="progress-fill"></div>
+            <span class="progress-text">75%</span>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Descargando archivo...</span>
+            <span class="progress-value">65%</span>
+          </div>
+          <div class="progress-bar" data-progress="65">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <h4>Progress Bars por Estado</h4>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Completado exitosamente</span>
+            <span class="progress-value">85%</span>
+          </div>
+          <div class="progress-bar success" data-progress="85">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>En progreso</span>
+            <span class="progress-value">45%</span>
+          </div>
+          <div class="progress-bar warning" data-progress="45">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Error encontrado</span>
+            <span class="progress-value">25%</span>
+          </div>
+          <div class="progress-bar error" data-progress="25">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <h4>Progress Bar Animada</h4>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Procesando...</span>
+            <span class="progress-value">Loading...</span>
+          </div>
+          <div class="progress-bar animated">
+            <div class="progress-fill-animated"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-section">  
+        <h4>Progress Bars Compactas</h4>
+        
+        <div class="progress-container compact">
+          <div class="progress-bar compact success" data-progress="90">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-container compact">
+          <div class="progress-bar compact warning" data-progress="60">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="progress-container compact">
+          <div class="progress-bar compact error" data-progress="30">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script>
+// Animar progress bars al cargar
+document.addEventListener('DOMContentLoaded', function() {
+  const progressBars = document.querySelectorAll('.progress-bar[data-progress]');
+  
+  progressBars.forEach(bar => {
+    const progress = bar.getAttribute('data-progress');
+    const fill = bar.querySelector('.progress-fill');
+    
+    if (fill) {
+      setTimeout(() => {
+        (fill as HTMLElement).style.width = progress + '%';
+      }, 300);
+    }
+  });
+});
+</script>
+
+<style>
+  .progress-container {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .progress-container.compact {
+    margin-bottom: 0.75rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .progress-value {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .progress-bar {
+    position: relative;
+    height: 12px;
+    background: var(--surface-secondary);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .progress-bar.compact {
+    height: 8px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    border-radius: 50px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    width: 0%;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 50px;
+  }
+
+  /* Colores específicos */
+  .progress-bar.success .progress-fill {
+    background: linear-gradient(90deg, #10b981, #059669);
+  }
+
+  .progress-bar.warning .progress-fill {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+  }
+
+  .progress-bar.error .progress-fill {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+  }
+
+  .progress-bar.info .progress-fill {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .progress-bar.compact .progress-text {
+    display: none;
+  }
+
+  /* Progress Bar Animada */
+  .progress-bar.animated {
+    background: linear-gradient(90deg, var(--surface-secondary), var(--surface-color), var(--surface-secondary));
+    background-size: 200% 100%;
+  }
+
+  .progress-fill-animated {
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    border-radius: 50px;
+    animation: loading 2s infinite;
+    width: 100%;
+  }
+
+  @keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Hover Effects */
+  .progress-bar:hover {
+    transform: scale(1.02);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Progress Showcase Layout */
+  .progress-showcase {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .progress-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(var(--surface-color-rgb, 255, 255, 255), 0.3);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .progress-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .progress-section {
+      padding: 1rem;
+    }
+
+    .progress-label {
+      font-size: 0.8rem;
+    }
+
+    .progress-bar {
+      height: 10px;
+    }
+
+    .progress-bar.compact {
+      height: 6px;
+    }
+
+    .progress-text {
+      font-size: 0.65rem;
+    }
+  }
+</style>
