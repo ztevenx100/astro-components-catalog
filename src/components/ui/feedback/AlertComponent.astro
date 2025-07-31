@@ -1,0 +1,777 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Alert Básico -->
+<div class="alert success">
+  <div class="alert-icon">
+    <span class="icon">✓</span>
+  </div>
+  <div class="alert-content">
+    <h5 class="alert-title">¡Operación exitosa!</h5>
+    <p class="alert-message">Los datos se han guardado correctamente en la base de datos.</p>
+  </div>
+  <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+</div>
+
+<!-- Alert con Acción -->
+<div class="alert warning">
+  <div class="alert-icon">
+    <span class="icon">⚠</span>
+  </div>
+  <div class="alert-content">
+    <h5 class="alert-title">Actualización disponible</h5>
+    <p class="alert-message">Hay una nueva versión disponible para descargar.</p>
+    <div class="alert-actions">
+      <button class="alert-btn primary">Actualizar ahora</button>
+      <button class="alert-btn secondary">Recordar más tarde</button>
+    </div>
+  </div>
+  <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+</div>
+
+<!-- Alert Simple -->
+<div class="alert error simple">
+  <div class="alert-icon">
+    <span class="icon">✗</span>
+  </div>
+  <div class="alert-content">
+    <p class="alert-message">Error de conexión. Verifica tu internet.</p>
+  </div>
+  <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+</div>
+
+<!-- Alert con Border -->
+<div class="alert info bordered">
+  <div class="alert-icon">
+    <span class="icon">ℹ</span>
+  </div>
+  <div class="alert-content">
+    <h5 class="alert-title">Información importante</h5>
+    <p class="alert-message">El mantenimiento programado será el próximo domingo de 2:00 AM a 6:00 AM.</p>
+  </div>
+</div>
+
+<style>
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .alert.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.02));
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .alert.success::before {
+    background: linear-gradient(180deg, #10b981, #059669);
+  }
+
+  .alert.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(217, 119, 6, 0.02));
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .alert.warning::before {
+    background: linear-gradient(180deg, #f59e0b, #d97706);
+  }
+
+  .alert.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(220, 38, 38, 0.02));
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  .alert.error::before {
+    background: linear-gradient(180deg, #ef4444, #dc2626);
+  }
+
+  .alert.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(37, 99, 235, 0.02));
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .alert.info::before {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
+  }
+
+  .alert.bordered {
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .alert.simple {
+    padding: 0.75rem 1rem;
+  }
+
+  .alert:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .alert.simple .alert-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .alert.success .alert-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+  }
+
+  .alert.warning .alert-icon {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+  }
+
+  .alert.error .alert-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .alert.info .alert-icon {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+  }
+
+  .alert:hover .alert-icon {
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  .alert-icon .icon {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .alert.simple .alert-icon .icon {
+    font-size: 0.875rem;
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0 0 0.375rem 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .alert.simple .alert-title {
+    display: none;
+  }
+
+  .alert-message {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .alert.simple .alert-message {
+    margin-bottom: 0;
+    font-size: 0.85rem;
+  }
+
+  .alert-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .alert-btn {
+    border: none;
+    padding: 0.4rem 0.875rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+  }
+
+  .alert-btn.primary {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .alert-btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .alert-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .alert-btn.secondary:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+  }
+
+  .alert-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .alert-close:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    transform: scale(1.1);
+  }
+
+  .alert.simple .alert-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    font-size: 0.875rem;
+  }
+
+  /* Animación de entrada */
+  .alert {
+    animation: slideInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+function dismissAlert(alertElement) {
+  alertElement.style.animation = 'slideOutUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+  setTimeout(() => {
+    if (alertElement.parentElement) {
+      alertElement.parentElement.removeChild(alertElement);
+    }
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const closeButtons = document.querySelectorAll('.alert-close');
+  
+  closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      dismissAlert(this.parentElement);
+    });
+  });
+});
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Alert Components</h3>
+  <p>Componentes de alerta flexibles para mostrar mensajes importantes con diferentes niveles de urgencia.</p>
+  
+  <div class="demo-container">
+    <div class="alert-showcase">
+      
+      <div class="alert-section">
+        <h4>Alerts Completos</h4>
+        
+        <div class="alert success">
+          <div class="alert-icon">
+            <span class="icon">✓</span>
+          </div>
+          <div class="alert-content">
+            <h5 class="alert-title">¡Operación exitosa!</h5>
+            <p class="alert-message">Los datos se han guardado correctamente en la base de datos.</p>
+          </div>
+          <button class="alert-close" onclick="dismissAlert(this.parentElement)">×</button>
+        </div>
+
+        <div class="alert warning">
+          <div class="alert-icon">
+            <span class="icon">⚠</span>
+          </div>
+          <div class="alert-content">
+            <h5 class="alert-title">Actualización disponible</h5>
+            <p class="alert-message">Hay una nueva versión disponible para descargar.</p>
+            <div class="alert-actions">
+              <button class="alert-btn primary">Actualizar ahora</button>
+              <button class="alert-btn secondary">Recordar más tarde</button>
+            </div>
+          </div>
+          <button class="alert-close" onclick="dismissAlert(this.parentElement)">×</button>
+        </div>
+      </div>
+
+      <div class="alert-section">
+        <h4>Alerts Simples</h4>
+        
+        <div class="alert error simple">
+          <div class="alert-icon">
+            <span class="icon">✗</span>
+          </div>
+          <div class="alert-content">
+            <p class="alert-message">Error de conexión. Verifica tu internet.</p>
+          </div>
+          <button class="alert-close" onclick="dismissAlert(this.parentElement)">×</button>
+        </div>
+
+        <div class="alert info simple">
+          <div class="alert-icon">
+            <span class="icon">ℹ</span>
+          </div>
+          <div class="alert-content">
+            <p class="alert-message">Nuevas características disponibles en tu cuenta.</p>
+          </div>
+          <button class="alert-close" onclick="dismissAlert(this.parentElement)">×</button>
+        </div>
+      </div>
+
+      <div class="alert-section">
+        <h4>Alerts con Border</h4>
+        
+        <div class="alert info bordered">
+          <div class="alert-icon">
+            <span class="icon">ℹ</span>
+          </div>
+          <div class="alert-content">
+            <h5 class="alert-title">Información importante</h5>
+            <p class="alert-message">El mantenimiento programado será el próximo domingo de 2:00 AM a 6:00 AM.</p>
+          </div>
+        </div>
+
+        <div class="alert success bordered">
+          <div class="alert-icon">
+            <span class="icon">🎉</span>
+          </div>
+          <div class="alert-content">
+            <h5 class="alert-title">¡Bienvenido!</h5>
+            <p class="alert-message">Tu cuenta ha sido activada exitosamente. Ahora puedes acceder a todas las funciones.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script>
+function dismissAlert(alertElement) {
+  alertElement.style.animation = 'slideOutUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+  setTimeout(() => {
+    if (alertElement.parentElement) {
+      alertElement.parentElement.removeChild(alertElement);
+    }
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const closeButtons = document.querySelectorAll('.alert-close');
+  
+  closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      dismissAlert(this.parentElement);
+    });
+  });
+});
+</script>
+
+<style>
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .alert.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.02));
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .alert.success::before {
+    background: linear-gradient(180deg, #10b981, #059669);
+  }
+
+  .alert.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(217, 119, 6, 0.02));
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .alert.warning::before {
+    background: linear-gradient(180deg, #f59e0b, #d97706);
+  }
+
+  .alert.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(220, 38, 38, 0.02));
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  .alert.error::before {
+    background: linear-gradient(180deg, #ef4444, #dc2626);
+  }
+
+  .alert.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(37, 99, 235, 0.02));
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .alert.info::before {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
+  }
+
+  .alert.bordered {
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  .alert.simple {
+    padding: 0.75rem 1rem;
+  }
+
+  .alert:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .alert.simple .alert-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .alert.success .alert-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+  }
+
+  .alert.warning .alert-icon {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+  }
+
+  .alert.error .alert-icon {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .alert.info .alert-icon {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+  }
+
+  .alert:hover .alert-icon {
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  .alert-icon .icon {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .alert.simple .alert-icon .icon {
+    font-size: 0.875rem;
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    margin: 0 0 0.375rem 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .alert.simple .alert-title {
+    display: none;
+  }
+
+  .alert-message {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .alert.simple .alert-message {
+    margin-bottom: 0;
+    font-size: 0.85rem;
+  }
+
+  .alert-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .alert-btn {
+    border: none;
+    padding: 0.4rem 0.875rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+  }
+
+  .alert-btn.primary {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .alert-btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .alert-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .alert-btn.secondary:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+  }
+
+  .alert-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .alert-close:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    transform: scale(1.1);
+  }
+
+  .alert.simple .alert-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    font-size: 0.875rem;
+  }
+
+  /* Animación de entrada */
+  .alert {
+    animation: slideInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+  }
+
+  /* Alert Showcase Layout */
+  .alert-showcase {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .alert-section {
+    margin-bottom: 2rem;
+  }
+
+  .alert-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .alert {
+      padding: 0.875rem 1rem;
+    }
+
+    .alert-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .alert.simple .alert-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .alert-title {
+      font-size: 0.9rem;
+    }
+
+    .alert-message {
+      font-size: 0.8rem;
+    }
+
+    .alert-actions {
+      gap: 0.375rem;
+    }
+
+    .alert-btn {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem;
+    }
+  }
+</style>
