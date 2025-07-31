@@ -1,0 +1,680 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Empty State Básico -->
+<div class="empty-state">
+  <div class="empty-icon">
+    <span class="icon">📁</span>
+  </div>
+  <div class="empty-content">
+    <h3 class="empty-title">No hay archivos</h3>
+    <p class="empty-message">Aún no has subido ningún archivo. Comienza subiendo tu primer documento.</p>
+    <div class="empty-actions">
+      <button class="empty-btn primary">Subir archivo</button>
+      <button class="empty-btn secondary">Explorar ejemplos</button>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State Simple -->
+<div class="empty-state simple">
+  <div class="empty-icon small">
+    <span class="icon">🔍</span>
+  </div>
+  <div class="empty-content">
+    <h3 class="empty-title">No se encontraron resultados</h3>
+    <p class="empty-message">Intenta ajustar tus filtros de búsqueda.</p>
+  </div>
+</div>
+
+<!-- Empty State con Ilustración -->
+<div class="empty-state illustration">
+  <div class="empty-illustration">
+    <div class="illustration-graphic">
+      <div class="graphic-element circle"></div>
+      <div class="graphic-element square"></div>
+      <div class="graphic-element triangle"></div>
+    </div>
+  </div>
+  <div class="empty-content">
+    <h3 class="empty-title">Construye algo increíble</h3>
+    <p class="empty-message">Tu panel está vacío. Comienza creando tu primer proyecto para ver toda la magia suceder.</p>
+    <div class="empty-actions">
+      <button class="empty-btn primary">Crear proyecto</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface-color);
+    border-radius: 16px;
+    border: 2px dashed var(--border-color);
+    transition: all 0.3s ease;
+    min-height: 300px;
+  }
+
+  .empty-state.simple {
+    padding: 2rem;
+    min-height: 200px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .empty-state.illustration {
+    padding: 2rem;
+    min-height: 350px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--surface-color), var(--background-color));
+  }
+
+  .empty-state:hover {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-color-rgb, 59, 130, 246), 0.02));
+  }
+
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--surface-secondary), var(--surface-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+  }
+
+  .empty-icon.small {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  .empty-state:hover .empty-icon {
+    transform: scale(1.05);
+  }
+
+  .empty-icon .icon {
+    font-size: 2rem;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+  }
+
+  .empty-icon.small .icon {
+    font-size: 1.5rem;
+  }
+
+  .empty-state:hover .empty-icon .icon {
+    filter: grayscale(0);
+  }
+
+  .empty-content {
+    max-width: 400px;
+  }
+
+  .empty-title {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .empty-state.simple .empty-title {
+    font-size: 1.25rem;
+  }
+
+  .empty-message {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .empty-state.simple .empty-message {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  .empty-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .empty-btn {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+  }
+
+  .empty-btn.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+  }
+
+  .empty-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .empty-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .empty-btn.secondary:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    transform: translateY(-1px);
+  }
+
+  /* Empty Illustration */
+  .empty-illustration {
+    margin-bottom: 2rem;
+  }
+
+  .illustration-graphic {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .graphic-element {
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .graphic-element.circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 50%;
+    top: 10px;
+    left: 20px;
+    animation-delay: 0s;
+  }
+
+  .graphic-element.square {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-radius: 8px;
+    top: 30px;
+    right: 15px;
+    animation-delay: 1s;
+  }
+
+  .graphic-element.triangle {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #f59e0b;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .graphic-element.triangle {
+    animation-name: floatTriangle;
+  }
+
+  @keyframes floatTriangle {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Empty State Components</h3>
+  <p>Componentes informativos para cuando no hay contenido que mostrar, mejorando la experiencia del usuario.</p>
+  
+  <div class="demo-container">
+    <div class="empty-showcase">
+      
+      <div class="empty-section">
+        <h4>Empty State Completo</h4>
+        <div class="empty-state">
+          <div class="empty-icon">
+            <span class="icon">📁</span>
+          </div>
+          <div class="empty-content">
+            <h3 class="empty-title">No hay archivos</h3>
+            <p class="empty-message">Aún no has subido ningún archivo. Comienza subiendo tu primer documento.</p>
+            <div class="empty-actions">
+              <button class="empty-btn primary">Subir archivo</button>
+              <button class="empty-btn secondary">Explorar ejemplos</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-section">
+        <h4>Empty State Simple</h4>
+        <div class="empty-state simple">
+          <div class="empty-icon small">
+            <span class="icon">🔍</span>
+          </div>
+          <div class="empty-content">
+            <h3 class="empty-title">No se encontraron resultados</h3>
+            <p class="empty-message">Intenta ajustar tus filtros de búsqueda.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-section">
+        <h4>Empty State con Ilustración</h4>
+        <div class="empty-state illustration">
+          <div class="empty-illustration">
+            <div class="illustration-graphic">
+              <div class="graphic-element circle"></div>
+              <div class="graphic-element square"></div>
+              <div class="graphic-element triangle"></div>
+            </div>
+          </div>
+          <div class="empty-content">
+            <h3 class="empty-title">Construye algo increíble</h3>
+            <p class="empty-message">Tu panel está vacío. Comienza creando tu primer proyecto para ver toda la magia suceder.</p>
+            <div class="empty-actions">
+              <button class="empty-btn primary">Crear proyecto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-section">
+        <h4>Variaciones de Estados</h4>
+        <div class="empty-grid">
+          <div class="empty-state simple">
+            <div class="empty-icon small">
+              <span class="icon">💬</span>
+            </div>
+            <div class="empty-content">
+              <h3 class="empty-title">Sin mensajes</h3>
+              <p class="empty-message">Tu bandeja de entrada está vacía.</p>
+            </div>
+          </div>
+
+          <div class="empty-state simple">
+            <div class="empty-icon small">
+              <span class="icon">📊</span>
+            </div>
+            <div class="empty-content">
+              <h3 class="empty-title">Sin datos</h3>
+              <p class="empty-message">No hay estadísticas disponibles.</p>
+            </div>
+          </div>
+
+          <div class="empty-state simple">
+            <div class="empty-icon small">
+              <span class="icon">👥</span>
+            </div>
+            <div class="empty-content">
+              <h3 class="empty-title">Sin contactos</h3>
+              <p class="empty-message">Agrega tu primer contacto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface-color);
+    border-radius: 16px;
+    border: 2px dashed var(--border-color);
+    transition: all 0.3s ease;
+    min-height: 300px;
+  }
+
+  .empty-state.simple {
+    padding: 2rem;
+    min-height: 200px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .empty-state.illustration {
+    padding: 2rem;
+    min-height: 350px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--surface-color), var(--background-color));
+  }
+
+  .empty-state:hover {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--surface-color), rgba(var(--primary-color-rgb, 59, 130, 246), 0.02));
+  }
+
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--surface-secondary), var(--surface-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+  }
+
+  .empty-icon.small {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  .empty-state:hover .empty-icon {
+    transform: scale(1.05);
+  }
+
+  .empty-icon .icon {
+    font-size: 2rem;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+  }
+
+  .empty-icon.small .icon {
+    font-size: 1.5rem;
+  }
+
+  .empty-state:hover .empty-icon .icon {
+    filter: grayscale(0);
+  }
+
+  .empty-content {
+    max-width: 400px;
+  }
+
+  .empty-title {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .empty-state.simple .empty-title {
+    font-size: 1.25rem;
+  }
+
+  .empty-message {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .empty-state.simple .empty-message {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  .empty-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .empty-btn {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+  }
+
+  .empty-btn.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    color: white;
+  }
+
+  .empty-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .empty-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .empty-btn.secondary:hover {
+    background: var(--surface-secondary);
+    color: var(--text-color);
+    transform: translateY(-1px);
+  }
+
+  /* Empty Illustration */
+  .empty-illustration {
+    margin-bottom: 2rem;
+  }
+
+  .illustration-graphic {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .graphic-element {
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .graphic-element.circle {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 50%;
+    top: 10px;
+    left: 20px;
+    animation-delay: 0s;
+  }
+
+  .graphic-element.square {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-radius: 8px;
+    top: 30px;
+    right: 15px;
+    animation-delay: 1s;
+  }
+
+  .graphic-element.triangle {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #f59e0b;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 2s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .graphic-element.triangle {
+    animation-name: floatTriangle;
+  }
+
+  @keyframes floatTriangle {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+
+  /* Empty Showcase Layout */
+  .empty-showcase {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .empty-section {
+    margin-bottom: 3rem;
+  }
+
+  .empty-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+  }
+
+  .empty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .empty-state {
+      padding: 2rem 1rem;
+      min-height: 250px;
+    }
+
+    .empty-state.simple {
+      padding: 1.5rem 1rem;
+      min-height: 180px;
+    }
+
+    .empty-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .empty-icon.small {
+      width: 48px;
+      height: 48px;
+    }
+
+    .empty-title {
+      font-size: 1.25rem;
+    }
+
+    .empty-state.simple .empty-title {
+      font-size: 1.1rem;
+    }
+
+    .empty-message {
+      font-size: 0.9rem;
+    }
+
+    .empty-btn {
+      padding: 0.6rem 1.25rem;
+      font-size: 0.85rem;
+    }
+
+    .empty-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .illustration-graphic {
+      width: 100px;
+      height: 100px;
+    }
+  }
+</style>

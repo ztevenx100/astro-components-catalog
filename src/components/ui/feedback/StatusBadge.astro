@@ -1,0 +1,481 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Status Badges Básicos -->
+<div class="badge-group">
+  <span class="status-badge success">
+    <span class="badge-icon">●</span>
+    En línea
+  </span>
+  
+  <span class="status-badge warning">
+    <span class="badge-icon">⚠</span>
+    Pendiente
+  </span>
+  
+  <span class="status-badge error">
+    <span class="badge-icon">●</span>
+    Offline
+  </span>
+  
+  <span class="status-badge info">
+    <span class="badge-icon">●</span>
+    Inactivo
+  </span>
+</div>
+
+<!-- Status Badges con Pulso -->
+<div class="badge-group">
+  <span class="status-badge success pulse">
+    <span class="badge-icon">●</span>
+    Activo
+  </span>
+  
+  <span class="status-badge warning pulse">
+    <span class="badge-icon">⚡</span>
+    Procesando
+  </span>
+  
+  <span class="status-badge error pulse">
+    <span class="badge-icon">●</span>
+    Error crítico
+  </span>
+</div>
+
+<!-- Status Badges Compactos -->
+<div class="badge-group">
+  <span class="status-badge success compact">✓</span>
+  <span class="status-badge warning compact">!</span>
+  <span class="status-badge error compact">✗</span>
+  <span class="status-badge info compact">?</span>
+</div>
+
+<!-- Status Badges con Contador -->
+<div class="badge-group">
+  <span class="status-badge success counter">
+    <span class="badge-icon">✓</span>
+    Completado
+    <span class="badge-count">12</span>
+  </span>
+  
+  <span class="status-badge warning counter">
+    <span class="badge-icon">⚠</span>
+    Advertencias
+    <span class="badge-count">3</span>
+  </span>
+  
+  <span class="status-badge error counter">
+    <span class="badge-icon">✗</span>
+    Errores
+    <span class="badge-count">1</span>
+  </span>
+</div>
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.025em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+  }
+
+  .status-badge.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .status-badge.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1));
+    color: #d97706;
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .status-badge.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  .status-badge.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.1));
+    color: #2563eb;
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .badge-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  /* Efecto Pulse */
+  .status-badge.pulse {
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+    50% { box-shadow: 0 0 0 4px rgba(currentColor, 0.1); }
+  }
+
+  /* Variante Compacta */
+  .status-badge.compact {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    min-width: 24px;
+    justify-content: center;
+  }
+
+  /* Variante con Contador */
+  .status-badge.counter {
+    padding-right: 0.5rem;
+  }
+
+  .badge-count {
+    background: currentColor;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.125rem 0.375rem;
+    border-radius: 10px;
+    margin-left: 0.25rem;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .badge-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Hover Effects */
+  .status-badge:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Status Badges</h3>
+  <p>Indicadores visuales de estado compactos y coloridos para mostrar información de status en tiempo real.</p>
+  
+  <div class="demo-container">
+    <div class="badge-showcase">
+      
+      <div class="badge-section">
+        <h4>Badges Básicos</h4>
+        <div class="badge-group">
+          <span class="status-badge success">
+            <span class="badge-icon">●</span>
+            En línea
+          </span>
+          
+          <span class="status-badge warning">
+            <span class="badge-icon">⚠</span>
+            Pendiente
+          </span>
+          
+          <span class="status-badge error">
+            <span class="badge-icon">●</span>
+            Offline
+          </span>
+          
+          <span class="status-badge info">
+            <span class="badge-icon">●</span>
+            Inactivo
+          </span>
+        </div>
+      </div>
+
+      <div class="badge-section">
+        <h4>Badges con Pulso</h4>
+        <div class="badge-group">
+          <span class="status-badge success pulse">
+            <span class="badge-icon">●</span>
+            Activo
+          </span>
+          
+          <span class="status-badge warning pulse">
+            <span class="badge-icon">⚡</span>
+            Procesando
+          </span>
+          
+          <span class="status-badge error pulse">
+            <span class="badge-icon">●</span>
+            Error crítico
+          </span>
+        </div>
+      </div>
+
+      <div class="badge-section">
+        <h4>Badges Compactos</h4>
+        <div class="badge-group">
+          <span class="status-badge success compact">✓</span>
+          <span class="status-badge warning compact">!</span>
+          <span class="status-badge error compact">✗</span>
+          <span class="status-badge info compact">?</span>
+        </div>
+      </div>
+
+      <div class="badge-section">
+        <h4>Badges con Contador</h4>
+        <div class="badge-group">
+          <span class="status-badge success counter">
+            <span class="badge-icon">✓</span>
+            Completado
+            <span class="badge-count">12</span>
+          </span>
+          
+          <span class="status-badge warning counter">
+            <span class="badge-icon">⚠</span>
+            Advertencias
+            <span class="badge-count">3</span>
+          </span>
+          
+          <span class="status-badge error counter">
+            <span class="badge-icon">✗</span>
+            Errores
+            <span class="badge-count">1</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="badge-section">
+        <h4>Casos de Uso Comunes</h4>
+        <div class="badge-group">
+          <span class="status-badge success">
+            <span class="badge-icon">🟢</span>
+            Servidor activo
+          </span>
+          
+          <span class="status-badge warning pulse">
+            <span class="badge-icon">🔄</span>
+            Sincronizando
+          </span>
+          
+          <span class="status-badge info">
+            <span class="badge-icon">👤</span>
+            23 usuarios online
+          </span>
+          
+          <span class="status-badge error">
+            <span class="badge-icon">🔴</span>
+            Base de datos desconectada
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.025em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+  }
+
+  .status-badge.success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .status-badge.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1));
+    color: #d97706;
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .status-badge.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  .status-badge.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.1));
+    color: #2563eb;
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .badge-icon {
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  /* Efecto Pulse */
+  .status-badge.pulse {
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { 
+      box-shadow: 0 0 0 0 rgba(currentColor, 0.4); 
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 0 4px rgba(currentColor, 0.1); 
+      transform: scale(1.02);
+    }
+  }
+
+  /* Variante Compacta */
+  .status-badge.compact {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    min-width: 24px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* Variante con Contador */
+  .status-badge.counter {
+    padding-right: 0.5rem;
+  }
+
+  .badge-count {
+    background: currentColor;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.125rem 0.375rem;
+    border-radius: 10px;
+    margin-left: 0.25rem;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .badge-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Hover Effects */
+  .status-badge:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .status-badge.pulse:hover {
+    animation-play-state: paused;
+  }
+
+  /* Badge Showcase Layout */
+  .badge-showcase {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .badge-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(var(--surface-color-rgb, 255, 255, 255), 0.3);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .badge-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .badge-section {
+      padding: 1rem;
+    }
+
+    .badge-group {
+      gap: 0.5rem;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .status-badge.compact {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.65rem;
+    }
+
+    .badge-count {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.3rem;
+    }
+  }
+</style>
