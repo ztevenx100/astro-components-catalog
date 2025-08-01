@@ -1,0 +1,609 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Tooltip Básico -->
+<button class="tooltip-trigger" data-tooltip="Este es un tooltip básico" data-position="top">
+  Hover para ver tooltip arriba
+</button>
+
+<!-- Tooltips con diferentes posiciones -->
+<button class="tooltip-trigger" data-tooltip="Tooltip a la derecha" data-position="right">
+  Tooltip derecha
+</button>
+
+<button class="tooltip-trigger" data-tooltip="Tooltip abajo" data-position="bottom">
+  Tooltip abajo
+</button>
+
+<button class="tooltip-trigger" data-tooltip="Tooltip a la izquierda" data-position="left">
+  Tooltip izquierda
+</button>
+
+<!-- Tooltip con contenido HTML -->
+<button class="tooltip-trigger html-tooltip" data-tooltip-html="<strong>Tooltip HTML</strong><br>Con múltiples líneas<br>Y <em>formato</em>">
+  Tooltip con HTML
+</button>
+
+<style>
+  .tooltip-trigger {
+    position: relative;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+  }
+
+  .tooltip-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Tooltip Container */
+  .tooltip {
+    position: absolute;
+    background: var(--text-color);
+    color: var(--surface-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+  }
+
+  /* Tooltip Positions */
+  .tooltip.top {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  .tooltip.top::before {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--text-color);
+  }
+
+  .tooltip.bottom {
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+  }
+
+  .tooltip.bottom::before {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--text-color);
+  }
+
+  .tooltip.left {
+    right: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%) translateX(4px);
+  }
+
+  .tooltip.left::before {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--text-color);
+  }
+
+  .tooltip.right {
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-4px);
+  }
+
+  .tooltip.right::before {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--text-color);
+  }
+
+  /* Show tooltip on hover */
+  .tooltip-trigger:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .tooltip-trigger:hover .tooltip.left {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .tooltip-trigger:hover .tooltip.right {
+    transform: translateY(-50%) translateX(0);
+  }
+</style>
+
+<script>
+// Crear tooltips dinámicamente
+document.addEventListener('DOMContentLoaded', function() {
+  const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+  
+  tooltipTriggers.forEach(trigger => {
+    const tooltipText = trigger.getAttribute('data-tooltip');
+    const tooltipHtml = trigger.getAttribute('data-tooltip-html');
+    const position = trigger.getAttribute('data-position') || 'top';
+    
+    if (tooltipText || tooltipHtml) {
+      const tooltip = document.createElement('div');
+      tooltip.className = \`tooltip \${position}\`;
+      
+      if (tooltipHtml) {
+        tooltip.innerHTML = tooltipHtml;
+      } else {
+        tooltip.textContent = tooltipText;
+      }
+      
+      trigger.appendChild(tooltip);
+    }
+  });
+});
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Tooltip Components</h3>
+  <p>Tooltips personalizables con diferentes posiciones y contenido, con animaciones suaves.</p>
+  
+  <div class="demo-container">
+    <div class="tooltip-showcase">
+      
+      <div class="tooltip-section">
+        <h4>Posiciones del Tooltip</h4>
+        <div class="tooltip-grid">
+          <button class="tooltip-trigger" data-tooltip="Tooltip arriba con información útil" data-position="top">
+            Arriba
+          </button>
+          
+          <button class="tooltip-trigger" data-tooltip="Tooltip a la derecha" data-position="right">
+            Derecha
+          </button>
+          
+          <button class="tooltip-trigger" data-tooltip="Tooltip abajo con más texto descriptivo" data-position="bottom">
+            Abajo
+          </button>
+          
+          <button class="tooltip-trigger" data-tooltip="Tooltip a la izquierda" data-position="left">
+            Izquierda
+          </button>
+        </div>
+      </div>
+
+      <div class="tooltip-section">
+        <h4>Variantes de Tooltip</h4>
+        <div class="tooltip-variants">
+          <button class="tooltip-trigger success" data-tooltip="¡Operación exitosa!" data-position="top">
+            Éxito
+          </button>
+          
+          <button class="tooltip-trigger warning" data-tooltip="⚠️ Ten cuidado con esta acción" data-position="top">
+            Advertencia
+          </button>
+          
+          <button class="tooltip-trigger error" data-tooltip="❌ Error: Operación no permitida" data-position="top">
+            Error
+          </button>
+          
+          <button class="tooltip-trigger info" data-tooltip="ℹ️ Información adicional disponible" data-position="top">
+            Info
+          </button>
+        </div>
+      </div>
+
+      <div class="tooltip-section">
+        <h4>Tooltip con HTML</h4>
+        <button class="tooltip-trigger html-tooltip" data-tooltip-html="<strong>Usuario:</strong> Juan Pérez<br><em>Email:</em> juan@email.com<br><span style='color: #10b981;'>✓ Activo</span>">
+          Perfil de Usuario
+        </button>
+      </div>
+
+      <div class="tooltip-section">
+        <h4>Elementos con Tooltip</h4>
+        <div class="element-examples">
+          <span class="tooltip-trigger text-element" data-tooltip="Este es un texto con tooltip" data-position="top">
+            Texto con tooltip
+          </span>
+          
+          <div class="tooltip-trigger icon-element" data-tooltip="Configuraciones del sistema" data-position="bottom">
+            ⚙️
+          </div>
+          
+          <input type="text" class="tooltip-trigger input-element" placeholder="Campo con tooltip" data-tooltip="Ingresa tu nombre completo aquí" data-position="right">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+// Crear tooltips dinámicamente
+document.addEventListener('DOMContentLoaded', function() {
+  const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+  
+  tooltipTriggers.forEach(trigger => {
+    // Evitar duplicar tooltips
+    if (trigger.querySelector('.tooltip')) return;
+    
+    const tooltipText = trigger.getAttribute('data-tooltip');
+    const tooltipHtml = trigger.getAttribute('data-tooltip-html');
+    const position = trigger.getAttribute('data-position') || 'top';
+    
+    if (tooltipText || tooltipHtml) {
+      const tooltip = document.createElement('div');
+      tooltip.className = `tooltip ${position}`;
+      
+      if (tooltipHtml) {
+        tooltip.innerHTML = tooltipHtml;
+      } else {
+        tooltip.textContent = tooltipText;
+      }
+      
+      trigger.appendChild(tooltip);
+    }
+  });
+});
+</script>
+
+<style is:global>
+  .tooltip-trigger {
+    position: relative;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.25rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .tooltip-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Tooltip Variants */
+  .tooltip-trigger.success {
+    background: #10b981;
+  }
+
+  .tooltip-trigger.success:hover {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+
+  .tooltip-trigger.warning {
+    background: #f59e0b;
+  }
+
+  .tooltip-trigger.warning:hover {
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
+
+  .tooltip-trigger.error {
+    background: #ef4444;
+  }
+
+  .tooltip-trigger.error:hover {
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+
+  .tooltip-trigger.info {
+    background: #3b82f6;
+  }
+
+  .tooltip-trigger.info:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .tooltip-trigger.html-tooltip {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  /* Special Elements */
+  .tooltip-trigger.text-element {
+    background: transparent;
+    color: var(--text-color);
+    padding: 0.5rem;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+    text-decoration-thickness: 2px;
+    border-radius: 4px;
+  }
+
+  .tooltip-trigger.icon-element {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+  }
+
+  .tooltip-trigger.input-element {
+    padding: 0.75rem;
+    background: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-width: 200px;
+  }
+
+  .tooltip-trigger.input-element:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+  }
+
+  /* Tooltip Container */
+  .tooltip {
+    position: absolute;
+    background: var(--text-color);
+    color: var(--surface-color);
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    max-width: 250px;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+  }
+
+  /* Tooltip Positions */
+  .tooltip.top {
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+  }
+
+  .tooltip.top::before {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--text-color);
+  }
+
+  .tooltip.bottom {
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+  }
+
+  .tooltip.bottom::before {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--text-color);
+  }
+
+  .tooltip.left {
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+  }
+
+  .tooltip.left::before {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--text-color);
+  }
+
+  .tooltip.right {
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-8px);
+  }
+
+  .tooltip.right::before {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--text-color);
+  }
+
+  /* Show tooltip on hover */
+  .tooltip-trigger:hover .tooltip,
+  .tooltip-trigger:focus .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .tooltip-trigger:hover .tooltip.top,
+  .tooltip-trigger:focus .tooltip.top {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .tooltip-trigger:hover .tooltip.bottom,
+  .tooltip-trigger:focus .tooltip.bottom {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .tooltip-trigger:hover .tooltip.left,
+  .tooltip-trigger:focus .tooltip.left {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .tooltip-trigger:hover .tooltip.right,
+  .tooltip-trigger:focus .tooltip.right {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Tooltip Showcase Layout */
+  .tooltip-showcase {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .tooltip-section {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .tooltip-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+    text-align: left;
+    display: inline-block;
+  }
+
+  .tooltip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .tooltip-variants {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+
+  .element-examples {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 300px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tooltip-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+
+    .tooltip-variants {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .element-examples {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .tooltip {
+      max-width: 200px;
+      font-size: 0.75rem;
+    }
+
+    .tooltip-trigger.input-element {
+      min-width: 150px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tooltip-section h4 {
+      text-align: center;
+      display: block;
+      border-left: none;
+      border-bottom: 3px solid var(--primary-color);
+      padding-left: 0;
+      padding-bottom: 0.5rem;
+    }
+  }
+</style>
