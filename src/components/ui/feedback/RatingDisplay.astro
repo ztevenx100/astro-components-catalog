@@ -1,0 +1,785 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Rating Básico con Estrellas -->
+<div class="rating-display basic">
+  <div class="rating-stars">
+    <span class="star filled">★</span>
+    <span class="star filled">★</span>
+    <span class="star filled">★</span>
+    <span class="star filled">★</span>
+    <span class="star">★</span>
+  </div>
+  <span class="rating-score">4.0</span>
+  <span class="rating-count">(245 reseñas)</span>
+</div>
+
+<!-- Rating con Porcentaje -->
+<div class="rating-display percentage">
+  <div class="rating-circle">
+    <svg class="circle-progress" width="60" height="60">
+      <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-bg"></circle>
+      <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-fill" 
+              style="--progress: 85"></circle>
+    </svg>
+    <span class="circle-text">85%</span>
+  </div>
+  <div class="rating-info">
+    <h4 class="rating-title">Satisfacción</h4>
+    <p class="rating-desc">Excelente calidad</p>
+  </div>
+</div>
+
+<!-- Rating Detallado -->
+<div class="rating-display detailed">
+  <div class="rating-header">
+    <div class="rating-main">
+      <span class="rating-large">4.7</span>
+      <div class="rating-stars">
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star half">★</span>
+      </div>
+      <span class="rating-total">1,234 valoraciones</span>
+    </div>
+  </div>
+  <div class="rating-breakdown">
+    <div class="rating-row">
+      <span class="star-label">5★</span>
+      <div class="rating-bar">
+        <div class="bar-fill" style="--width: 70%"></div>
+      </div>
+      <span class="bar-count">875</span>
+    </div>
+    <div class="rating-row">
+      <span class="star-label">4★</span>
+      <div class="rating-bar">
+        <div class="bar-fill" style="--width: 20%"></div>
+      </div>
+      <span class="bar-count">247</span>
+    </div>
+    <div class="rating-row">
+      <span class="star-label">3★</span>
+      <div class="rating-bar">
+        <div class="bar-fill" style="--width: 7%"></div>
+      </div>
+      <span class="bar-count">87</span>
+    </div>
+    <div class="rating-row">
+      <span class="star-label">2★</span>
+      <div class="rating-bar">
+        <div class="bar-fill" style="--width: 2%"></div>
+      </div>
+      <span class="bar-count">15</span>
+    </div>
+    <div class="rating-row">
+      <span class="star-label">1★</span>
+      <div class="rating-bar">
+        <div class="bar-fill" style="--width: 1%"></div>
+      </div>
+      <span class="bar-count">10</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .rating-display {
+    background: var(--surface-color);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .rating-display:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Rating Básico */
+  .rating-display.basic {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .star {
+    font-size: 1.2rem;
+    color: #e5e7eb;
+    transition: all 0.3s ease;
+  }
+
+  .star.filled {
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  }
+
+  .star.half {
+    background: linear-gradient(90deg, #fbbf24 50%, #e5e7eb 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .rating-score {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+
+  .rating-count {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Rating con Porcentaje */
+  .rating-display.percentage {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .rating-circle {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .circle-progress {
+    transform: rotate(-90deg);
+  }
+
+  .circle-bg {
+    stroke: var(--border-color);
+  }
+
+  .circle-fill {
+    stroke: #10b981;
+    stroke-linecap: round;
+    stroke-dasharray: 157.08; /* 2 * π * 25 */
+    stroke-dashoffset: calc(157.08 - (157.08 * var(--progress)) / 100);
+    transition: stroke-dashoffset 1s ease-in-out;
+  }
+
+  .circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .rating-info h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .rating-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Rating Detallado */
+  .rating-display.detailed {
+    padding: 1.5rem;
+    max-width: 350px;
+  }
+
+  .rating-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .rating-large {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: block;
+    line-height: 1;
+  }
+
+  .rating-display.detailed .rating-stars {
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .rating-display.detailed .star {
+    font-size: 1.5rem;
+  }
+
+  .rating-total {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .rating-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .star-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-width: 20px;
+    font-weight: 500;
+  }
+
+  .rating-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 4px;
+    width: var(--width);
+    transition: width 1s ease-out;
+    animation: fillBar 1.5s ease-out;
+  }
+
+  .bar-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    min-width: 35px;
+    text-align: right;
+    font-weight: 500;
+  }
+
+  @keyframes fillBar {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--width);
+    }
+  }
+
+  /* Hover Effects */
+  .rating-display.basic:hover .star.filled {
+    transform: scale(1.1);
+    color: #f59e0b;
+  }
+
+  .rating-display.percentage:hover .circle-fill {
+    stroke: #059669;
+    filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5));
+  }
+
+  .rating-display.detailed:hover .rating-large {
+    color: var(--primary-color);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .rating-display.percentage {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .rating-display.detailed {
+      padding: 1rem;
+    }
+
+    .rating-large {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Rating Display Components</h3>
+  <p>Componentes para mostrar calificaciones, puntuaciones y valoraciones de usuarios.</p>
+  
+  <div class="demo-container">
+    <div class="rating-showcase">
+      
+      <div class="rating-section">
+        <h4>Rating Básico</h4>
+        <div class="rating-variants">
+          <div class="rating-display basic">
+            <div class="rating-stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star">★</span>
+            </div>
+            <span class="rating-score">4.0</span>
+            <span class="rating-count">(245 reseñas)</span>
+          </div>
+
+          <div class="rating-display basic">
+            <div class="rating-stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star half">★</span>
+            </div>
+            <span class="rating-score">4.5</span>
+            <span class="rating-count">(892 reseñas)</span>
+          </div>
+
+          <div class="rating-display basic">
+            <div class="rating-stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <span class="rating-score">3.2</span>
+            <span class="rating-count">(67 reseñas)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rating-section">
+        <h4>Rating con Porcentaje</h4>
+        <div class="rating-grid">
+          <div class="rating-display percentage">
+            <div class="rating-circle">
+              <svg class="circle-progress" width="60" height="60">
+                <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-bg"></circle>
+                <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-fill" 
+                        style="--progress: 85"></circle>
+              </svg>
+              <span class="circle-text">85%</span>
+            </div>
+            <div class="rating-info">
+              <h4 class="rating-title">Satisfacción</h4>
+              <p class="rating-desc">Excelente calidad</p>
+            </div>
+          </div>
+
+          <div class="rating-display percentage">
+            <div class="rating-circle">
+              <svg class="circle-progress" width="60" height="60">
+                <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-bg"></circle>
+                <circle cx="30" cy="30" r="25" stroke-width="5" fill="none" class="circle-fill" 
+                        style="--progress: 92; stroke: #3b82f6;"></circle>
+              </svg>
+              <span class="circle-text">92%</span>
+            </div>
+            <div class="rating-info">
+              <h4 class="rating-title">Rendimiento</h4>
+              <p class="rating-desc">Muy eficiente</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rating-section">
+        <h4>Rating Detallado</h4>
+        <div class="rating-display detailed">
+          <div class="rating-header">
+            <div class="rating-main">
+              <span class="rating-large">4.7</span>
+              <div class="rating-stars">
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star filled">★</span>
+                <span class="star half">★</span>
+              </div>
+              <span class="rating-total">1,234 valoraciones</span>
+            </div>
+          </div>
+          <div class="rating-breakdown">
+            <div class="rating-row">
+              <span class="star-label">5★</span>
+              <div class="rating-bar">
+                <div class="bar-fill" style="--width: 70%"></div>
+              </div>
+              <span class="bar-count">875</span>
+            </div>
+            <div class="rating-row">
+              <span class="star-label">4★</span>
+              <div class="rating-bar">
+                <div class="bar-fill" style="--width: 20%"></div>
+              </div>
+              <span class="bar-count">247</span>
+            </div>
+            <div class="rating-row">
+              <span class="star-label">3★</span>
+              <div class="rating-bar">
+                <div class="bar-fill" style="--width: 7%"></div>
+              </div>
+              <span class="bar-count">87</span>
+            </div>
+            <div class="rating-row">
+              <span class="star-label">2★</span>
+              <div class="rating-bar">
+                <div class="bar-fill" style="--width: 2%"></div>
+              </div>
+              <span class="bar-count">15</span>
+            </div>
+            <div class="rating-row">
+              <span class="star-label">1★</span>
+              <div class="rating-bar">
+                <div class="bar-fill" style="--width: 1%"></div>
+              </div>
+              <span class="bar-count">10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .rating-display {
+    background: var(--surface-color);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .rating-display:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Rating Básico */
+  .rating-display.basic {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .star {
+    font-size: 1.2rem;
+    color: #e5e7eb;
+    transition: all 0.3s ease;
+  }
+
+  .star.filled {
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  }
+
+  .star.half {
+    background: linear-gradient(90deg, #fbbf24 50%, #e5e7eb 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .rating-score {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+
+  .rating-count {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Rating con Porcentaje */
+  .rating-display.percentage {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .rating-circle {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .circle-progress {
+    transform: rotate(-90deg);
+  }
+
+  .circle-bg {
+    stroke: var(--border-color);
+  }
+
+  .circle-fill {
+    stroke: #10b981;
+    stroke-linecap: round;
+    stroke-dasharray: 157.08; /* 2 * π * 25 */
+    stroke-dashoffset: calc(157.08 - (157.08 * var(--progress)) / 100);
+    transition: stroke-dashoffset 1s ease-in-out;
+  }
+
+  .circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .rating-info h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .rating-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Rating Detallado */
+  .rating-display.detailed {
+    padding: 1.5rem;
+    max-width: 350px;
+  }
+
+  .rating-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .rating-large {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: block;
+    line-height: 1;
+  }
+
+  .rating-display.detailed .rating-stars {
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .rating-display.detailed .star {
+    font-size: 1.5rem;
+  }
+
+  .rating-total {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .rating-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .star-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-width: 20px;
+    font-weight: 500;
+  }
+
+  .rating-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 4px;
+    width: var(--width);
+    transition: width 1s ease-out;
+    animation: fillBar 1.5s ease-out;
+  }
+
+  .bar-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    min-width: 35px;
+    text-align: right;
+    font-weight: 500;
+  }
+
+  @keyframes fillBar {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--width);
+    }
+  }
+
+  /* Hover Effects */
+  .rating-display.basic:hover .star.filled {
+    transform: scale(1.1);
+    color: #f59e0b;
+  }
+
+  .rating-display.percentage:hover .circle-fill {
+    stroke: #059669;
+    filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5));
+  }
+
+  .rating-display.detailed:hover .rating-large {
+    color: var(--primary-color);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+
+  /* Rating Showcase Layout */
+  .rating-showcase {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .rating-section {
+    margin-bottom: 3rem;
+  }
+
+  .rating-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+  }
+
+  .rating-variants {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rating-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .rating-variants {
+      gap: 0.75rem;
+    }
+
+    .rating-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .rating-display.percentage {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .rating-display.detailed {
+      padding: 1rem;
+    }
+
+    .rating-large {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .rating-display.basic {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .rating-section h4 {
+      font-size: 1rem;
+    }
+  }
+</style>

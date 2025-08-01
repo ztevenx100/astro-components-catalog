@@ -84,14 +84,14 @@ function showToast(type, title, message, duration = 4000) {
     info: 'ℹ'
   };
   
-  toast.className = \`toast-notification \${type}\`;
+  toast.className = \`toast-notification $\{type\}\`;
   toast.innerHTML = \`
     <div class="toast-icon">
-      <span class="icon">\${icons[type]}</span>
+      <span class="icon">$\{icons[type]\}</span>
     </div>
     <div class="toast-content">
-      <h6 class="toast-title">\${title}</h6>
-      <p class="toast-message">\${message}</p>
+      <h6 class="toast-title">$\{title\}</h6>
+      <p class="toast-message">$\{message\}</p>
     </div>
     <button class="toast-close" onclick="removeToast(this.parentElement)">×</button>
   \`;
