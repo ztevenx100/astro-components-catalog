@@ -1,0 +1,643 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Dropdown Básico -->
+<div class="dropdown-container">
+  <button class="dropdown-trigger" onclick="toggleDropdown('dropdown1')">
+    <span class="dropdown-label">Seleccionar opción</span>
+    <span class="dropdown-arrow">▼</span>
+  </button>
+  <div class="dropdown-menu" id="dropdown1">
+    <div class="dropdown-item" onclick="selectOption('dropdown1', 'Opción 1')">Opción 1</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown1', 'Opción 2')">Opción 2</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown1', 'Opción 3')">Opción 3</div>
+  </div>
+</div>
+
+<!-- Dropdown con Búsqueda -->
+<div class="dropdown-container searchable">
+  <button class="dropdown-trigger" onclick="toggleDropdown('dropdown2')">
+    <span class="dropdown-label">Buscar país</span>
+    <span class="dropdown-arrow">▼</span>
+  </button>
+  <div class="dropdown-menu" id="dropdown2">
+    <input type="text" class="dropdown-search" placeholder="Buscar..." oninput="filterOptions('dropdown2', this.value)">
+    <div class="dropdown-item" onclick="selectOption('dropdown2', 'España')">🇪🇸 España</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown2', 'México')">🇲🇽 México</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown2', 'Argentina')">🇦🇷 Argentina</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown2', 'Colombia')">🇨🇴 Colombia</div>
+    <div class="dropdown-item" onclick="selectOption('dropdown2', 'Chile')">🇨🇱 Chile</div>
+  </div>
+</div>
+
+<style>
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+    min-width: 200px;
+  }
+
+  .dropdown-trigger {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-trigger:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+  }
+
+  .dropdown-label {
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .dropdown-arrow {
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+  }
+
+  .dropdown-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .dropdown-container.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-search {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .dropdown-search:focus {
+    outline: none;
+    background: var(--surface-color);
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+
+  .dropdown-item:hover {
+    background: var(--surface-secondary);
+  }
+
+  .dropdown-item.selected {
+    background: var(--primary-color);
+    color: white;
+  }
+</style>
+
+<script>
+function toggleDropdown(dropdownId) {
+  const container = document.getElementById(dropdownId).parentElement;
+  const isActive = container.classList.contains('active');
+  
+  // Cerrar todos los dropdowns
+  document.querySelectorAll('.dropdown-container').forEach(el => {
+    el.classList.remove('active');
+  });
+  
+  if (!isActive) {
+    container.classList.add('active');
+  }
+}
+
+function selectOption(dropdownId, value) {
+  const container = document.getElementById(dropdownId).parentElement;
+  const label = container.querySelector('.dropdown-label');
+  
+  label.textContent = value;
+  container.classList.remove('active');
+  
+  // Marcar opción como seleccionada
+  const items = container.querySelectorAll('.dropdown-item');
+  items.forEach(item => item.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function filterOptions(dropdownId, searchValue) {
+  const dropdown = document.getElementById(dropdownId);
+  const items = dropdown.querySelectorAll('.dropdown-item');
+  
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    const matches = text.includes(searchValue.toLowerCase());
+    item.style.display = matches ? 'block' : 'none';
+  });
+}
+
+// Cerrar dropdown al hacer clic fuera
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown-container')) {
+    document.querySelectorAll('.dropdown-container').forEach(el => {
+      el.classList.remove('active');
+    });
+  }
+});
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Dropdown/Select Components</h3>
+  <p>Selectores dropdown modernos con búsqueda, múltiples opciones y animaciones suaves.</p>
+  
+  <div class="demo-container">
+    <div class="dropdown-showcase">
+      
+      <div class="dropdown-section">
+        <h4>Dropdown Básico</h4>
+        <div class="dropdown-container">
+          <button class="dropdown-trigger" onclick="toggleDropdown('dropdown1')">
+            <span class="dropdown-label">Seleccionar opción</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" id="dropdown1">
+            <div class="dropdown-item" onclick="selectOption('dropdown1', 'Dashboard')">📊 Dashboard</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown1', 'Usuarios')">👥 Usuarios</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown1', 'Configuración')">⚙️ Configuración</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown1', 'Reportes')">📈 Reportes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown-section">
+        <h4>Dropdown con Búsqueda</h4>
+        <div class="dropdown-container searchable">
+          <button class="dropdown-trigger" onclick="toggleDropdown('dropdown2')">
+            <span class="dropdown-label">Seleccionar país</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" id="dropdown2">
+            <input type="text" class="dropdown-search" placeholder="Buscar país..." oninput="filterOptions('dropdown2', this.value)">
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'España')">🇪🇸 España</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'México')">🇲🇽 México</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Argentina')">🇦🇷 Argentina</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Colombia')">🇨🇴 Colombia</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Chile')">🇨🇱 Chile</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Perú')">🇵🇪 Perú</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Brasil')">🇧🇷 Brasil</div>
+            <div class="dropdown-item" onclick="selectOption('dropdown2', 'Uruguay')">🇺🇾 Uruguay</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown-section">
+        <h4>Dropdown Multiple</h4>
+        <div class="dropdown-container multiple">
+          <button class="dropdown-trigger" onclick="toggleDropdown('dropdown3')">
+            <span class="dropdown-label">Seleccionar tecnologías</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" id="dropdown3">
+            <div class="dropdown-item checkbox-item" onclick="toggleMultipleOption('dropdown3', this, 'React')">
+              <input type="checkbox"> React
+            </div>
+            <div class="dropdown-item checkbox-item" onclick="toggleMultipleOption('dropdown3', this, 'Vue.js')">
+              <input type="checkbox"> Vue.js
+            </div>
+            <div class="dropdown-item checkbox-item" onclick="toggleMultipleOption('dropdown3', this, 'Angular')">
+              <input type="checkbox"> Angular
+            </div>
+            <div class="dropdown-item checkbox-item" onclick="toggleMultipleOption('dropdown3', this, 'Svelte')">
+              <input type="checkbox"> Svelte
+            </div>
+            <div class="dropdown-item checkbox-item" onclick="toggleMultipleOption('dropdown3', this, 'Astro')">
+              <input type="checkbox"> Astro
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown-section">
+        <h4>Dropdown con Grupos</h4>
+        <div class="dropdown-container grouped">
+          <button class="dropdown-trigger" onclick="toggleDropdown('dropdown4')">
+            <span class="dropdown-label">Seleccionar herramienta</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" id="dropdown4">
+            <div class="dropdown-group">
+              <div class="dropdown-group-label">Diseño</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'Figma')">🎨 Figma</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'Sketch')">✏️ Sketch</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'Adobe XD')">🔷 Adobe XD</div>
+            </div>
+            <div class="dropdown-group">
+              <div class="dropdown-group-label">Desarrollo</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'VS Code')">💻 VS Code</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'WebStorm')">🌊 WebStorm</div>
+              <div class="dropdown-item" onclick="selectOption('dropdown4', 'Sublime Text')">📝 Sublime Text</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+function toggleDropdown(dropdownId) {
+  const container = document.getElementById(dropdownId).parentElement;
+  const isActive = container.classList.contains('active');
+  
+  // Cerrar todos los dropdowns
+  document.querySelectorAll('.dropdown-container').forEach(el => {
+    el.classList.remove('active');
+  });
+  
+  if (!isActive) {
+    container.classList.add('active');
+  }
+}
+
+function selectOption(dropdownId, value) {
+  const container = document.getElementById(dropdownId).parentElement;
+  const label = container.querySelector('.dropdown-label');
+  
+  label.textContent = value;
+  container.classList.remove('active');
+  
+  // Marcar opción como seleccionada
+  const items = container.querySelectorAll('.dropdown-item');
+  items.forEach(item => item.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function filterOptions(dropdownId, searchValue) {
+  const dropdown = document.getElementById(dropdownId);
+  const items = dropdown.querySelectorAll('.dropdown-item');
+  
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    const matches = text.includes(searchValue.toLowerCase());
+    item.style.display = matches ? 'block' : 'none';
+  });
+}
+
+function toggleMultipleOption(dropdownId, element, value) {
+  event.stopPropagation();
+  const checkbox = element.querySelector('input[type="checkbox"]');
+  checkbox.checked = !checkbox.checked;
+  
+  updateMultipleLabel(dropdownId);
+}
+
+function updateMultipleLabel(dropdownId) {
+  const container = document.getElementById(dropdownId).parentElement;
+  const label = container.querySelector('.dropdown-label');
+  const checkedItems = container.querySelectorAll('input[type="checkbox"]:checked');
+  
+  if (checkedItems.length === 0) {
+    label.textContent = 'Seleccionar tecnologías';
+  } else if (checkedItems.length === 1) {
+    label.textContent = checkedItems[0].parentElement.textContent.trim();
+  } else {
+    label.textContent = `${checkedItems.length} seleccionadas`;
+  }
+}
+
+// Cerrar dropdown al hacer clic fuera
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown-container')) {
+    document.querySelectorAll('.dropdown-container').forEach(el => {
+      el.classList.remove('active');
+    });
+  }
+});
+
+// Make functions globally available
+window.toggleDropdown = toggleDropdown;
+window.selectOption = selectOption;
+window.filterOptions = filterOptions;
+window.toggleMultipleOption = toggleMultipleOption;
+window.updateMultipleLabel = updateMultipleLabel;
+</script>
+
+<style is:global>
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+    min-width: 250px;
+    margin: 0.5rem;
+  }
+
+  .dropdown-trigger {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .dropdown-trigger:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+  }
+
+  .dropdown-container.active .dropdown-trigger {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+  }
+
+  .dropdown-label {
+    color: var(--text-color);
+    font-weight: 500;
+    flex: 1;
+    text-align: left;
+  }
+
+  .dropdown-arrow {
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .dropdown-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .dropdown-container.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-search {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .dropdown-search:focus {
+    outline: none;
+    background: var(--surface-color);
+    border-bottom-color: var(--primary-color);
+  }
+
+  .dropdown-search::placeholder {
+    color: var(--text-secondary);
+  }
+
+  .dropdown-item {
+    padding: 0.875rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    border-radius: 6px;
+    margin: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dropdown-item:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(4px);
+  }
+
+  .dropdown-item.selected {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .dropdown-item.checkbox-item {
+    user-select: none;
+  }
+
+  .dropdown-item.checkbox-item input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--primary-color);
+  }
+
+  /* Group Styles */
+  .dropdown-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .dropdown-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .dropdown-group-label {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.25rem;
+    background: var(--background-color);
+  }
+
+  /* Multiple Selection Styles */
+  .dropdown-container.multiple .dropdown-menu {
+    max-height: 250px;
+  }
+
+  /* Grouped Dropdown */
+  .dropdown-container.grouped .dropdown-menu {
+    padding: 0.5rem 0;
+  }
+
+  /* Searchable Dropdown */
+  .dropdown-container.searchable .dropdown-menu {
+    padding-top: 0;
+  }
+
+  /* Dropdown Showcase Layout */
+  .dropdown-showcase {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .dropdown-section {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .dropdown-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+    text-align: left;
+    display: inline-block;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+  /* Custom Scrollbar */
+  .dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: 3px;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dropdown-container {
+      min-width: 200px;
+      width: 100%;
+      margin: 0.25rem 0;
+    }
+
+    .dropdown-menu {
+      max-height: 250px;
+    }
+
+    .dropdown-section {
+      margin-bottom: 2rem;
+    }
+
+    .dropdown-section h4 {
+      text-align: center;
+      display: block;
+      border-left: none;
+      border-bottom: 3px solid var(--primary-color);
+      padding-left: 0;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dropdown-container {
+      min-width: 180px;
+    }
+
+    .dropdown-trigger,
+    .dropdown-search,
+    .dropdown-item {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
