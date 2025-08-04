@@ -1,0 +1,829 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Toggle Switch Básico -->
+<div class="toggle-container">
+  <label class="toggle-label">
+    <input type="checkbox" class="toggle-input" onchange="toggleHandler(this)">
+    <span class="toggle-slider"></span>
+    <span class="toggle-text">Modo Oscuro</span>
+  </label>
+</div>
+
+<!-- Toggle con Estados -->
+<div class="toggle-container">
+  <label class="toggle-label">
+    <input type="checkbox" class="toggle-input" checked onchange="toggleHandler(this)">
+    <span class="toggle-slider success"></span>
+    <span class="toggle-text">Notificaciones Activadas</span>
+  </label>
+</div>
+
+<style>
+  .toggle-container {
+    margin: 1rem 0;
+  }
+
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle-input {
+    display: none;
+  }
+
+  .toggle-slider {
+    width: 48px;
+    height: 24px;
+    background: var(--border-color);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-input:checked + .toggle-slider {
+    background: var(--primary-color);
+  }
+
+  .toggle-input:checked + .toggle-slider::before {
+    transform: translateX(24px);
+  }
+
+  .toggle-text {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+</style>
+
+<script>
+function toggleHandler(input) {
+  console.log('Toggle changed:', input.checked);
+}
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Toggle Components</h3>
+  <p>Interruptores y controles de alternancia modernos con animaciones fluidas y múltiples variantes.</p>
+  
+  <div class="demo-container">
+    <div class="toggle-showcase">
+      
+      <div class="toggle-section">
+        <h4>Toggle Switches Básicos</h4>
+        <div class="toggle-group">
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="dark-mode" onchange="toggleHandler(this, 'dark-mode')">
+              <span class="toggle-slider"></span>
+              <span class="toggle-text">🌙 Modo Oscuro</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="notifications" checked onchange="toggleHandler(this, 'notifications')">
+              <span class="toggle-slider success"></span>
+              <span class="toggle-text">🔔 Notificaciones Push</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="auto-save" onchange="toggleHandler(this, 'auto-save')">
+              <span class="toggle-slider warning"></span>
+              <span class="toggle-text">💾 Guardar Automáticamente</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="sync" checked onchange="toggleHandler(this, 'sync')">
+              <span class="toggle-slider info"></span>
+              <span class="toggle-text">🔄 Sincronización en la Nube</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-section">
+        <h4>Toggle con Iconos Animados</h4>
+        <div class="toggle-group">
+          <div class="toggle-container">
+            <label class="toggle-label icon-toggle">
+              <input type="checkbox" class="toggle-input" id="wifi" onchange="toggleHandler(this, 'wifi')">
+              <span class="toggle-slider icon-slider">
+                <span class="toggle-icon off">📶</span>
+                <span class="toggle-icon on">📡</span>
+              </span>
+              <span class="toggle-text">Wi-Fi</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label icon-toggle">
+              <input type="checkbox" class="toggle-input" id="bluetooth" onchange="toggleHandler(this, 'bluetooth')">
+              <span class="toggle-slider icon-slider blue">
+                <span class="toggle-icon off">🔵</span>
+                <span class="toggle-icon on">📶</span>
+              </span>
+              <span class="toggle-text">Bluetooth</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label icon-toggle">
+              <input type="checkbox" class="toggle-input" id="location" checked onchange="toggleHandler(this, 'location')">
+              <span class="toggle-slider icon-slider red">
+                <span class="toggle-icon off">📍</span>
+                <span class="toggle-icon on">🗺️</span>
+              </span>
+              <span class="toggle-text">Ubicación</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-section">
+        <h4>Toggle de Tamaños</h4>
+        <div class="toggle-group sizes">
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="small-toggle" onchange="toggleHandler(this, 'small')">
+              <span class="toggle-slider small"></span>
+              <span class="toggle-text">Toggle Pequeño</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="medium-toggle" checked onchange="toggleHandler(this, 'medium')">
+              <span class="toggle-slider medium"></span>
+              <span class="toggle-text">Toggle Mediano</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="large-toggle" onchange="toggleHandler(this, 'large')">
+              <span class="toggle-slider large"></span>
+              <span class="toggle-text">Toggle Grande</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="xlarge-toggle" checked onchange="toggleHandler(this, 'xlarge')">
+              <span class="toggle-slider xlarge"></span>
+              <span class="toggle-text">Toggle Extra Grande</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-section">
+        <h4>Toggle con Etiquetas</h4>
+        <div class="toggle-group">
+          <div class="toggle-container">
+            <label class="toggle-label with-labels">
+              <span class="toggle-label-off">OFF</span>
+              <input type="checkbox" class="toggle-input" id="power" onchange="toggleHandler(this, 'power')">
+              <span class="toggle-slider labeled">
+                <span class="slider-label off">❌</span>
+                <span class="slider-label on">✅</span>
+              </span>
+              <span class="toggle-label-on">ON</span>
+              <span class="toggle-text">Sistema Principal</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label with-labels">
+              <span class="toggle-label-off">NO</span>
+              <input type="checkbox" class="toggle-input" id="accept" checked onchange="toggleHandler(this, 'accept')">
+              <span class="toggle-slider labeled green">
+                <span class="slider-label off">👎</span>
+                <span class="slider-label on">👍</span>
+              </span>
+              <span class="toggle-label-on">SÍ</span>
+              <span class="toggle-text">Aceptar Términos</span>
+            </label>
+          </div>
+
+          <div class="toggle-container">
+            <label class="toggle-label with-labels">
+              <span class="toggle-label-off">MANUAL</span>
+              <input type="checkbox" class="toggle-input" id="auto-mode" onchange="toggleHandler(this, 'auto-mode')">
+              <span class="toggle-slider labeled blue">
+                <span class="slider-label off">👤</span>
+                <span class="slider-label on">🤖</span>
+              </span>
+              <span class="toggle-label-on">AUTO</span>
+              <span class="toggle-text">Modo de Operación</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-section">
+        <h4>Toggle Cards</h4>
+        <div class="toggle-cards-grid">
+          <div class="toggle-card">
+            <div class="toggle-card-header">
+              <h5>📧 Notificaciones Email</h5>
+              <label class="toggle-label card-toggle">
+                <input type="checkbox" class="toggle-input" id="email-notif" checked onchange="toggleHandler(this, 'email-notifications')">
+                <span class="toggle-slider card-slider"></span>
+              </label>
+            </div>
+            <p>Recibe notificaciones importantes en tu correo electrónico</p>
+            <div class="toggle-status" id="email-status">
+              <span class="status-indicator active">🟢 Activo</span>
+            </div>
+          </div>
+
+          <div class="toggle-card">
+            <div class="toggle-card-header">
+              <h5>📱 Notificaciones Push</h5>
+              <label class="toggle-label card-toggle">
+                <input type="checkbox" class="toggle-input" id="push-notif" onchange="toggleHandler(this, 'push-notifications')">
+                <span class="toggle-slider card-slider"></span>
+              </label>
+            </div>
+            <p>Recibe alertas instantáneas en tu dispositivo móvil</p>
+            <div class="toggle-status" id="push-status">
+              <span class="status-indicator inactive">🔴 Inactivo</span>
+            </div>
+          </div>
+
+          <div class="toggle-card">
+            <div class="toggle-card-header">
+              <h5>💬 Notificaciones SMS</h5>
+              <label class="toggle-label card-toggle">
+                <input type="checkbox" class="toggle-input" id="sms-notif" onchange="toggleHandler(this, 'sms-notifications')">
+                <span class="toggle-slider card-slider"></span>
+              </label>
+            </div>
+            <p>Recibe mensajes de texto para alertas críticas</p>
+            <div class="toggle-status" id="sms-status">
+              <span class="status-indicator inactive">🔴 Inactivo</span>
+            </div>
+          </div>
+
+          <div class="toggle-card">
+            <div class="toggle-card-header">
+              <h5>🔔 Sonidos del Sistema</h5>
+              <label class="toggle-label card-toggle">
+                <input type="checkbox" class="toggle-input" id="sounds" checked onchange="toggleHandler(this, 'system-sounds')">
+                <span class="toggle-slider card-slider"></span>
+              </label>
+            </div>
+            <p>Reproduce sonidos para las notificaciones del sistema</p>
+            <div class="toggle-status" id="sounds-status">
+              <span class="status-indicator active">🟢 Activo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+function toggleHandler(input, type = '') {
+  console.log(`Toggle ${type} changed:`, input.checked);
+  
+  // Update status indicators for card toggles
+  if (type.includes('notifications') || type.includes('sounds')) {
+    const statusElement = document.getElementById(type.replace('-', '-').split('-')[0] + '-status');
+    if (statusElement) {
+      const indicator = statusElement.querySelector('.status-indicator');
+      if (input.checked) {
+        indicator.textContent = '🟢 Activo';
+        indicator.className = 'status-indicator active';
+      } else {
+        indicator.textContent = '🔴 Inactivo';
+        indicator.className = 'status-indicator inactive';
+      }
+    }
+  }
+  
+  // Special handling for specific toggles
+  switch (type) {
+    case 'dark-mode':
+      if (input.checked) {
+        console.log('Activando modo oscuro...');
+      } else {
+        console.log('Desactivando modo oscuro...');
+      }
+      break;
+      
+    case 'wifi':
+      if (input.checked) {
+        console.log('Wi-Fi conectado');
+      } else {
+        console.log('Wi-Fi desconectado');
+      }
+      break;
+      
+    case 'auto-save':
+      if (input.checked) {
+        console.log('Autoguardado habilitado cada 30 segundos');
+      } else {
+        console.log('Autoguardado deshabilitado');
+      }
+      break;
+  }
+}
+
+// Make function globally available
+window.toggleHandler = toggleHandler;
+</script>
+
+<style is:global>
+  .toggle-container {
+    margin: 1.5rem 0;
+  }
+
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-label:hover {
+    transform: translateX(2px);
+  }
+
+  .toggle-input {
+    display: none;
+  }
+
+  .toggle-slider {
+    width: 52px;
+    height: 28px;
+    background: var(--border-color);
+    border-radius: 14px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-input:checked + .toggle-slider {
+    background: var(--primary-color);
+  }
+
+  .toggle-input:checked + .toggle-slider::before {
+    transform: translateX(24px);
+  }
+
+  /* Color Variants */
+  .toggle-slider.success {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.success {
+    background: #10b981;
+  }
+
+  .toggle-slider.warning {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.warning {
+    background: #f59e0b;
+  }
+
+  .toggle-slider.info {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.info {
+    background: #06b6d4;
+  }
+
+  /* Size Variants */
+  .toggle-slider.small {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+  }
+
+  .toggle-slider.small::before {
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .toggle-slider.small::before {
+    transform: translateX(16px);
+  }
+
+  .toggle-slider.medium {
+    width: 48px;
+    height: 26px;
+    border-radius: 13px;
+  }
+
+  .toggle-slider.medium::before {
+    width: 22px;
+    height: 22px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .toggle-slider.medium::before {
+    transform: translateX(22px);
+  }
+
+  .toggle-slider.large {
+    width: 60px;
+    height: 32px;
+    border-radius: 16px;
+  }
+
+  .toggle-slider.large::before {
+    width: 28px;
+    height: 28px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .toggle-slider.large::before {
+    transform: translateX(28px);
+  }
+
+  .toggle-slider.xlarge {
+    width: 72px;
+    height: 38px;
+    border-radius: 19px;
+  }
+
+  .toggle-slider.xlarge::before {
+    width: 34px;
+    height: 34px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .toggle-slider.xlarge::before {
+    transform: translateX(34px);
+  }
+
+  /* Icon Toggles */
+  .icon-toggle .toggle-slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+  }
+
+  .toggle-icon {
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    position: absolute;
+  }
+
+  .toggle-icon.off {
+    left: 6px;
+    opacity: 1;
+  }
+
+  .toggle-icon.on {
+    right: 6px;
+    opacity: 0;
+  }
+
+  .toggle-input:checked + .toggle-slider .toggle-icon.off {
+    opacity: 0;
+  }
+
+  .toggle-input:checked + .toggle-slider .toggle-icon.on {
+    opacity: 1;
+  }
+
+  .toggle-slider.blue {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.blue {
+    background: #3b82f6;
+  }
+
+  .toggle-slider.red {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.red {
+    background: #ef4444;
+  }
+
+  /* Labeled Toggles */
+  .toggle-label.with-labels {
+    gap: 1rem;
+  }
+
+  .toggle-label-off,
+  .toggle-label-on {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .toggle-slider.labeled {
+    width: 64px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+  }
+
+  .slider-label {
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: absolute;
+  }
+
+  .slider-label.off {
+    left: 8px;
+    opacity: 1;
+  }
+
+  .slider-label.on {
+    right: 8px;
+    opacity: 0;
+  }
+
+  .toggle-input:checked + .toggle-slider.labeled .slider-label.off {
+    opacity: 0;
+  }
+
+  .toggle-input:checked + .toggle-slider.labeled .slider-label.on {
+    opacity: 1;
+  }
+
+  .toggle-slider.labeled::before {
+    width: 28px;
+    height: 28px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .toggle-slider.labeled::before {
+    transform: translateX(32px);
+  }
+
+  .toggle-slider.labeled.green {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.labeled.green {
+    background: #10b981;
+  }
+
+  .toggle-slider.labeled.blue {
+    background: var(--border-color);
+  }
+
+  .toggle-input:checked + .toggle-slider.labeled.blue {
+    background: #3b82f6;
+  }
+
+  .toggle-text {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  /* Toggle Cards */
+  .toggle-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .toggle-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--surface-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .toggle-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .toggle-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .toggle-card h5 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .toggle-card p {
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+
+  .card-toggle {
+    gap: 0;
+  }
+
+  .card-slider {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+  }
+
+  .card-slider::before {
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 2px;
+  }
+
+  .toggle-input:checked + .card-slider::before {
+    transform: translateX(20px);
+  }
+
+  .toggle-status {
+    margin-top: 0.75rem;
+  }
+
+  .status-indicator {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .status-indicator.active {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status-indicator.inactive {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+
+  /* Toggle Showcase Layout */
+  .toggle-showcase {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .toggle-section {
+    margin-bottom: 3rem;
+  }
+
+  .toggle-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+  }
+
+  .toggle-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .toggle-group.sizes {
+    gap: 1.5rem;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .toggle-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .toggle-label.with-labels {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .toggle-label-off,
+    .toggle-label-on {
+      min-width: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .toggle-section h4 {
+      font-size: 1.1rem;
+    }
+
+    .toggle-card {
+      padding: 1rem;
+    }
+
+    .toggle-card-header {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .toggle-text {
+      font-size: 0.9rem;
+    }
+  }
+</style>

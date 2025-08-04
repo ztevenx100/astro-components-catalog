@@ -1,0 +1,714 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Accordion Básico -->
+<div class="accordion-container">
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span>¿Qué es un accordion?</span>
+      <span class="accordion-icon">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Un accordion es un componente de interfaz que permite mostrar y ocultar contenido de forma organizada.</p>
+    </div>
+  </div>
+  
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span>¿Cómo usar este componente?</span>
+      <span class="accordion-icon">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Simplemente haz clic en el encabezado para expandir o contraer cada sección.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .accordion-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+
+  .accordion-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    padding: 1rem;
+    background: var(--surface-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+  }
+
+  .accordion-header:hover {
+    background: var(--surface-secondary);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: var(--background-color);
+  }
+
+  .accordion-content.active {
+    max-height: 200px;
+  }
+
+  .accordion-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-header.active .accordion-icon {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+function toggleAccordion(header) {
+  const content = header.nextElementSibling;
+  const icon = header.querySelector('.accordion-icon');
+  
+  header.classList.toggle('active');
+  content.classList.toggle('active');
+}
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Accordion Component</h3>
+  <p>Componentes accordion expandibles para organizar contenido de forma compacta y accesible.</p>
+  
+  <div class="demo-container">
+    <div class="accordion-showcase">
+      
+      <div class="accordion-section">
+        <h4>Accordion Básico</h4>
+        <div class="accordion-container basic">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'basic')">
+              <span>🤔 ¿Qué es un accordion?</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>Un accordion es un componente de interfaz de usuario que permite mostrar y ocultar contenido de forma organizada. Es especialmente útil para FAQs, documentación y espacios donde el contenido necesita ser accesible pero no ocupar mucho espacio visual.</p>
+                <ul>
+                  <li>Ahorra espacio en la pantalla</li>
+                  <li>Organiza información de forma jerárquica</li>
+                  <li>Mejora la experiencia del usuario</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'basic')">
+              <span>🚀 ¿Cómo usar este componente?</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>Usar el accordion es muy simple:</p>
+                <ol>
+                  <li>Haz clic en cualquier encabezado para expandir</li>
+                  <li>El contenido se desplegará con una animación suave</li>
+                  <li>Haz clic nuevamente para contraer</li>
+                  <li>Puedes tener múltiples secciones abiertas a la vez</li>
+                </ol>
+                <div class="code-snippet">
+                  <code>onclick="toggleAccordion(this)"</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'basic')">
+              <span>🎨 Personalización y estilos</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>El accordion se puede personalizar fácilmente con CSS:</p>
+                <div class="customization-options">
+                  <div class="option">
+                    <strong>Colores:</strong> Modifica las variables CSS para cambiar la paleta
+                  </div>
+                  <div class="option">
+                    <strong>Animaciones:</strong> Ajusta la duración y tipo de transición
+                  </div>
+                  <div class="option">
+                    <strong>Iconos:</strong> Cambia los iconos de expansión/contracción
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <h4>Accordion con Iconos</h4>
+        <div class="accordion-container icons">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'icons')">
+              <div class="header-content">
+                <span class="section-icon">🏠</span>
+                <span>Configuración de Inicio</span>
+              </div>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>Personaliza tu página de inicio y dashboard principal.</p>
+                <div class="settings-grid">
+                  <div class="setting-item">
+                    <label>🖼️ Fondo de pantalla:</label>
+                    <select>
+                      <option>Claro</option>
+                      <option>Oscuro</option>
+                      <option>Personalizado</option>
+                    </select>
+                  </div>
+                  <div class="setting-item">
+                    <label>📱 Widgets:</label>
+                    <input type="checkbox" checked /> Mostrar widgets
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'icons')">
+              <div class="header-content">
+                <span class="section-icon">🔔</span>
+                <span>Notificaciones</span>
+              </div>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>Configura cómo y cuándo quieres recibir notificaciones.</p>
+                <div class="notification-settings">
+                  <div class="notification-item">
+                    <span>📧 Email</span>
+                    <input type="checkbox" checked />
+                  </div>
+                  <div class="notification-item">
+                    <span>📱 Push</span>
+                    <input type="checkbox" />
+                  </div>
+                  <div class="notification-item">
+                    <span>💬 SMS</span>
+                    <input type="checkbox" checked />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this, 'icons')">
+              <div class="header-content">
+                <span class="section-icon">🔐</span>
+                <span>Seguridad y Privacidad</span>
+              </div>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <p>Protege tu cuenta con estas opciones de seguridad avanzadas.</p>
+                <div class="security-options">
+                  <button class="security-btn">🔑 Cambiar contraseña</button>
+                  <button class="security-btn">📱 Configurar 2FA</button>
+                  <button class="security-btn">📋 Ver sesiones activas</button>
+                  <button class="security-btn">🚪 Cerrar todas las sesiones</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <h4>Accordion Solo (Solo uno abierto)</h4>
+        <div class="accordion-container exclusive">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordionExclusive(this)">
+              <span>📊 Plan Básico - $9.99/mes</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <div class="plan-details">
+                  <h4>✨ Características incluidas:</h4>
+                  <ul class="features-list">
+                    <li>✅ Hasta 5 proyectos</li>
+                    <li>✅ 10GB de almacenamiento</li>
+                    <li>✅ Soporte por email</li>
+                    <li>✅ Integraciones básicas</li>
+                  </ul>
+                  <button class="plan-btn">Elegir Plan Básico</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordionExclusive(this)">
+              <span>🚀 Plan Pro - $19.99/mes</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <div class="plan-details">
+                  <h4>🎯 Características incluidas:</h4>
+                  <ul class="features-list">
+                    <li>✅ Proyectos ilimitados</li>
+                    <li>✅ 100GB de almacenamiento</li>
+                    <li>✅ Soporte prioritario</li>
+                    <li>✅ Todas las integraciones</li>
+                    <li>✅ Analytics avanzados</li>
+                    <li>✅ API access</li>
+                  </ul>
+                  <button class="plan-btn featured">Elegir Plan Pro</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordionExclusive(this)">
+              <span>🏢 Plan Enterprise - Personalizado</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="accordion-body">
+                <div class="plan-details">
+                  <h4>🔥 Características incluidas:</h4>
+                  <ul class="features-list">
+                    <li>✅ Todo del Plan Pro</li>
+                    <li>✅ Almacenamiento ilimitado</li>
+                    <li>✅ Soporte dedicado 24/7</li>
+                    <li>✅ SLA garantizado</li>
+                    <li>✅ Integraciones personalizadas</li>
+                    <li>✅ Consultoría incluida</li>
+                  </ul>
+                  <button class="plan-btn">Contactar Ventas</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+function toggleAccordion(header, group = '') {
+  const content = header.nextElementSibling;
+  const isActive = header.classList.contains('active');
+  
+  header.classList.toggle('active');
+  content.classList.toggle('active');
+}
+
+function toggleAccordionExclusive(header) {
+  const container = header.closest('.accordion-container.exclusive');
+  const allHeaders = container.querySelectorAll('.accordion-header');
+  const allContents = container.querySelectorAll('.accordion-content');
+  const currentContent = header.nextElementSibling;
+  const isCurrentActive = header.classList.contains('active');
+  
+  // Cerrar todos los accordions
+  allHeaders.forEach(h => h.classList.remove('active'));
+  allContents.forEach(c => c.classList.remove('active'));
+  
+  // Si no estaba activo, abrir el actual
+  if (!isCurrentActive) {
+    header.classList.add('active');
+    currentContent.classList.add('active');
+  }
+}
+
+// Make functions globally available
+window.toggleAccordion = toggleAccordion;
+window.toggleAccordionExclusive = toggleAccordionExclusive;
+</script>
+
+<style is:global>
+  .accordion-container {
+    width: 100%;
+    max-width: 650px;
+    margin: 2rem 0;
+  }
+
+  .accordion-item {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    background: var(--surface-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .accordion-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .accordion-header {
+    padding: 1.25rem 1.5rem;
+    background: var(--surface-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: var(--text-color);
+    user-select: none;
+  }
+
+  .accordion-header:hover {
+    background: var(--surface-secondary);
+  }
+
+  .accordion-header.active {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-icon {
+    font-size: 1.3rem;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--background-color);
+  }
+
+  .accordion-content.active {
+    max-height: 500px;
+  }
+
+  .accordion-body {
+    padding: 1.5rem 2rem 2rem 2rem;
+  }
+
+  .accordion-body p {
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .accordion-body ul,
+  .accordion-body ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  .accordion-body li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .accordion-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: bold;
+  }
+
+  .accordion-header.active .accordion-icon {
+    transform: rotate(180deg);
+    color: white;
+  }
+
+  /* Code snippet styling */
+  .code-snippet {
+    background: var(--surface-color);
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .code-snippet code {
+    font-family: 'Courier New', monospace;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+  }
+
+  /* Customization options */
+  .customization-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .option {
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  .option strong {
+    color: var(--primary-color);
+  }
+
+  /* Settings grid */
+  .settings-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--surface-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+  }
+
+  .setting-item label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .setting-item select,
+  .setting-item input {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  /* Notification settings */
+  .notification-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Security options */
+  .security-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .security-btn {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--surface-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .security-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Plan details */
+  .plan-details h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  .features-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+
+  .features-list li:last-child {
+    border-bottom: none;
+  }
+
+  .plan-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .plan-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .plan-btn.featured {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    font-size: 1.05rem;
+  }
+
+  /* Accordion Showcase Layout */
+  .accordion-showcase {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .accordion-section {
+    margin-bottom: 3rem;
+  }
+
+  .accordion-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .accordion-header {
+      padding: 1rem;
+    }
+
+    .accordion-body {
+      padding: 1rem 1.25rem 1.5rem 1.25rem;
+    }
+
+    .settings-grid,
+    .security-options {
+      grid-template-columns: 1fr;
+    }
+
+    .setting-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .accordion-container {
+      max-width: 100%;
+    }
+
+    .header-content {
+      gap: 0.5rem;
+    }
+
+    .section-icon {
+      font-size: 1.1rem;
+    }
+
+    .accordion-header {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .accordion-body {
+      padding: 1rem;
+    }
+
+    .accordion-section h4 {
+      font-size: 1.1rem;
+    }
+  }
+</style>
