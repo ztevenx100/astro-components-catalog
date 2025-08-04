@@ -1,0 +1,607 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Slider Básico -->
+<div class="slider-container">
+  <label class="slider-label">Volumen: <span id="volume-value">50</span></label>
+  <input type="range" id="volume-slider" class="slider" min="0" max="100" value="50" 
+         oninput="updateSliderValue('volume-value', this.value)">
+</div>
+
+<!-- Slider con Pasos -->
+<div class="slider-container">
+  <label class="slider-label">Calificación: <span id="rating-value">3</span>/5</label>
+  <input type="range" id="rating-slider" class="slider" min="1" max="5" value="3" step="1"
+         oninput="updateSliderValue('rating-value', this.value)">
+  <div class="slider-marks">
+    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+  </div>
+</div>
+
+<!-- Slider Dual (Rango) -->
+<div class="slider-container dual">
+  <label class="slider-label">Rango de Precio: $<span id="price-min">200</span> - $<span id="price-max">800</span></label>
+  <div class="dual-slider">
+    <input type="range" id="price-min-slider" class="slider" min="0" max="1000" value="200"
+           oninput="updateDualSlider('price', this.value, 'min')">
+    <input type="range" id="price-max-slider" class="slider" min="0" max="1000" value="800"
+           oninput="updateDualSlider('price', this.value, 'max')">
+  </div>
+</div>
+
+<style>
+  .slider-container {
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .slider-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 6px;
+    background: var(--border-color);
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .slider:hover {
+    background: var(--surface-secondary);
+  }
+
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.4);
+  }
+
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider-marks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 10px;
+  }
+
+  .slider-marks span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* Dual Slider */
+  .dual-slider {
+    position: relative;
+  }
+
+  .dual-slider .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .dual-slider .slider:first-child {
+    z-index: 1;
+  }
+
+  .dual-slider .slider:last-child {
+    z-index: 2;
+  }
+</style>
+
+<script>
+function updateSliderValue(elementId, value) {
+  document.getElementById(elementId).textContent = value;
+}
+
+function updateDualSlider(prefix, value, type) {
+  const minElement = document.getElementById(prefix + '-min');
+  const maxElement = document.getElementById(prefix + '-max');
+  const minSlider = document.getElementById(prefix + '-min-slider');
+  const maxSlider = document.getElementById(prefix + '-max-slider');
+  
+  if (type === 'min') {
+    const maxValue = parseInt(maxSlider.value);
+    if (parseInt(value) >= maxValue) {
+      minSlider.value = maxValue - 1;
+      value = maxValue - 1;
+    }
+    minElement.textContent = value;
+  } else {
+    const minValue = parseInt(minSlider.value);
+    if (parseInt(value) <= minValue) {
+      maxSlider.value = minValue + 1;
+      value = minValue + 1;
+    }
+    maxElement.textContent = value;
+  }
+}
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Slider/Range Components</h3>
+  <p>Controles deslizantes modernos para valores únicos y rangos, con marcadores y animaciones.</p>
+  
+  <div class="demo-container">
+    <div class="slider-showcase">
+      
+      <div class="slider-section">
+        <h4>Slider Básico</h4>
+        <div class="slider-container">
+          <label class="slider-label">Volumen: <span id="volume-value">50</span>%</label>
+          <input type="range" id="volume-slider" class="slider basic" min="0" max="100" value="50" 
+                 oninput="updateSliderValue('volume-value', this.value)">
+        </div>
+      </div>
+
+      <div class="slider-section">
+        <h4>Slider con Marcadores</h4>
+        <div class="slider-container">
+          <label class="slider-label">Calificación: <span id="rating-value">3</span>/5</label>
+          <input type="range" id="rating-slider" class="slider marked" min="1" max="5" value="3" step="1"
+                 oninput="updateSliderValue('rating-value', this.value)">
+          <div class="slider-marks">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-section">
+        <h4>Slider de Temperatura</h4>
+        <div class="slider-container temperature">
+          <label class="slider-label">Temperatura: <span id="temp-value">22</span>°C</label>
+          <input type="range" id="temp-slider" class="slider temperature" min="15" max="30" value="22" 
+                 oninput="updateSliderValue('temp-value', this.value); updateTemperatureColor(this)">
+          <div class="temperature-display">
+            <span class="temp-icon">🧊</span>
+            <div class="temp-gradient"></div>
+            <span class="temp-icon">🔥</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-section">
+        <h4>Slider Dual (Rango)</h4>
+        <div class="slider-container dual">
+          <label class="slider-label">Rango de Precio: $<span id="price-min">200</span> - $<span id="price-max">800</span></label>
+          <div class="dual-slider">
+            <input type="range" id="price-min-slider" class="slider dual-min" min="0" max="1000" value="200"
+                   oninput="updateDualSlider('price', this.value, 'min')">
+            <input type="range" id="price-max-slider" class="slider dual-max" min="0" max="1000" value="800"
+                   oninput="updateDualSlider('price', this.value, 'max')">
+            <div class="range-fill" id="price-range-fill"></div>
+          </div>
+          <div class="price-marks">
+            <span>$0</span><span>$250</span><span>$500</span><span>$750</span><span>$1000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-section">
+        <h4>Slider Vertical</h4>
+        <div class="slider-container vertical">
+          <label class="slider-label">Brillo: <span id="brightness-value">75</span>%</label>
+          <div class="vertical-slider-container">
+            <input type="range" id="brightness-slider" class="slider vertical" min="0" max="100" value="75" 
+                   oninput="updateSliderValue('brightness-value', this.value)">
+            <div class="vertical-marks">
+              <span>100%</span>
+              <span>75%</span>
+              <span>50%</span>
+              <span>25%</span>
+              <span>0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+function updateSliderValue(elementId, value) {
+  document.getElementById(elementId).textContent = value;
+}
+
+function updateDualSlider(prefix, value, type) {
+  const minElement = document.getElementById(prefix + '-min');
+  const maxElement = document.getElementById(prefix + '-max');
+  const minSlider = document.getElementById(prefix + '-min-slider');
+  const maxSlider = document.getElementById(prefix + '-max-slider');
+  const rangeFill = document.getElementById(prefix + '-range-fill');
+  
+  if (type === 'min') {
+    const maxValue = parseInt(maxSlider.value);
+    if (parseInt(value) >= maxValue) {
+      minSlider.value = maxValue - 1;
+      value = maxValue - 1;
+    }
+    minElement.textContent = value;
+  } else {
+    const minValue = parseInt(minSlider.value);
+    if (parseInt(value) <= minValue) {
+      maxSlider.value = minValue + 1;
+      value = minValue + 1;
+    }
+    maxElement.textContent = value;
+  }
+  
+  // Actualizar el relleno del rango
+  updateRangeFill(prefix);
+}
+
+function updateRangeFill(prefix) {
+  const minSlider = document.getElementById(prefix + '-min-slider');
+  const maxSlider = document.getElementById(prefix + '-max-slider');
+  const rangeFill = document.getElementById(prefix + '-range-fill');
+  
+  if (rangeFill && minSlider && maxSlider) {
+    const min = parseInt(minSlider.min);
+    const max = parseInt(minSlider.max);
+    const minVal = parseInt(minSlider.value);
+    const maxVal = parseInt(maxSlider.value);
+    
+    const leftPercent = ((minVal - min) / (max - min)) * 100;
+    const rightPercent = ((maxVal - min) / (max - min)) * 100;
+    
+    rangeFill.style.left = leftPercent + '%';
+    rangeFill.style.width = (rightPercent - leftPercent) + '%';
+  }
+}
+
+function updateTemperatureColor(slider) {
+  const value = parseInt(slider.value);
+  const min = parseInt(slider.min);
+  const max = parseInt(slider.max);
+  const percent = ((value - min) / (max - min)) * 100;
+  
+  // Cambiar color basado en la temperatura
+  let color;
+  if (percent < 33) {
+    color = '#3b82f6'; // Azul (frío)
+  } else if (percent < 66) {
+    color = '#10b981'; // Verde (templado)
+  } else {
+    color = '#ef4444'; // Rojo (caliente)
+  }
+  
+  slider.style.setProperty('--thumb-color', color);
+}
+
+// Inicializar rango dual
+document.addEventListener('DOMContentLoaded', function() {
+  updateRangeFill('price');
+});
+
+// Make functions globally available
+window.updateSliderValue = updateSliderValue;
+window.updateDualSlider = updateDualSlider;
+window.updateRangeFill = updateRangeFill;
+window.updateTemperatureColor = updateTemperatureColor;
+</script>
+
+<style is:global>
+  .slider-container {
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .slider-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
+
+  .slider {
+    width: 100%;
+    height: 10px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--border-color), var(--surface-secondary));
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .slider:hover {
+    background: linear-gradient(90deg, var(--surface-secondary), var(--border-color));
+    transform: scaleY(1.1);
+  }
+
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 3px solid white;
+  }
+
+  .slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  }
+
+  .slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Temperature Slider */
+  .slider.temperature::-webkit-slider-thumb {
+    background: var(--thumb-color, var(--primary-color));
+  }
+
+  .temperature-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .temp-gradient {
+    flex: 1;
+    height: 8px;
+    background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b, #ef4444);
+    border-radius: 4px;
+  }
+
+  .temp-icon {
+    font-size: 1.2rem;
+  }
+
+  /* Slider with Marks */
+  .slider-marks,
+  .price-marks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding: 0 12px;
+  }
+
+  .slider-marks span,
+  .price-marks span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* Dual Slider */
+  .slider-container.dual {
+    margin: 2rem 0;
+  }
+
+  .dual-slider {
+    position: relative;
+    height: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .dual-slider .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .dual-slider .slider::-webkit-slider-thumb {
+    pointer-events: auto;
+  }
+
+  .dual-slider .slider.dual-min {
+    z-index: 2;
+  }
+
+  .dual-slider .slider.dual-max {
+    z-index: 3;
+  }
+
+  .range-fill {
+    position: absolute;
+    top: 0;
+    height: 10px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color, var(--primary-color)));
+    border-radius: 8px;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  /* Vertical Slider */
+  .slider-container.vertical {
+    max-width: 200px;
+  }
+
+  .vertical-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 200px;
+  }
+
+  .slider.vertical {
+    width: 10px;
+    height: 200px;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+
+  .vertical-marks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    align-items: flex-start;
+  }
+
+  .vertical-marks span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* Slider Showcase Layout */
+  .slider-showcase {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .slider-section {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slider-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--primary-color);
+    align-self: flex-start;
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 500px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .slider-container {
+      max-width: 300px;
+    }
+
+    .slider-container.vertical {
+      max-width: 150px;
+    }
+
+    .vertical-slider-container {
+      height: 150px;
+    }
+
+    .slider.vertical {
+      height: 150px;
+    }
+
+    .vertical-marks {
+      height: 150px;
+    }
+
+    .slider-section h4 {
+      align-self: center;
+      text-align: center;
+      border-left: none;
+      border-bottom: 3px solid var(--primary-color);
+      padding-left: 0;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slider-container {
+      max-width: 250px;
+    }
+
+    .temperature-display {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .temp-gradient {
+      width: 100%;
+      height: 6px;
+    }
+
+    .slider-label {
+      font-size: 0.85rem;
+    }
+
+    .slider-marks span,
+    .price-marks span,
+    .vertical-marks span {
+      font-size: 0.7rem;
+    }
+  }
+</style>

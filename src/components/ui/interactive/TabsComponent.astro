@@ -1,0 +1,713 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+import '../../../styles/card-base.css';
+
+const code = `
+<!-- Tabs Básicas -->
+<div class="tabs-container">
+  <div class="tabs-nav" role="tablist">
+    <button class="tab-button active" role="tab" onclick="switchTab(event, 'tab1')">General</button>
+    <button class="tab-button" role="tab" onclick="switchTab(event, 'tab2')">Configuración</button>
+    <button class="tab-button" role="tab" onclick="switchTab(event, 'tab3')">Avanzado</button>
+  </div>
+  
+  <div class="tab-content active" id="tab1" role="tabpanel">
+    <h3>Configuración General</h3>
+    <p>Contenido de la pestaña general...</p>
+  </div>
+  
+  <div class="tab-content" id="tab2" role="tabpanel">
+    <h3>Configuración del Sistema</h3>
+    <p>Contenido de configuración...</p>
+  </div>
+  
+  <div class="tab-content" id="tab3" role="tabpanel">
+    <h3>Opciones Avanzadas</h3>
+    <p>Contenido avanzado...</p>
+  </div>
+</div>
+
+<style>
+  .tabs-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+
+  .tabs-nav {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 1rem;
+  }
+
+  .tab-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab-button:hover {
+    color: var(--text-color);
+    background: var(--surface-secondary);
+  }
+
+  .tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+function switchTab(event, tabId) {
+  // Ocultar todos los contenidos
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+  
+  // Remover clase activa de todos los botones
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  // Activar pestaña seleccionada
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+`;
+---
+
+<div class="component-preview">
+  <h3>Tabs Component</h3>
+  <p>Sistema de pestañas moderno con transiciones suaves y soporte para múltiples estilos.</p>
+  
+  <div class="demo-container">
+    <div class="tabs-showcase">
+      
+      <div class="tabs-section">
+        <h4>Tabs Básicas</h4>
+        <div class="tabs-container basic">
+          <div class="tabs-nav" role="tablist">
+            <button class="tab-button active" role="tab" onclick="switchTab(event, 'basic-tab1', 'basic')">General</button>
+            <button class="tab-button" role="tab" onclick="switchTab(event, 'basic-tab2', 'basic')">Configuración</button>
+            <button class="tab-button" role="tab" onclick="switchTab(event, 'basic-tab3', 'basic')">Avanzado</button>
+          </div>
+          
+          <div class="tab-content active" id="basic-tab1" role="tabpanel">
+            <h3>⚙️ Configuración General</h3>
+            <p>Aquí puedes configurar las opciones básicas del sistema. Esta sección incluye configuraciones generales que afectan el comportamiento global de la aplicación.</p>
+            <div class="content-example">
+              <label>Nombre de usuario:</label>
+              <input type="text" placeholder="Ingresa tu nombre" />
+            </div>
+          </div>
+          
+          <div class="tab-content" id="basic-tab2" role="tabpanel">
+            <h3>🔧 Configuración del Sistema</h3>
+            <p>Opciones avanzadas para personalizar el comportamiento del sistema según tus preferencias específicas.</p>
+            <div class="content-example">
+              <label>Tema:</label>
+              <select>
+                <option>Claro</option>
+                <option>Oscuro</option>
+                <option>Automático</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="basic-tab3" role="tabpanel">
+            <h3>🚀 Opciones Avanzadas</h3>
+            <p>Configuraciones técnicas para usuarios experimentados. Modifica estas opciones solo si sabes lo que estás haciendo.</p>
+            <div class="content-example">
+              <label>Modo desarrollador:</label>
+              <input type="checkbox" /> Habilitar modo debug
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs-section">
+        <h4>Tabs con Iconos</h4>
+        <div class="tabs-container icon-tabs">
+          <div class="tabs-nav icon-nav" role="tablist">
+            <button class="tab-button icon active" role="tab" onclick="switchTab(event, 'icon-tab1', 'icon')">
+              <span class="tab-icon">📊</span>
+              Dashboard
+            </button>
+            <button class="tab-button icon" role="tab" onclick="switchTab(event, 'icon-tab2', 'icon')">
+              <span class="tab-icon">👥</span>
+              Usuarios
+            </button>
+            <button class="tab-button icon" role="tab" onclick="switchTab(event, 'icon-tab3', 'icon')">
+              <span class="tab-icon">📈</span>
+              Reportes
+            </button>
+          </div>
+          
+          <div class="tab-content active" id="icon-tab1" role="tabpanel">
+            <h3>📊 Dashboard Principal</h3>
+            <p>Vista general de métricas y estadísticas importantes del sistema.</p>
+            <div class="dashboard-grid">
+              <div class="metric-card">
+                <h4>Usuarios Activos</h4>
+                <span class="metric-value">1,234</span>
+              </div>
+              <div class="metric-card">
+                <h4>Ventas Hoy</h4>
+                <span class="metric-value">$5,678</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="icon-tab2" role="tabpanel">
+            <h3>👥 Gestión de Usuarios</h3>
+            <p>Administra los usuarios del sistema, roles y permisos.</p>
+            <div class="user-list">
+              <div class="user-item">Juan Pérez - Admin</div>
+              <div class="user-item">María García - Editor</div>
+              <div class="user-item">Carlos López - Viewer</div>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="icon-tab3" role="tabpanel">
+            <h3>📈 Reportes y Análisis</h3>
+            <p>Genera y visualiza reportes detallados sobre el rendimiento del sistema.</p>
+            <div class="report-options">
+              <button class="report-btn">📄 Reporte Mensual</button>
+              <button class="report-btn">📊 Análisis de Ventas</button>
+              <button class="report-btn">👥 Estadísticas de Usuarios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs-section">
+        <h4>Tabs Verticales</h4>
+        <div class="tabs-container vertical">
+          <div class="vertical-layout">
+            <div class="tabs-nav vertical-nav" role="tablist">
+              <button class="tab-button vertical active" role="tab" onclick="switchTab(event, 'vertical-tab1', 'vertical')">
+                <span class="tab-icon">🏠</span>
+                Inicio
+              </button>
+              <button class="tab-button vertical" role="tab" onclick="switchTab(event, 'vertical-tab2', 'vertical')">
+                <span class="tab-icon">⚙️</span>
+                Configuración
+              </button>
+              <button class="tab-button vertical" role="tab" onclick="switchTab(event, 'vertical-tab3', 'vertical')">
+                <span class="tab-icon">📞</span>
+                Contacto
+              </button>
+            </div>
+            
+            <div class="vertical-content">
+              <div class="tab-content active" id="vertical-tab1" role="tabpanel">
+                <h3>🏠 Página de Inicio</h3>
+                <p>Bienvenido a la página principal. Aquí encontrarás las funciones más importantes y accesos rápidos.</p>
+                <div class="quick-actions">
+                  <button class="action-btn">🚀 Acción Rápida 1</button>
+                  <button class="action-btn">💡 Acción Rápida 2</button>
+                </div>
+              </div>
+              
+              <div class="tab-content" id="vertical-tab2" role="tabpanel">
+                <h3>⚙️ Panel de Configuración</h3>
+                <p>Personaliza tu experiencia modificando las siguientes opciones.</p>
+                <div class="config-options">
+                  <div class="config-item">
+                    <label>Notificaciones:</label>
+                    <input type="checkbox" checked />
+                  </div>
+                  <div class="config-item">
+                    <label>Idioma:</label>
+                    <select>
+                      <option>Español</option>
+                      <option>English</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-content" id="vertical-tab3" role="tabpanel">
+                <h3>📞 Información de Contacto</h3>
+                <p>¿Necesitas ayuda? Ponte en contacto con nuestro equipo de soporte.</p>
+                <div class="contact-info">
+                  <div class="contact-item">📧 support@ejemplo.com</div>
+                  <div class="contact-item">📱 +1 (555) 123-4567</div>
+                  <div class="contact-item">💬 Chat en vivo disponible</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<script is:inline>
+function switchTab(event, tabId, group = '') {
+  const container = group ? event.target.closest(`.tabs-container.${group}`) || event.target.closest('.tabs-container') : event.target.closest('.tabs-container');
+  
+  if (!container) return;
+  
+  // Ocultar todos los contenidos del grupo
+  container.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+  
+  // Remover clase activa de todos los botones del grupo
+  container.querySelectorAll('.tab-button').forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  // Activar pestaña seleccionada
+  const targetTab = document.getElementById(tabId);
+  if (targetTab) {
+    targetTab.classList.add('active');
+    event.target.classList.add('active');
+  }
+}
+
+// Make function globally available
+window.switchTab = switchTab;
+</script>
+
+<style is:global>
+  .tabs-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem 0;
+  }
+
+  .tabs-nav {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+  }
+
+  .tab-button {
+    padding: 1rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 3px solid transparent;
+    position: relative;
+    font-size: 0.9rem;
+  }
+
+  .tab-button:hover {
+    color: var(--text-color);
+    background: var(--surface-secondary);
+    transform: translateY(-2px);
+  }
+
+  .tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--background-color);
+    font-weight: 600;
+  }
+
+  .tab-button.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary-color);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 2rem;
+    background: var(--surface-color);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    border-top: none;
+  }
+
+  .tab-content.active {
+    display: block;
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tab-content h3 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .tab-content p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  @keyframes fadeInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+
+  /* Icon Tabs */
+  .tab-button.icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tab-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .tab-button.icon:hover .tab-icon {
+    transform: scale(1.1);
+  }
+
+  .tab-button.icon.active .tab-icon {
+    transform: scale(1.2);
+  }
+
+  /* Vertical Tabs */
+  .tabs-container.vertical {
+    max-width: 800px;
+  }
+
+  .vertical-layout {
+    display: flex;
+    gap: 0;
+    min-height: 400px;
+  }
+
+  .tabs-nav.vertical-nav {
+    flex-direction: column;
+    border-bottom: none;
+    border-right: 2px solid var(--border-color);
+    margin-bottom: 0;
+    margin-right: 0;
+    border-radius: 8px 0 0 8px;
+    min-width: 200px;
+  }
+
+  .tab-button.vertical {
+    text-align: left;
+    justify-content: flex-start;
+    border-bottom: none;
+    border-right: 3px solid transparent;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .tab-button.vertical.active {
+    border-right-color: var(--primary-color);
+    border-bottom-color: transparent;
+  }
+
+  .tab-button.vertical.active::before {
+    display: none;
+  }
+
+  .vertical-content {
+    flex: 1;
+  }
+
+  .vertical-content .tab-content {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    min-height: 360px;
+  }
+
+  /* Content Examples */
+  .content-example {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .content-example label {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  .content-example input,
+  .content-example select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .metric-card {
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .metric-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  .user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .user-item {
+    padding: 0.75rem;
+    background: var(--background-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+  }
+
+  .report-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .report-btn {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  .report-btn:hover {
+    background: var(--surface-secondary);
+    transform: translateX(4px);
+  }
+
+  .quick-actions,
+  .config-options,
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .action-btn {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .config-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--background-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+  }
+
+  .config-item label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .contact-item {
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+  }
+
+  /* Tabs Showcase Layout */
+  .tabs-showcase {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .tabs-section {
+    margin-bottom: 4rem;
+  }
+
+  .tabs-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-left: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+  }
+
+  /* Component Preview Styles */
+  .component-preview {
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tabs-nav {
+      flex-direction: column;
+    }
+
+    .tab-button {
+      text-align: left;
+    }
+
+    .vertical-layout {
+      flex-direction: column;
+    }
+
+    .tabs-nav.vertical-nav {
+      flex-direction: row;
+      border-right: none;
+      border-bottom: 2px solid var(--border-color);
+      border-radius: 8px 8px 0 0;
+      min-width: auto;
+    }
+
+    .tab-button.vertical {
+      border-right: none;
+      border-bottom: 3px solid transparent;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .tab-button.vertical.active {
+      border-right-color: transparent;
+      border-bottom-color: var(--primary-color);
+    }
+
+    .vertical-content .tab-content {
+      border-radius: 0 0 8px 8px;
+      border-left: 1px solid var(--border-color);
+      border-top: none;
+    }
+
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tabs-container {
+      max-width: 100%;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .tab-content {
+      padding: 1.5rem;
+    }
+
+    .tabs-section h4 {
+      font-size: 1.1rem;
+    }
+  }
+</style>

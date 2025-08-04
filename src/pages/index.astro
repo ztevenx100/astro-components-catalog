@@ -48,6 +48,17 @@ import SkeletonLoader from '../components/ui/feedback/SkeletonLoader.astro';
 import EmptyState from '../components/ui/feedback/EmptyState.astro';
 import RatingDisplay from '../components/ui/feedback/RatingDisplay.astro';
 
+// Importar componentes interactivos
+import ModalDialog from '../components/ui/interactive/ModalDialog.astro';
+import TooltipComponent from '../components/ui/interactive/TooltipComponent.astro';
+import DropdownSelect from '../components/ui/interactive/DropdownSelect.astro';
+import SliderRange from '../components/ui/interactive/SliderRange.astro';
+import ColorPicker from '../components/ui/interactive/ColorPicker.astro';
+import TabsComponent from '../components/ui/interactive/TabsComponent.astro';
+import AccordionComponent from '../components/ui/interactive/AccordionComponent.astro';
+import ProgressComponent from '../components/ui/interactive/ProgressComponent.astro';
+import ToggleComponent from '../components/ui/interactive/ToggleComponent.astro';
+
 // Importar componente de demostración del tema
 import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 ---
@@ -65,6 +76,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			<a href="#cards" class="nav-link">Tarjetas</a>
 			<a href="#forms" class="nav-link">Formularios</a>
 			<a href="#feedback" class="nav-link">💬 Feedback</a>
+			<a href="#interactive" class="nav-link">🔄 Interactivos</a>
 			<a href="#navigation" class="nav-link">Navegación</a>
 		</nav>
 
@@ -128,6 +140,21 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				<SkeletonLoader />
 				<EmptyState />
 				<RatingDisplay />
+			</div>
+		</section>
+
+		<section id="interactive" class="section">
+			<h2>🔄 Componentes Interactivos</h2>
+			<div class="components-grid">
+				<ModalDialog />
+				<TooltipComponent />
+				<DropdownSelect />
+				<SliderRange />
+				<ColorPicker />
+				<TabsComponent />
+				<AccordionComponent />
+				<ProgressComponent />
+				<ToggleComponent />
 			</div>
 		</section>
 
