@@ -1,0 +1,223 @@
+---
+/**
+ * Componente Lazy Loader para optimización de rendimiento
+ * Carga componentes solo cuando son necesarios
+ */
+
+export interface Props {
+  componentPath: string;
+  fallback?: string;
+  threshold?: number;
+  rootMargin?: string;
+}
+
+const { 
+  componentPath, 
+  fallback = "Loading...", 
+  threshold = 0.1, 
+  rootMargin = "50px" 
+} = Astro.props;
+
+// Generate unique ID for this lazy component
+const lazyId = `lazy-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div 
+  id={lazyId}
+  class="lazy-component" 
+  data-component-path={componentPath}
+  data-threshold={threshold}
+  data-root-margin={rootMargin}
+>
+  <div class="lazy-fallback">
+    <div class="lazy-skeleton">
+      <div class="skeleton-header"></div>
+      <div class="skeleton-content">
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line medium"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Lazy loading implementation
+class LazyComponentLoader {
+  loadedComponents = new Set();
+  observer = null;
+
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Create intersection observer for lazy loading
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !this.loadedComponents.has(entry.target.id)) {
+          this.loadComponent(entry.target);
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
+
+    // Observe all lazy components
+    document.querySelectorAll('.lazy-component').forEach(component => {
+      this.observer.observe(component);
+    });
+  }
+
+  async loadComponent(container) {
+    const componentPath = container.dataset.componentPath;
+    const componentId = container.id;
+    
+    try {
+      // Mark as loading
+      container.classList.add('loading');
+      
+      // Simulate component loading (replace with actual dynamic import)
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Mark as loaded
+      this.loadedComponents.add(componentId);
+      container.classList.remove('loading');
+      container.classList.add('loaded');
+      
+      // Dispatch loaded event
+      container.dispatchEvent(new CustomEvent('component-loaded', {
+        detail: { componentPath, componentId }
+      }));
+      
+    } catch (error) {
+      console.error(`Failed to load component: ${componentPath}`, error);
+      container.classList.add('error');
+    }
+  }
+}
+
+// Initialize lazy loader when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new LazyComponentLoader();
+  });
+} else {
+  new LazyComponentLoader();
+}
+</script>
+
+<style>
+.lazy-component {
+  min-height: 200px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.lazy-component.loading {
+  opacity: 0.7;
+}
+
+.lazy-component.loaded .lazy-fallback {
+  display: none;
+}
+
+.lazy-component.error {
+  border: 2px dashed #ef4444;
+  background: #fef2f2;
+}
+
+.lazy-fallback {
+  padding: 1.5rem;
+}
+
+.lazy-skeleton {
+  background: var(--surface-color, #ffffff);
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  padding: 1.5rem;
+}
+
+.skeleton-header {
+  height: 24px;
+  background: linear-gradient(90deg, 
+    var(--surface-secondary, #f3f4f6) 25%, 
+    var(--surface-color, #ffffff) 50%, 
+    var(--surface-secondary, #f3f4f6) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  width: 60%;
+}
+
+.skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-line {
+  height: 16px;
+  background: linear-gradient(90deg, 
+    var(--surface-secondary, #f3f4f6) 25%, 
+    var(--surface-color, #ffffff) 50%, 
+    var(--surface-secondary, #f3f4f6) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.skeleton-line.short {
+  width: 40%;
+}
+
+.skeleton-line.medium {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Dark mode support */
+html.dark .lazy-skeleton {
+  background: var(--surface-color, #1f2937);
+  border-color: var(--border-color, #374151);
+}
+
+html.dark .skeleton-header,
+html.dark .skeleton-line {
+  background: linear-gradient(90deg, 
+    var(--surface-secondary, #374151) 25%, 
+    var(--surface-color, #1f2937) 50%, 
+    var(--surface-secondary, #374151) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lazy-component {
+    min-height: 150px;
+  }
+  
+  .lazy-fallback {
+    padding: 1rem;
+  }
+  
+  .lazy-skeleton {
+    padding: 1rem;
+  }
+}
+</style>

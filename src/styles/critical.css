@@ -1,0 +1,349 @@
+/**
+ * Critical CSS - Estilos críticos para el above-the-fold
+ * Este archivo contiene solo los estilos necesarios para la carga inicial
+ */
+
+/* Reset y base críticos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color, #f8fafc);
+  color: var(--text-color, #1a202c);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Variables críticas */
+:root {
+  /* Colores base */
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --surface-secondary: #f3f4f6;
+  --surface-hover: #e5e7eb;
+  --text-color: #1a202c;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --border-color: #e5e7eb;
+  
+  /* Colores primarios */
+  --primary-color: #667eea;
+  --primary-hover: #5a67d8;
+  --secondary-color: #f093fb;
+  --accent-color: #4facfe;
+  
+  /* Sistema de sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Transiciones */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode variables */
+html.dark {
+  --background-color: #0f172a;
+  --surface-color: #1e293b;
+  --surface-secondary: #334155;
+  --surface-hover: #475569;
+  --text-color: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+}
+
+/* Layout crítico */
+.catalog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  min-height: 100vh;
+}
+
+.catalog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: var(--surface-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-normal);
+}
+
+.catalog-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.catalog-header p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Navegación crítica */
+.catalog-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background: var(--surface-color);
+  border-radius: 50px;
+  box-shadow: var(--shadow-md);
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  border-radius: 25px;
+  transition: var(--transition-fast);
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  outline: none;
+}
+
+/* Grid de componentes crítico */
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Componente preview crítico */
+.component-preview {
+  background: var(--surface-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.component-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.component-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.component-preview:hover::before {
+  transform: scaleX(1);
+}
+
+.component-preview h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.component-preview p {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Skeleton loading crítico */
+.section-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+}
+
+.loader-animation {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.loader-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  animation: bounce 1.4s ease-in-out infinite both;
+}
+
+.loader-dot:nth-child(1) { animation-delay: -0.32s; }
+.loader-dot:nth-child(2) { animation-delay: -0.16s; }
+.loader-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { 
+    transform: scale(0);
+  } 
+  40% { 
+    transform: scale(1);
+  }
+}
+
+.loader-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Responsive crítico */
+@media (max-width: 768px) {
+  .catalog-container {
+    padding: 0 0.75rem;
+  }
+  
+  .catalog-header {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .catalog-nav {
+    gap: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .component-preview {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-link {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+  }
+  
+  .component-preview {
+    padding: 1rem;
+  }
+}
+
+/* Preload y performance hints */
+.catalog-container {
+  contain: layout style;
+}
+
+.component-preview {
+  contain: layout style paint;
+}
+
+/* Reduce motion para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .catalog-header h1 {
+    background: var(--primary-color);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+    color: var(--primary-color);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-color: #000000;
+    --surface-color: #ffffff;
+  }
+  
+  html.dark {
+    --border-color: #ffffff;
+    --text-color: #ffffff;
+    --surface-color: #000000;
+  }
+  
+  .component-preview {
+    border: 2px solid var(--border-color);
+  }
+}
+
+/* Focus management para accesibilidad */
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Utilidades críticas */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

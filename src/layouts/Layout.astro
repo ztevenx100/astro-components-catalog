@@ -1,8 +1,9 @@
 ---
 import ThemeToggle from '../components/ThemeToggle.astro';
 import BackToTopButton from '../components/util/BackToTopButton.astro';
-import '../styles/global.css';
-import '../styles/theme-utilities.css';
+
+// Importar CSS crítico inline para better performance
+import '../styles/critical.css';
 
 export interface Props {
 	title: string;
@@ -20,15 +21,77 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		{/* Google Fonts */}
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+		
+		<!-- Optimizaciones de rendimiento -->
+		<meta name="theme-color" content="#667eea" />
+		<meta name="color-scheme" content="light dark" />
+		
+		<!-- Preload critical resources -->
+		<link rel="preload" href="/src/utils/componentUtils.js" as="script" type="module" />
+		
+		<!-- DNS prefetch para recursos externos -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+		
+		<!-- Preconnect para fuentes críticas -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		
+		<!-- Load fonts optimally -->
+		<link 
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" 
+			rel="stylesheet" 
+			media="print" 
+			onload="this.media='all'"
+		/>
+		<noscript>
+			<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+		</noscript>
+		
+		<!-- Progressive enhancement hint -->
+		<script>
+			// Detect JS support and add class
+			document.documentElement.classList.add('js-enabled');
+			
+			// Early theme detection
+			const theme = localStorage.getItem('theme') || 
+				(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			document.documentElement.classList.add(theme);
+		</script>
+		
+		<!-- Resource hints for lazy-loaded content -->
+		<link rel="prefetch" href="/src/components/ui/cards/" />
+		<link rel="prefetch" href="/src/components/ui/forms/" />
+		<link rel="prefetch" href="/src/components/ui/interactive/" />
 	</head>
 	<body>
+		<!-- Skip to content for accessibility -->
+		<a href="#main-content" class="visually-hidden">Saltar al contenido principal</a>
+		
 		<ThemeToggle />
-		<slot />
+		
+		<main id="main-content">
+			<slot />
+		</main>
+		
 		<BackToTopButton />
+		
+		<!-- Load non-critical CSS asynchronously -->
+		<script>
+			// Lazy load non-critical CSS
+			const loadCSS = (href) => {
+				const link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = href;
+				document.head.appendChild(link);
+			};
+			
+			// Load theme utilities after initial render
+			setTimeout(() => {
+				loadCSS('/src/styles/theme-utilities.css');
+				loadCSS('/src/styles/utilities.css');
+			}, 100);
+		</script>
 	</body>
 </html>
 

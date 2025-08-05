@@ -3,14 +3,37 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "build": "astro build",
+    "build:analyze": "astro build && npm run analyze",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "analyze": "npx webpack-bundle-analyzer dist/_astro/ --no-open",
+    "lighthouse": "lighthouse http://localhost:4321 --output-path=./lighthouse-report.html --save-assets --view",
+    "perf:audit": "npm run build && npm run preview & sleep 3 && npm run lighthouse",
+    "css:analyze": "Get-ChildItem -Path 'dist/_astro' -Filter '*.css' | ForEach-Object { Write-Host $_.Name $_.Length }",
+    "perf:report": "npm run build && npm run css:analyze"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "astro": "^5.12.6",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "lighthouse": "^10.4.0"
+  },
+  "performance": {
+    "budgets": {
+      "bundle": "250kb",
+      "css": "50kb", 
+      "js": "100kb",
+      "images": "500kb"
+    },
+    "targets": {
+      "fcp": "1.8s",
+      "lcp": "2.5s", 
+      "fid": "100ms",
+      "cls": "0.1"
+    }
   }
 }
