@@ -5,11 +5,15 @@ Un catálogo interactivo de componentes visuales modernos construidos exclusivam
 ## 🌟 Características
 
 - **CSS Puro**: Todos los componentes están hechos únicamente con HTML y CSS
-- **Sin JavaScript**: No se utiliza JavaScript ni bibliotecas externas
+- **JavaScript Interactivo**: Funcionalidad JavaScript integrada para componentes avanzados
 - **Diseño Moderno**: Componentes con diseños actuales y atractivos
 - **Responsive**: Adaptable a diferentes tamaños de pantalla
 - **Accesible**: Considera las buenas prácticas de accesibilidad
 - **Organizado**: Componentes categorizados y fáciles de encontrar
+- **Interactividad Avanzada**: Modales, dropdowns, sliders, accordions y más
+- **Animaciones Fluidas**: Transiciones y efectos visuales profesionales
+- **Sistema de Temas**: Soporte para modo claro y oscuro
+- **Código de Ejemplo**: Cada componente incluye código para implementar
 
 ## 📦 Componentes Incluidos
 
@@ -46,6 +50,26 @@ Un catálogo interactivo de componentes visuales modernos construidos exclusivam
 - **Menú Móvil**: Menú hamburguesa para dispositivos móviles
 - **Breadcrumbs**: Navegación jerárquica tipo "migas de pan"
 
+### 🔔 Feedback
+- **Notificación Toast**: Alertas emergentes con múltiples estilos y posiciones
+- **Alerta de Estado**: Alertas informativas con iconos y colores contextuales
+- **Badge de Notificación**: Indicadores numericos y de estado
+- **Progress Ring**: Indicadores circulares de progreso animados
+- **Spinner de Carga**: Indicadores de carga con múltiples animaciones
+- **Rating Display**: Sistema de calificación con estrellas
+- **Tooltip Informativo**: Tooltips con información adicional
+
+### 🎮 Componentes Interactivos
+- **Modal/Dialog**: Ventanas modales con múltiples variantes (básico, grande, confirmación, pantalla completa)
+- **Tooltip Dinámico**: Sistema de tooltips con posicionamiento automático y contenido HTML
+- **Dropdown/Select**: Selectores avanzados con búsqueda, selección múltiple y opciones agrupadas
+- **Slider/Range**: Controles deslizantes incluyendo rangos duales, verticales y con indicadores de temperatura
+- **Color Picker**: Selectores de color con paletas predefinidas, gradientes y controles HSB
+- **Tabs Component**: Sistema de pestañas con iconos, layout vertical y transiciones animadas
+- **Accordion**: Componentes expandibles con múltiples estilos y modo exclusivo
+- **Progress Indicators**: Barras de progreso, círculos, pasos y animaciones avanzadas
+- **Toggle Switches**: Interruptores con iconos, etiquetas, múltiples tamaños y tarjetas integradas
+
 ## 🚀 Instalación y Uso
 
 1. **Clonar el repositorio**
@@ -81,7 +105,9 @@ src/
 │   │   │   ├── NeomorphicButton.astro
 │   │   │   ├── LoadingButton.astro
 │   │   │   ├── IconButton.astro
-│   │   │   └── SocialButtons.astro
+│   │   │   ├── FloatingButton.astro
+│   │   │   ├── SocialButtons.astro
+│   │   │   └── ProgressButton.astro
 │   │   ├── cards/
 │   │   │   ├── BasicCard.astro
 │   │   │   ├── ImageCard.astro
@@ -99,7 +125,26 @@ src/
 │   │   │   ├── SearchInput.astro
 │   │   │   ├── RatingInput.astro
 │   │   │   ├── MultiStepForm.astro
-│   │   │   └── SimpleFileUpload.astro
+│   │   │   ├── SimpleFileUpload.astro
+│   │   │   └── AdvancedFileUpload.astro
+│   │   ├── feedback/
+│   │   │   ├── ToastNotification.astro
+│   │   │   ├── AlertComponent.astro
+│   │   │   ├── BadgeComponent.astro
+│   │   │   ├── ProgressRing.astro
+│   │   │   ├── LoadingSpinner.astro
+│   │   │   ├── RatingDisplay.astro
+│   │   │   └── TooltipInfo.astro
+│   │   ├── interactive/
+│   │   │   ├── ModalDialog.astro
+│   │   │   ├── TooltipComponent.astro
+│   │   │   ├── DropdownSelect.astro
+│   │   │   ├── SliderRange.astro
+│   │   │   ├── ColorPicker.astro
+│   │   │   ├── TabsComponent.astro
+│   │   │   ├── AccordionComponent.astro
+│   │   │   ├── ProgressComponent.astro
+│   │   │   └── ToggleComponent.astro
 │   │   ├── navigation/
 │   │   │   ├── HorizontalNav.astro
 │   │   │   ├── TabNavigation.astro
@@ -129,15 +174,48 @@ src/
 ## 🎯 Características Técnicas
 
 - **Framework**: Astro.js para generación estática
-- **Lenguajes**: HTML, CSS, TypeScript
+- **Lenguajes**: HTML, CSS, TypeScript, JavaScript
 - **Estilos**: CSS puro con variables custom y gradientes
 - **Arquitectura CSS**: Sistema de estilos base con `card-base.css` para estandarización
 - **Responsive**: Media queries para adaptabilidad completa
 - **Animaciones**: Transiciones y transformaciones CSS avanzadas
+- **Interactividad**: JavaScript moderno para componentes dinámicos
 - **Tipografía**: Fuentes del sistema optimizadas
 - **Temas**: Sistema de variables CSS para modo claro/oscuro
 - **Grid Layout**: Sistema de grillas responsivas con auto-fit
 - **Componentes**: Arquitectura modular y reutilizable
+
+## 🎮 Componentes Interactivos Destacados
+
+### Modales y Diálogos
+- **Múltiples variantes**: Básico, grande, confirmación, pantalla completa
+- **Funcionalidades**: Cierre con ESC, click en backdrop, animaciones suaves
+- **Casos de uso**: Confirmaciones, formularios, galerías de imágenes
+
+### Sistema de Pestañas
+- **Layouts flexibles**: Horizontal, vertical, con iconos
+- **Navegación fluida**: Transiciones animadas entre contenidos
+- **Contenido rico**: Soporte para cualquier tipo de contenido HTML
+
+### Accordions Expandibles
+- **Modos de operación**: Múltiple expansión o exclusivo
+- **Estilos variados**: Con iconos, tarjetas de precios, configuraciones
+- **Animaciones**: Expansión y contracción suaves
+
+### Controles Deslizantes
+- **Tipos diversos**: Simple, dual-range, vertical, temperatura
+- **Funcionalidades**: Marcadores, colores dinámicos, múltiples tamaños
+- **Casos de uso**: Configuraciones, filtros, controles de media
+
+### Selectores Avanzados
+- **Dropdown inteligente**: Con búsqueda, filtrado, selección múltiple
+- **Color Picker**: Paletas, gradientes, controles HSB avanzados
+- **UX mejorada**: Navegación por teclado, estados de focus
+
+### Indicadores de Progreso
+- **Variedad de formatos**: Barras, círculos, pasos, animaciones
+- **Funcionalidades**: Simulación automática, gradientes, temperaturas
+- **Casos de uso**: Carga de archivos, progreso de tareas, métricas
 
 ## 🏗️ Sistema de Estandarización
 
@@ -186,6 +264,45 @@ El proyecto implementa un sistema de estandarización mediante `card-base.css` q
    ```
 4. Define solo los estilos específicos del componente en `<style>`
 5. Agrega el componente en `src/pages/index.astro`
+
+### Para componentes interactivos:
+
+1. Crea el archivo en `src/components/ui/interactive/[NombreComponent].astro`
+2. Importa dependencias necesarias:
+   ```astro
+   ---
+   import CodeViewer from '../../util/CodeViewer.astro';
+   import '../../../styles/card-base.css';
+   
+   const code = `<!-- Código de ejemplo aquí -->`;
+   ---
+   ```
+3. Estructura el componente:
+   ```html
+   <div class="component-preview">
+     <h3>Nombre del Componente</h3>
+     <p>Descripción del componente...</p>
+     
+     <div class="demo-container">
+       <!-- Demos interactivos aquí -->
+     </div>
+   </div>
+   
+   <CodeViewer code={code} />
+   ```
+4. Agrega JavaScript funcional:
+   ```html
+   <script is:inline>
+   function miFuncion() {
+     // Lógica del componente
+   }
+   
+   // Hacer función global disponible
+   window.miFuncion = miFuncion;
+   </script>
+   ```
+5. Define estilos con `<style is:global>` para componentes interactivos
+6. Agrega el componente en `src/pages/index.astro`
 
 ### Para otros tipos de componentes:
 
