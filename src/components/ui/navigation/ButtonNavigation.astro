@@ -1,0 +1,106 @@
+---
+const quickLinks = [
+  { href: '#button-system', icon: '⚡', label: 'Sistema Base' },
+  { href: '#gradients', icon: '🌈', label: 'Gradientes' },
+  { href: '#icons', icon: '🎯', label: 'Iconos' },
+  { href: '#forms', icon: '📝', label: 'Formularios' },
+  { href: '#buttons', icon: '📚', label: 'Legacy' }
+];
+---
+
+<div class="button-nav">
+  <h4>🧭 Navegación Rápida</h4>
+  <div class="quick-links">
+    {quickLinks.map(link => (
+      <a href={link.href} class="quick-link">
+        <span class="quick-icon">{link.icon}</span>
+        <span class="quick-label">{link.label}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .button-nav {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .button-nav h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .quick-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    min-width: 80px;
+  }
+
+  .quick-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .quick-icon {
+    font-size: 1.2rem;
+  }
+
+  .quick-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .button-nav {
+      padding: 1rem;
+    }
+
+    .quick-links {
+      gap: 0.5rem;
+    }
+
+    .quick-link {
+      padding: 0.5rem 0.75rem;
+      min-width: 70px;
+    }
+
+    .quick-icon {
+      font-size: 1rem;
+    }
+
+    .quick-label {
+      font-size: 0.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,772 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<!-- Botones básicos -->
+<button class="btn btn-primary">Primario</button>
+<button class="btn btn-secondary">Secundario</button>
+<button class="btn btn-success">Éxito</button>
+<button class="btn btn-danger">Peligro</button>
+<button class="btn btn-warning">Advertencia</button>
+<button class="btn btn-info">Información</button>
+
+<!-- Variantes de tamaño -->
+<button class="btn btn-primary btn-sm">Pequeño</button>
+<button class="btn btn-primary btn-md">Mediano</button>
+<button class="btn btn-primary btn-lg">Grande</button>
+
+<!-- Variantes outline -->
+<button class="btn btn-outline-primary">Outline Primario</button>
+<button class="btn btn-outline-secondary">Outline Secundario</button>
+<button class="btn btn-outline-danger">Outline Peligro</button>
+
+<!-- Estados -->
+<button class="btn btn-primary" disabled>Deshabilitado</button>
+<button class="btn btn-primary btn-loading">
+  <span class="btn-spinner"></span>
+  Cargando...
+</button>
+
+<!-- Botón de bloque -->
+<button class="btn btn-primary btn-block">Botón de Bloque</button>
+
+<!-- Con iconos -->
+<button class="btn btn-primary">
+  <span class="btn-icon">📧</span>
+  Con Icono
+</button>
+
+<style>
+  /* ===== CLASE BASE ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    
+    /* Tamaño por defecto (medium) */
+    padding: 10px 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 44px;
+  }
+
+  .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  /* ===== VARIANTES DE TAMAÑO ===== */
+  .btn-sm {
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-height: 36px;
+    border-radius: 6px;
+  }
+
+  .btn-md {
+    padding: 10px 20px;
+    font-size: 1rem;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1.125rem;
+    min-height: 52px;
+    border-radius: 10px;
+  }
+
+  /* ===== VARIANTES DE COLOR - SÓLIDOS ===== */
+  .btn-primary {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #2563eb;
+    border-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-secondary {
+    background: #6b7280;
+    color: white;
+    border-color: #6b7280;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #4b5563;
+    border-color: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+  }
+
+  .btn-success {
+    background: #10b981;
+    color: white;
+    border-color: #10b981;
+  }
+
+  .btn-success:hover:not(:disabled) {
+    background: #059669;
+    border-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-danger {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+  }
+
+  .btn-warning {
+    background: #f59e0b;
+    color: white;
+    border-color: #f59e0b;
+  }
+
+  .btn-warning:hover:not(:disabled) {
+    background: #d97706;
+    border-color: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-info {
+    background: #06b6d4;
+    color: white;
+    border-color: #06b6d4;
+  }
+
+  .btn-info:hover:not(:disabled) {
+    background: #0891b2;
+    border-color: #0891b2;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  }
+
+  /* ===== VARIANTES OUTLINE ===== */
+  .btn-outline-primary {
+    background: transparent;
+    color: #3b82f6;
+    border-color: #3b82f6;
+  }
+
+  .btn-outline-primary:hover:not(:disabled) {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-outline-secondary {
+    background: transparent;
+    color: #6b7280;
+    border-color: #6b7280;
+  }
+
+  .btn-outline-secondary:hover:not(:disabled) {
+    background: #6b7280;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+  }
+
+  .btn-outline-success {
+    background: transparent;
+    color: #10b981;
+    border-color: #10b981;
+  }
+
+  .btn-outline-success:hover:not(:disabled) {
+    background: #10b981;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-outline-danger {
+    background: transparent;
+    color: #ef4444;
+    border-color: #ef4444;
+  }
+
+  .btn-outline-danger:hover:not(:disabled) {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+  }
+
+  .btn-outline-warning {
+    background: transparent;
+    color: #f59e0b;
+    border-color: #f59e0b;
+  }
+
+  .btn-outline-warning:hover:not(:disabled) {
+    background: #f59e0b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-outline-info {
+    background: transparent;
+    color: #06b6d4;
+    border-color: #06b6d4;
+  }
+
+  .btn-outline-info:hover:not(:disabled) {
+    background: #06b6d4;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  }
+
+  /* ===== ESTADO DESHABILITADO ===== */
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ===== BOTÓN DE BLOQUE ===== */
+  .btn-block {
+    display: flex;
+    width: 100%;
+  }
+
+  /* ===== ESTADO DE CARGA ===== */
+  .btn-loading {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .btn-loading .btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: btn-spin 1s linear infinite;
+  }
+
+  @keyframes btn-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* ===== ICONOS ===== */
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      min-height: 40px;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      min-height: 32px;
+    }
+
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 1rem;
+      min-height: 48px;
+    }
+  }
+
+  /* ===== ACCESIBILIDAD ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    
+    .btn-spinner {
+      animation: none;
+    }
+  }
+
+  /* ===== MODO OSCURO ===== */
+  @media (prefers-color-scheme: dark) {
+    .btn-secondary {
+      background: #374151;
+      border-color: #374151;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #4b5563;
+      border-color: #4b5563;
+    }
+
+    .btn-outline-secondary {
+      color: #9ca3af;
+      border-color: #9ca3af;
+    }
+
+    .btn-outline-secondary:hover:not(:disabled) {
+      background: #374151;
+      color: white;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>Sistema de Botones Unificado</h3>
+  <p>Sistema completo de botones con clase base, variantes de color, tamaño, outline, disabled y block.</p>
+  
+  <div class="demo-container">
+    <div class="button-group">
+      <h4>🎨 Variantes de Color</h4>
+      <div class="button-showcase">
+        <button class="btn btn-primary">Primario</button>
+        <button class="btn btn-secondary">Secundario</button>
+        <button class="btn btn-success">Éxito</button>
+        <button class="btn btn-danger">Peligro</button>
+        <button class="btn btn-warning">Advertencia</button>
+        <button class="btn btn-info">Información</button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <h4>📏 Variantes de Tamaño</h4>
+      <div class="button-showcase">
+        <button class="btn btn-primary btn-sm">Pequeño</button>
+        <button class="btn btn-primary btn-md">Mediano</button>
+        <button class="btn btn-primary btn-lg">Grande</button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <h4>🔲 Variantes Outline</h4>
+      <div class="button-showcase">
+        <button class="btn btn-outline-primary">Outline Primario</button>
+        <button class="btn btn-outline-success">Outline Éxito</button>
+        <button class="btn btn-outline-danger">Outline Peligro</button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <h4>🚫 Estados</h4>
+      <div class="button-showcase">
+        <button class="btn btn-primary" disabled>Deshabilitado</button>
+        <button class="btn btn-secondary btn-loading">
+          <span class="btn-spinner"></span>
+          Cargando...
+        </button>
+        <button class="btn btn-success">
+          <span class="btn-icon">✓</span>
+          Con Icono
+        </button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <h4>📱 Botón de Bloque</h4>
+      <div class="button-showcase">
+        <button class="btn btn-primary btn-block">Botón de Bloque (100% width)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos del sistema de botones duplicados para funcionamiento del preview */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding: 10px 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 44px;
+  }
+
+  .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-sm {
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-height: 36px;
+    border-radius: 6px;
+  }
+
+  .btn-md {
+    padding: 10px 20px;
+    font-size: 1rem;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1.125rem;
+    min-height: 52px;
+    border-radius: 10px;
+  }
+
+  .btn-primary {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #2563eb;
+    border-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-secondary {
+    background: #6b7280;
+    color: white;
+    border-color: #6b7280;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #4b5563;
+    border-color: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+  }
+
+  .btn-success {
+    background: #10b981;
+    color: white;
+    border-color: #10b981;
+  }
+
+  .btn-success:hover:not(:disabled) {
+    background: #059669;
+    border-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-danger {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+  }
+
+  .btn-warning {
+    background: #f59e0b;
+    color: white;
+    border-color: #f59e0b;
+  }
+
+  .btn-warning:hover:not(:disabled) {
+    background: #d97706;
+    border-color: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-info {
+    background: #06b6d4;
+    color: white;
+    border-color: #06b6d4;
+  }
+
+  .btn-info:hover:not(:disabled) {
+    background: #0891b2;
+    border-color: #0891b2;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  }
+
+  .btn-outline-primary {
+    background: transparent;
+    color: #3b82f6;
+    border-color: #3b82f6;
+  }
+
+  .btn-outline-primary:hover:not(:disabled) {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-outline-secondary {
+    background: transparent;
+    color: #6b7280;
+    border-color: #6b7280;
+  }
+
+  .btn-outline-secondary:hover:not(:disabled) {
+    background: #6b7280;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+  }
+
+  .btn-outline-success {
+    background: transparent;
+    color: #10b981;
+    border-color: #10b981;
+  }
+
+  .btn-outline-success:hover:not(:disabled) {
+    background: #10b981;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-outline-danger {
+    background: transparent;
+    color: #ef4444;
+    border-color: #ef4444;
+  }
+
+  .btn-outline-danger:hover:not(:disabled) {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+  }
+
+  .btn-outline-warning {
+    background: transparent;
+    color: #f59e0b;
+    border-color: #f59e0b;
+  }
+
+  .btn-outline-warning:hover:not(:disabled) {
+    background: #f59e0b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-outline-info {
+    background: transparent;
+    color: #06b6d4;
+    border-color: #06b6d4;
+  }
+
+  .btn-outline-info:hover:not(:disabled) {
+    background: #06b6d4;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+  }
+
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .btn-block {
+    display: flex;
+    width: 100%;
+  }
+
+  .btn-loading {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .btn-loading .btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: btn-spin 1s linear infinite;
+  }
+
+  @keyframes btn-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+  }
+
+  @media (max-width: 768px) {
+    .btn {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      min-height: 40px;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      min-height: 32px;
+    }
+
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 1rem;
+      min-height: 48px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    
+    .btn-spinner {
+      animation: none;
+    }
+  }
+
+  /* Estilos del contenedor preview */
+  .component-preview {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    margin-bottom: 2rem;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .button-group {
+    background: var(--surface-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .button-group h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .button-showcase {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .component-preview {
+      padding: 1.5rem;
+    }
+
+    .button-group {
+      padding: 1rem;
+    }
+
+    .button-showcase {
+      gap: 0.5rem;
+    }
+
+    .btn {
+      font-size: 0.875rem;
+    }
+  }
+</style>
