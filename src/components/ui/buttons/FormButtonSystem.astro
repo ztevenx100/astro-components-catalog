@@ -1,0 +1,470 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<!-- Botones para Formularios con Sistema Unificado -->
+<form class="form-example">
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" class="form-input" placeholder="tu@email.com">
+  </div>
+  
+  <div class="form-group">
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" class="form-input" placeholder="********">
+  </div>
+  
+  <!-- Grupo de botones de formulario -->
+  <div class="form-buttons">
+    <button type="submit" class="btn btn-primary">
+      <span class="btn-icon">🔐</span>
+      Iniciar Sesión
+    </button>
+    <button type="button" class="btn btn-outline-secondary">
+      Cancelar
+    </button>
+  </div>
+  
+  <!-- Botones de acción secundaria -->
+  <div class="form-actions">
+    <button type="button" class="btn btn-outline-info btn-sm">
+      ¿Olvidaste tu contraseña?
+    </button>
+  </div>
+</form>
+
+<!-- Formulario de confirmación -->
+<div class="confirmation-form">
+  <h3>¿Eliminar elemento?</h3>
+  <p>Esta acción no se puede deshacer.</p>
+  
+  <div class="confirmation-buttons">
+    <button class="btn btn-danger">
+      <span class="btn-icon">🗑️</span>
+      Sí, Eliminar
+    </button>
+    <button class="btn btn-outline-secondary">
+      Cancelar
+    </button>
+  </div>
+</div>
+
+<!-- Wizard/Stepper buttons -->
+<div class="wizard-navigation">
+  <button class="btn btn-outline-secondary" disabled>
+    <span class="btn-icon">←</span>
+    Anterior
+  </button>
+  
+  <span class="wizard-info">Paso 2 de 4</span>
+  
+  <button class="btn btn-primary">
+    Siguiente
+    <span class="btn-icon">→</span>
+  </button>
+</div>
+
+<style>
+  /* Estilos específicos para formularios */
+  .form-example {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .form-buttons .btn {
+    flex: 1;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .confirmation-form {
+    max-width: 350px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .confirmation-form h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+  }
+
+  .confirmation-form p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+  }
+
+  .confirmation-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .wizard-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .wizard-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  /* Responsive para formularios */
+  @media (max-width: 768px) {
+    .form-buttons {
+      flex-direction: column;
+    }
+
+    .confirmation-buttons {
+      flex-direction: column;
+    }
+
+    .wizard-navigation {
+      padding: 0.75rem;
+    }
+
+    .wizard-navigation .btn {
+      font-size: 0.875rem;
+      padding: 8px 16px;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>📝 Botones para Formularios</h3>
+  <p>Patrones optimizados de botones para formularios, confirmaciones y navegación paso a paso.</p>
+  
+  <div class="demo-container">
+    <div class="form-section">
+      <h4>🔐 Formulario de Login</h4>
+      <form class="form-example" onsubmit="event.preventDefault()">
+        <div class="form-group">
+          <label for="demo-email">Email:</label>
+          <input type="email" id="demo-email" class="form-input" placeholder="tu@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="demo-password">Contraseña:</label>
+          <input type="password" id="demo-password" class="form-input" placeholder="********">
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-icon">🔐</span>
+            Iniciar Sesión
+          </button>
+          <button type="button" class="btn btn-outline-secondary">
+            Cancelar
+          </button>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline-info btn-sm">
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-section">
+      <h4>⚠️ Diálogo de Confirmación</h4>
+      <div class="confirmation-form">
+        <h3>¿Eliminar elemento?</h3>
+        <p>Esta acción no se puede deshacer.</p>
+        
+        <div class="confirmation-buttons">
+          <button class="btn btn-danger">
+            <span class="btn-icon">🗑️</span>
+            Sí, Eliminar
+          </button>
+          <button class="btn btn-outline-secondary">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>🧭 Navegación de Wizard</h4>
+      <div class="wizard-navigation">
+        <button class="btn btn-outline-secondary" disabled>
+          <span class="btn-icon">←</span>
+          Anterior
+        </button>
+        
+        <span class="wizard-info">Paso 2 de 4</span>
+        
+        <button class="btn btn-primary">
+          Siguiente
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>💾 Estados de Formulario</h4>
+      <div class="form-states">
+        <button class="btn btn-success">
+          <span class="btn-icon">✓</span>
+          Guardado
+        </button>
+        <button class="btn btn-warning btn-loading">
+          <span class="btn-spinner"></span>
+          Guardando...
+        </button>
+        <button class="btn btn-danger">
+          <span class="btn-icon">✗</span>
+          Error
+        </button>
+        <button class="btn btn-outline-info">
+          <span class="btn-icon">📤</span>
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos específicos para formularios */
+  .form-example {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .form-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .form-buttons .btn {
+    flex: 1;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .confirmation-form {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .confirmation-form h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+  }
+
+  .confirmation-form p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+  }
+
+  .confirmation-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .wizard-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .wizard-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .form-states {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Estilos del contenedor preview */
+  .component-preview {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    margin-bottom: 2rem;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .form-section h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Responsive para formularios */
+  @media (max-width: 768px) {
+    .component-preview {
+      padding: 1.5rem;
+    }
+
+    .form-buttons {
+      flex-direction: column;
+    }
+
+    .confirmation-buttons {
+      flex-direction: column;
+    }
+
+    .wizard-navigation {
+      padding: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .wizard-navigation .btn {
+      font-size: 0.875rem;
+      padding: 8px 16px;
+    }
+
+    .form-states {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-states .btn {
+      width: 100%;
+      max-width: 200px;
+    }
+  }
+</style>

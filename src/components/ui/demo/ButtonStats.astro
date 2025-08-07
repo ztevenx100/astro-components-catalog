@@ -1,0 +1,226 @@
+---
+const stats = [
+  { 
+    icon: '⚡',
+    value: '1',
+    label: 'Clase Base',
+    description: '.btn - Una sola clase para gobernarlos a todos'
+  },
+  { 
+    icon: '🎨',
+    value: '6',
+    label: 'Variantes de Color',
+    description: 'Primary, Secondary, Success, Danger, Warning, Info'
+  },
+  { 
+    icon: '📏',
+    value: '3',
+    label: 'Tamaños',
+    description: 'Small, Medium, Large - Para cada contexto'
+  },
+  { 
+    icon: '🔲',
+    value: '36',
+    label: 'Combinaciones',
+    description: '6 colores × 3 tamaños × 2 estilos (filled/outline)'
+  },
+  { 
+    icon: '🌈',
+    value: '8',
+    label: 'Gradientes',
+    description: 'Efectos visuales avanzados con animaciones'
+  },
+  { 
+    icon: '📝',
+    value: '4',
+    label: 'Patrones de Formulario',
+    description: 'Login, Confirmación, Wizard, Estados'
+  }
+];
+---
+
+<div class="button-stats">
+  <h3>📊 Sistema de Botones - Estadísticas</h3>
+  
+  <div class="stats-grid">
+    {stats.map(stat => (
+      <div class="stat-card">
+        <div class="stat-icon">{stat.icon}</div>
+        <div class="stat-value">{stat.value}</div>
+        <div class="stat-label">{stat.label}</div>
+        <div class="stat-description">{stat.description}</div>
+      </div>
+    ))}
+  </div>
+
+  <div class="stats-summary">
+    <div class="summary-item">
+      <strong>🚀 Beneficios del Sistema Unificado:</strong>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit">
+        <span class="benefit-icon">⚡</span>
+        <span>Consistencia visual garantizada</span>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🔧</span>
+        <span>Mantenimiento simplificado</span>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">📦</span>
+        <span>CSS optimizado y reutilizable</span>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">♿</span>
+        <span>Accesibilidad incorporada</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .button-stats {
+    background: var(--surface-color);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .button-stats h3 {
+    text-align: center;
+    margin: 0 0 2rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(var(--primary-color-rgb), 0.2);
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .stats-summary {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .summary-item {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .benefit:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(4px);
+  }
+
+  .benefit-icon {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .button-stats {
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      padding: 1.25rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

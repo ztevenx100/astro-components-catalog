@@ -61,16 +61,91 @@ const { code, lang = 'html' } = Astro.props;
       console.log(`=== Configurando viewer ${index + 1} ===`);
       
       const toggleBtn = viewer.querySelector('.toggle-code-btn');
+      const copyBtn = viewer.querySelector('.copy-btn');
       const codeContainer = viewer.querySelector('.code-container');
       const codeEl = viewer.querySelector('code');
       
       console.log('Elementos:', {
         viewer: viewer,
         toggleBtn: toggleBtn,
+        copyBtn: copyBtn,
         codeContainer: codeContainer,
         codeEl: codeEl
       });
       
+      // Configurar botón de copia
+      if (copyBtn && codeEl) {
+        console.log('Configurando botón de copia...');
+        
+        copyBtn.onclick = async function(event) {
+          console.log('=== COPY CLICK DETECTADO ===', event);
+          event.preventDefault();
+          
+          try {
+            const codeText = codeEl.textContent || '';
+            await navigator.clipboard.writeText(codeText);
+            
+            // Feedback visual con clases CSS
+            const originalText = copyBtn.querySelector('.copy-text');
+            if (originalText) {
+              originalText.textContent = '¡Copiado!';
+              copyBtn.classList.add('copied');
+              
+              setTimeout(() => {
+                originalText.textContent = 'Copiar';
+                copyBtn.classList.remove('copied');
+              }, 2000);
+            }
+            
+            console.log('Código copiado exitosamente');
+          } catch (err) {
+            console.error('Error al copiar:', err);
+            
+            // Fallback para navegadores sin clipboard API
+            const textArea = document.createElement('textarea');
+            textArea.value = codeEl.textContent || '';
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+              document.execCommand('copy');
+              console.log('Código copiado con fallback');
+              
+              const originalText = copyBtn.querySelector('.copy-text');
+              if (originalText) {
+                originalText.textContent = '¡Copiado!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                  originalText.textContent = 'Copiar';
+                  copyBtn.classList.remove('copied');
+                }, 2000);
+              }
+            } catch (fallbackErr) {
+              console.error('Error en fallback:', fallbackErr);
+              
+              // Mostrar error visual
+              const originalText = copyBtn.querySelector('.copy-text');
+              if (originalText) {
+                originalText.textContent = 'Error';
+                setTimeout(() => {
+                  originalText.textContent = 'Copiar';
+                }, 2000);
+              }
+            }
+            
+            document.body.removeChild(textArea);
+          }
+        };
+        
+        console.log('Botón de copia configurado');
+      }
+      
+      // Configurar botón de toggle
       if (toggleBtn && codeContainer && codeEl) {
         console.log('Agregando click listener...');
         
@@ -206,10 +281,36 @@ const { code, lang = 'html' } = Astro.props;
     transform: scale(1.1);
   }
 
+  .copy-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
   .copy-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    background-color: var(--success-color) !important;
+    color: white !important;
+    border-color: var(--success-color) !important;
+  }
+
+  .copy-btn:active {
+    background-color: var(--success-color) !important;
+    transform: scale(0.95);
+  }
+
+  .copy-btn.copied {
+    background-color: var(--success-color) !important;
+    color: white !important;
+    border-color: var(--success-color) !important;
+  }
+
+  .copy-btn.copied::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 
   .toggle-code-btn:hover {

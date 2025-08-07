@@ -1,0 +1,451 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<!-- ✨ SISTEMA COMPLETO DE BOTONES - SHOWCASE ✨ -->
+
+<!-- SECCIÓN 1: Básicos -->
+<section class="button-showcase-section">
+  <h2>🎨 Variantes de Color</h2>
+  <div class="button-grid">
+    <button class="btn btn-primary">Primario</button>
+    <button class="btn btn-secondary">Secundario</button>
+    <button class="btn btn-success">Éxito</button>
+    <button class="btn btn-danger">Peligro</button>
+    <button class="btn btn-warning">Advertencia</button>
+    <button class="btn btn-info">Información</button>
+  </div>
+</section>
+
+<!-- SECCIÓN 2: Tamaños -->
+<section class="button-showcase-section">
+  <h2>📏 Variantes de Tamaño</h2>
+  <div class="button-grid">
+    <button class="btn btn-primary btn-sm">Pequeño</button>
+    <button class="btn btn-primary btn-md">Mediano</button>
+    <button class="btn btn-primary btn-lg">Grande</button>
+  </div>
+</section>
+
+<!-- SECCIÓN 3: Outline -->
+<section class="button-showcase-section">
+  <h2>🔲 Variantes Outline</h2>
+  <div class="button-grid">
+    <button class="btn btn-outline-primary">Outline Primario</button>
+    <button class="btn btn-outline-success">Outline Éxito</button>
+    <button class="btn btn-outline-danger">Outline Peligro</button>
+  </div>
+</section>
+
+<!-- SECCIÓN 4: Estados -->
+<section class="button-showcase-section">
+  <h2>🚫 Estados y Interacciones</h2>
+  <div class="button-grid">
+    <button class="btn btn-primary" disabled>Deshabilitado</button>
+    <button class="btn btn-secondary btn-loading">
+      <span class="btn-spinner"></span>
+      Cargando...
+    </button>
+    <button class="btn btn-success">
+      <span class="btn-icon">✓</span>
+      Con Icono
+    </button>
+  </div>
+</section>
+
+<!-- SECCIÓN 5: Gradientes -->
+<section class="button-showcase-section">
+  <h2>🌈 Efectos de Gradiente</h2>
+  <div class="button-grid">
+    <button class="btn btn-gradient-primary">Gradiente Primario</button>
+    <button class="btn btn-gradient-rainbow">Arcoíris</button>
+    <button class="btn btn-gradient-sunset">Atardecer</button>
+    <button class="btn btn-gradient-ocean">Océano</button>
+  </div>
+</section>
+
+<!-- SECCIÓN 6: Aplicaciones Reales -->
+<section class="button-showcase-section">
+  <h2>🎯 Casos de Uso Reales</h2>
+  
+  <!-- Toolbar -->
+  <div class="toolbar-example">
+    <button class="btn btn-primary btn-sm">
+      <span class="btn-icon">💾</span>
+      Guardar
+    </button>
+    <button class="btn btn-outline-secondary btn-sm">
+      <span class="btn-icon">📤</span>
+      Exportar
+    </button>
+    <button class="btn btn-outline-danger btn-sm">
+      <span class="btn-icon">🗑️</span>
+      Eliminar
+    </button>
+  </div>
+  
+  <!-- Call to Action -->
+  <div class="cta-example">
+    <button class="btn btn-gradient-primary btn-lg btn-animated">
+      <span class="btn-icon">🚀</span>
+      Comenzar Ahora
+    </button>
+  </div>
+  
+  <!-- Form Actions -->
+  <div class="form-actions-example">
+    <button class="btn btn-success">
+      <span class="btn-icon">✓</span>
+      Confirmar
+    </button>
+    <button class="btn btn-outline-secondary">Cancelar</button>
+  </div>
+</section>
+
+<!-- SECCIÓN 7: Bloque -->
+<section class="button-showcase-section">
+  <h2>📱 Botones de Bloque</h2>
+  <button class="btn btn-primary btn-block">
+    <span class="btn-icon">📱</span>
+    Botón de Ancho Completo
+  </button>
+  <button class="btn btn-outline-success btn-block">
+    <span class="btn-icon">💳</span>
+    Procesar Pago
+  </button>
+</section>
+
+<style>
+  .button-showcase-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .button-showcase-section h2 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .button-grid {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .toolbar-example {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--background-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  .cta-example {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+
+  .form-actions-example {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .button-grid {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .toolbar-example {
+      flex-direction: column;
+    }
+
+    .form-actions-example {
+      flex-direction: column;
+    }
+  }
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>🎪 Showcase Completo del Sistema de Botones</h3>
+  <p>Demostración completa de todas las capacidades del sistema unificado de botones con ejemplos de uso real.</p>
+  
+  <div class="showcase-container">
+    <!-- SECCIÓN 1: Básicos -->
+    <section class="button-showcase-section">
+      <h2>🎨 Variantes de Color</h2>
+      <div class="button-grid">
+        <button class="btn btn-primary">Primario</button>
+        <button class="btn btn-secondary">Secundario</button>
+        <button class="btn btn-success">Éxito</button>
+        <button class="btn btn-danger">Peligro</button>
+        <button class="btn btn-warning">Advertencia</button>
+        <button class="btn btn-info">Información</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: Tamaños -->
+    <section class="button-showcase-section">
+      <h2>📏 Variantes de Tamaño</h2>
+      <div class="button-grid">
+        <button class="btn btn-primary btn-sm">Pequeño</button>
+        <button class="btn btn-primary btn-md">Mediano</button>
+        <button class="btn btn-primary btn-lg">Grande</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: Outline -->
+    <section class="button-showcase-section">
+      <h2>🔲 Variantes Outline</h2>
+      <div class="button-grid">
+        <button class="btn btn-outline-primary">Outline Primario</button>
+        <button class="btn btn-outline-success">Outline Éxito</button>
+        <button class="btn btn-outline-danger">Outline Peligro</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: Estados -->
+    <section class="button-showcase-section">
+      <h2>🚫 Estados y Interacciones</h2>
+      <div class="button-grid">
+        <button class="btn btn-primary" disabled>Deshabilitado</button>
+        <button class="btn btn-secondary btn-loading">
+          <span class="btn-spinner"></span>
+          Cargando...
+        </button>
+        <button class="btn btn-success">
+          <span class="btn-icon">✓</span>
+          Con Icono
+        </button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: Gradientes -->
+    <section class="button-showcase-section">
+      <h2>🌈 Efectos de Gradiente</h2>
+      <div class="button-grid">
+        <button class="btn btn-gradient-primary">
+          <span class="btn-text">Gradiente Primario</span>
+        </button>
+        <button class="btn btn-gradient-rainbow">Arcoíris</button>
+        <button class="btn btn-gradient-sunset">Atardecer</button>
+        <button class="btn btn-gradient-ocean">Océano</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: Aplicaciones Reales -->
+    <section class="button-showcase-section">
+      <h2>🎯 Casos de Uso Reales</h2>
+      
+      <!-- Toolbar -->
+      <div class="toolbar-example">
+        <button class="btn btn-primary btn-sm">
+          <span class="btn-icon">💾</span>
+          Guardar
+        </button>
+        <button class="btn btn-outline-secondary btn-sm">
+          <span class="btn-icon">📤</span>
+          Exportar
+        </button>
+        <button class="btn btn-outline-danger btn-sm">
+          <span class="btn-icon">🗑️</span>
+          Eliminar
+        </button>
+      </div>
+      
+      <!-- Call to Action -->
+      <div class="cta-example">
+        <button class="btn btn-gradient-primary btn-lg btn-animated">
+          <span class="btn-icon">🚀</span>
+          <span class="btn-text">Comenzar Ahora</span>
+        </button>
+      </div>
+      
+      <!-- Form Actions -->
+      <div class="form-actions-example">
+        <button class="btn btn-success">
+          <span class="btn-icon">✓</span>
+          Confirmar
+        </button>
+        <button class="btn btn-outline-secondary">Cancelar</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: Bloque -->
+    <section class="button-showcase-section">
+      <h2>📱 Botones de Bloque</h2>
+      <div class="block-examples">
+        <button class="btn btn-primary btn-block">
+          <span class="btn-icon">📱</span>
+          Botón de Ancho Completo
+        </button>
+        <button class="btn btn-outline-success btn-block">
+          <span class="btn-icon">💳</span>
+          Procesar Pago
+        </button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 8: Combinaciones Avanzadas -->
+    <section class="button-showcase-section">
+      <h2>⚡ Combinaciones Avanzadas</h2>
+      <div class="advanced-grid">
+        <button class="btn btn-gradient-danger btn-lg btn-icon-animated">
+          <span class="btn-icon">❤️</span>
+          <span class="btn-text">Me Encanta</span>
+        </button>
+        <button class="btn btn-outline-primary btn-sm">
+          <span class="btn-icon">🔍</span>
+          Buscar
+        </button>
+        <button class="btn btn-gradient-ocean btn-icon-right">
+          <span class="btn-text">Siguiente</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  /* Estilos del showcase */
+  .component-preview {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    margin-bottom: 2rem;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .component-preview p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-secondary);
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .showcase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .button-showcase-section {
+    padding: 1.5rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .button-showcase-section h2 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .button-grid {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .toolbar-example {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--background-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  .cta-example {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+
+  .form-actions-example {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .block-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .advanced-grid {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .component-preview {
+      padding: 1.5rem;
+    }
+
+    .button-showcase-section {
+      padding: 1rem;
+    }
+
+    .button-grid {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .toolbar-example {
+      flex-direction: column;
+    }
+
+    .form-actions-example {
+      flex-direction: column;
+    }
+
+    .advanced-grid {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .button-showcase-section h2 {
+      font-size: 1.1rem;
+    }
+  }
+</style>

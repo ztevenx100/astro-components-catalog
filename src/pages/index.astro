@@ -1,16 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// Navegación
+import ButtonNavigation from '../components/ui/navigation/ButtonNavigation.astro';
+
 // Importar componentes de botones
-import PrimaryButton from '../components/ui/buttons/PrimaryButton.astro';
-import GhostButton from '../components/ui/buttons/GhostButton.astro';
+// Sistema Unificado (Nuevos)
+import ButtonSystem from '../components/ui/buttons/ButtonSystem.astro';
+import ButtonShowcase from '../components/ui/buttons/ButtonShowcase.astro';
+import ButtonStats from '../components/ui/demo/ButtonStats.astro';
+import WhatsNext from '../components/ui/demo/WhatsNext.astro';
+import GradientButtonSystem from '../components/ui/buttons/GradientButtonSystem.astro';
+import IconButtonSystem from '../components/ui/buttons/IconButtonSystem.astro';
+import FormButtonSystem from '../components/ui/buttons/FormButtonSystem.astro';
+
+// Componentes Legacy (Solo el que se mantiene como ejemplo)
 import NeomorphicButton from '../components/ui/buttons/NeomorphicButton.astro';
-import LoadingButton from '../components/ui/buttons/LoadingButton.astro';
-import GradientButton from '../components/ui/buttons/GradientButton.astro';
-import IconButton from '../components/ui/buttons/IconButton.astro';
-import ToggleButton from '../components/ui/buttons/ToggleButton.astro';
-import FloatingButton from '../components/ui/buttons/FloatingButton.astro';
-import ProgressButton from '../components/ui/buttons/ProgressButton.astro';
 
 // Importar componentes de tarjetas
 import BasicCard from '../components/ui/cards/BasicCard.astro';
@@ -72,7 +77,8 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 		<nav class="catalog-nav">
 			<a href="#theme-demo" class="nav-link">🎨 Tema</a>
-			<a href="#buttons" class="nav-link">Botones</a>
+			<a href="#buttons" class="nav-link">🔘 Botones</a>
+			<a href="#button-system" class="nav-link">⚡ Sistema</a>
 			<a href="#cards" class="nav-link">Tarjetas</a>
 			<a href="#forms" class="nav-link">Formularios</a>
 			<a href="#feedback" class="nav-link">💬 Feedback</a>
@@ -87,19 +93,62 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			</div>
 		</section>
 
+		<!-- Navegación de Botones -->
+		<ButtonNavigation />
+
 		<section id="buttons" class="section">
-			<h2>🔘 Botones</h2>
-			<div class="components-grid">
-				<PrimaryButton />
-				<GhostButton />
+			<h2>🔘 Botones Legacy</h2>
+			<p class="section-description">Componente de ejemplo con estilo neomorphic - Ver el nuevo sistema unificado más abajo ⬇️</p>
+			<div class="components-grid legacy-grid">
 				<NeomorphicButton />
-				<LoadingButton />
-				<GradientButton />
-				<IconButton />
-				<ToggleButton />
-				<FloatingButton />
-				<ProgressButton />
 			</div>
+		</section>
+
+		<section id="button-system" class="section button-system-section">
+			<div class="system-header">
+				<h2>⚡ Sistema de Botones Unificado</h2>
+				<p class="system-description">
+					Sistema completo y escalable con clase base <code>.btn</code>, variantes de color, tamaño, 
+					outline, gradientes, iconos y patrones para formularios.
+				</p>
+			</div>
+
+			<!-- Showcase Principal -->
+			<div class="showcase-container">
+				<ButtonShowcase />
+			</div>
+
+			<!-- Sistema Base -->
+			<div class="system-component">
+				<h3>🎯 Sistema Base</h3>
+				<ButtonSystem />
+			</div>
+
+			<!-- Extensiones Especializadas -->
+			<div class="system-extensions">
+				<div class="extension-grid">
+					<div class="extension-item" id="gradients">
+						<h3>🌈 Gradientes</h3>
+						<GradientButtonSystem />
+					</div>
+					
+					<div class="extension-item" id="icons">
+						<h3>🎯 Iconos</h3>
+						<IconButtonSystem />
+					</div>
+					
+					<div class="extension-item" id="forms">
+						<h3>📝 Formularios</h3>
+						<FormButtonSystem />
+					</div>
+				</div>
+			</div>
+
+			<!-- Estadísticas del Sistema -->
+			<ButtonStats />
+
+			<!-- Qué Sigue -->
+			<WhatsNext />
 		</section>
 
 		<section id="cards" class="section">
@@ -274,6 +323,97 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 		color: #f7fafc;
 	}
 
+	.section-description {
+		text-align: center;
+		color: #666;
+		margin-bottom: 1.5rem;
+		font-size: 1.1rem;
+	}
+
+	html.dark .section-description {
+		color: #a0aec0;
+	}
+
+	/* Estilos específicos para el sistema de botones */
+	.button-system-section {
+		background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+		border-radius: 20px;
+		padding: 2rem;
+		margin: 3rem 0;
+		border: 1px solid var(--border-color);
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+	}
+
+	.system-header {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.system-description {
+		color: var(--text-secondary);
+		font-size: 1.1rem;
+		max-width: 700px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+
+	.system-description code {
+		background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-size: 0.9em;
+		color: var(--primary-color);
+	}
+
+	.showcase-container {
+		margin-bottom: 3rem;
+	}
+
+	.system-component {
+		margin-bottom: 3rem;
+	}
+
+	.system-component h3 {
+		color: var(--text-color);
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.system-extensions {
+		margin-top: 2rem;
+	}
+
+	.extension-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	.extension-item h3 {
+		color: var(--text-color);
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.legacy-grid {
+		opacity: 0.8;
+		transition: opacity 0.3s ease;
+	}
+
+	.legacy-grid:hover {
+		opacity: 1;
+	}
+
 	.components-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -338,6 +478,40 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 		.components-grid {
 			grid-template-columns: 1fr;
+		}
+
+		/* Responsive para sistema de botones */
+		.button-system-section {
+			padding: 1.5rem;
+			margin: 2rem 0;
+		}
+
+		.system-description {
+			font-size: 1rem;
+		}
+
+		.system-component h3,
+		.extension-item h3 {
+			font-size: 1.2rem;
+		}
+
+		.extension-grid {
+			gap: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.button-system-section {
+			padding: 1rem;
+		}
+
+		.system-header {
+			margin-bottom: 2rem;
+		}
+
+		.showcase-container,
+		.system-component {
+			margin-bottom: 2rem;
 		}
 	}
 
