@@ -1,0 +1,769 @@
+/* 
+ * ===== SISTEMA DE BOTONES CSS PURO =====
+ * Sistema completo de botones con clase base, variantes y estados
+ * Versión optimizada sin redundancias
+ */
+
+/* ===== CLASE BASE ===== */
+.btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  /* Typography */
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Visual */
+  background: transparent;
+  color: inherit;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  
+  /* Behavior */
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+  
+  /* Animation */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Default size (medium) */
+  padding: 10px 20px;
+  min-height: 44px;
+}
+
+/* ===== ESTADOS DE INTERACCIÓN ===== */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:hover:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(-2px);
+}
+
+/* ===== VARIANTES DE TAMAÑO ===== */
+.btn-sm {
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-height: 36px;
+  border-radius: 6px;
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 1.125rem;
+  min-height: 52px;
+  border-radius: 10px;
+}
+
+/* ===== VARIANTES DE COLOR - SÓLIDOS ===== */
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #2563eb;
+  border-color: #2563eb;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+  border-color: #6b7280;
+}
+
+.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #4b5563;
+  border-color: #4b5563;
+  box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.btn-success:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #059669;
+  border-color: #059669;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #dc2626;
+  border-color: #dc2626;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.btn-warning {
+  background: #f59e0b;
+  color: white;
+  border-color: #f59e0b;
+}
+
+.btn-warning:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #d97706;
+  border-color: #d97706;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.btn-info {
+  background: #06b6d4;
+  color: white;
+  border-color: #06b6d4;
+}
+
+.btn-info:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #0891b2;
+  border-color: #0891b2;
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+}
+
+/* ===== VARIANTES OUTLINE ===== */
+.btn-outline-primary {
+  background: transparent;
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.btn-outline-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  color: #6b7280;
+  border-color: #6b7280;
+}
+
+.btn-outline-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #6b7280;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+}
+
+.btn-outline-success {
+  background: transparent;
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.btn-outline-success:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #10b981;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-outline-danger {
+  background: transparent;
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.btn-outline-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.btn-outline-warning {
+  background: transparent;
+  color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.btn-outline-warning:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #f59e0b;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.btn-outline-info {
+  background: transparent;
+  color: #06b6d4;
+  border-color: #06b6d4;
+}
+
+.btn-outline-info:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #06b6d4;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+}
+
+/* ===== VARIANTE NEOMÓRFICA ===== */
+.btn-neomorphic {
+  background: var(--surface-color, #f1f5f9);
+  border: none;
+  border-radius: 16px;
+  color: #374151;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.8);
+}
+
+.btn-neomorphic:hover:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(-1px);
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.15),
+    -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+.btn-neomorphic:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+}
+
+/* Variantes de color neomórficas */
+.btn-neomorphic.btn-primary {
+  background: linear-gradient(145deg, #4f94ff, #3b82f6);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(59, 130, 246, 0.2),
+    -8px -8px 16px rgba(79, 148, 255, 0.2);
+}
+
+.btn-neomorphic.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(59, 130, 246, 0.3),
+    -6px -6px 12px rgba(79, 148, 255, 0.3);
+}
+
+.btn-neomorphic.btn-primary:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(59, 130, 246, 0.3),
+    inset -4px -4px 8px rgba(79, 148, 255, 0.1);
+}
+
+.btn-neomorphic.btn-success {
+  background: linear-gradient(145deg, #34d399, #10b981);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(16, 185, 129, 0.2),
+    -8px -8px 16px rgba(52, 211, 153, 0.2);
+}
+
+.btn-neomorphic.btn-success:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(16, 185, 129, 0.3),
+    -6px -6px 12px rgba(52, 211, 153, 0.3);
+}
+
+.btn-neomorphic.btn-success:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(16, 185, 129, 0.3),
+    inset -4px -4px 8px rgba(52, 211, 153, 0.1);
+}
+
+.btn-neomorphic.btn-danger {
+  background: linear-gradient(145deg, #f87171, #ef4444);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(239, 68, 68, 0.2),
+    -8px -8px 16px rgba(248, 113, 113, 0.2);
+}
+
+.btn-neomorphic.btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(239, 68, 68, 0.3),
+    -6px -6px 12px rgba(248, 113, 113, 0.3);
+}
+
+.btn-neomorphic.btn-danger:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(239, 68, 68, 0.3),
+    inset -4px -4px 8px rgba(248, 113, 113, 0.1);
+}
+
+/* ===== ESTADO DESHABILITADO ===== */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(20%);
+}
+
+/* ===== UTILIDADES ADICIONALES ===== */
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+  
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    min-height: 32px;
+  }
+  
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+}
+
+/* ===== MODO OSCURO ===== */
+@media (prefers-color-scheme: dark) {
+  .btn {
+    --surface-color: #1f2937;
+    --surface-color-dark: #111827;
+  }
+  
+  .btn-secondary {
+    background: #374151;
+    border-color: #374151;
+  }
+  
+  .btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: #4b5563;
+    border-color: #4b5563;
+  }
+  
+  .btn-outline-secondary {
+    color: #9ca3af;
+    border-color: #4b5563;
+  }
+  
+  .btn-outline-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: #374151;
+    color: white;
+    border-color: #374151;
+  }
+
+  /* ===== BOTONES NEOMÓRFICOS - MODO OSCURO ===== */
+  
+  /* Botón neomórfico básico en modo oscuro */
+  .btn-neomorphic {
+    background: #2d3748;
+    color: #e2e8f0;
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.4),
+      -8px -8px 16px rgba(255, 255, 255, 0.02);
+  }
+
+  .btn-neomorphic:hover:not(:disabled):not([aria-disabled="true"]) {
+    transform: translateY(-1px);
+    box-shadow: 
+      6px 6px 12px rgba(0, 0, 0, 0.5),
+      -6px -6px 12px rgba(255, 255, 255, 0.03);
+  }
+
+  .btn-neomorphic:active {
+    transform: translateY(1px);
+    box-shadow: 
+      inset 4px 4px 8px rgba(0, 0, 0, 0.5),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.03);
+  }
+
+  /* Variantes de color neomórficas en modo oscuro */
+  .btn-neomorphic.btn-primary {
+    background: linear-gradient(145deg, #3b82f6, #2563eb);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(37, 99, 235, 0.3),
+      -8px -8px 16px rgba(59, 130, 246, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-neomorphic.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(37, 99, 235, 0.4),
+      -6px -6px 12px rgba(59, 130, 246, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-neomorphic.btn-primary:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(37, 99, 235, 0.4),
+      inset -4px -4px 8px rgba(59, 130, 246, 0.1);
+  }
+
+  .btn-neomorphic.btn-success {
+    background: linear-gradient(145deg, #10b981, #059669);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(5, 150, 105, 0.3),
+      -8px -8px 16px rgba(16, 185, 129, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-neomorphic.btn-success:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(5, 150, 105, 0.4),
+      -6px -6px 12px rgba(16, 185, 129, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-neomorphic.btn-success:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(5, 150, 105, 0.4),
+      inset -4px -4px 8px rgba(16, 185, 129, 0.1);
+  }
+
+  .btn-neomorphic.btn-danger {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(220, 38, 38, 0.3),
+      -8px -8px 16px rgba(239, 68, 68, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-neomorphic.btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(220, 38, 38, 0.4),
+      -6px -6px 12px rgba(239, 68, 68, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-neomorphic.btn-danger:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(220, 38, 38, 0.4),
+      inset -4px -4px 8px rgba(239, 68, 68, 0.1);
+  }
+
+  .btn-neomorphic.btn-warning {
+    background: linear-gradient(145deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(217, 119, 6, 0.3),
+      -8px -8px 16px rgba(245, 158, 11, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-neomorphic.btn-warning:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(217, 119, 6, 0.4),
+      -6px -6px 12px rgba(245, 158, 11, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-neomorphic.btn-warning:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(217, 119, 6, 0.4),
+      inset -4px -4px 8px rgba(245, 158, 11, 0.1);
+  }
+
+  .btn-neomorphic.btn-info {
+    background: linear-gradient(145deg, #06b6d4, #0891b2);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(8, 145, 178, 0.3),
+      -8px -8px 16px rgba(6, 182, 212, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-neomorphic.btn-info:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(8, 145, 178, 0.4),
+      -6px -6px 12px rgba(6, 182, 212, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-neomorphic.btn-info:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(8, 145, 178, 0.4),
+      inset -4px -4px 8px rgba(6, 182, 212, 0.1);
+  }
+
+  .btn-neomorphic.btn-secondary {
+    background: linear-gradient(145deg, #4b5563, #374151);
+    color: #e5e7eb;
+    box-shadow: 
+      8px 8px 16px rgba(17, 24, 39, 0.4),
+      -8px -8px 16px rgba(75, 85, 99, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+  }
+
+  .btn-neomorphic.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+    box-shadow: 
+      6px 6px 12px rgba(17, 24, 39, 0.5),
+      -6px -6px 12px rgba(75, 85, 99, 0.15),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-neomorphic.btn-secondary:active {
+    box-shadow: 
+      inset 4px 4px 8px rgba(17, 24, 39, 0.5),
+      inset -4px -4px 8px rgba(75, 85, 99, 0.1);
+  }
+
+  /* Estados deshabilitados en modo oscuro */
+  .btn-neomorphic:disabled,
+  .btn-neomorphic[aria-disabled="true"] {
+    background: #1f2937;
+    color: #6b7280;
+    box-shadow: 
+      4px 4px 8px rgba(0, 0, 0, 0.2),
+      -4px -4px 8px rgba(255, 255, 255, 0.01);
+  }
+
+  /* Asegurar que el foco sea visible en modo oscuro */
+  .btn:focus {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-neomorphic:focus {
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.4),
+      -8px -8px 16px rgba(255, 255, 255, 0.02),
+      0 0 0 3px rgba(99, 102, 241, 0.4);
+  }
+}
+
+/* ===== MODO OSCURO CON CLASE .dark ===== */
+html.dark .btn {
+  --surface-color: #1f2937;
+  --surface-color-dark: #111827;
+}
+
+html.dark .btn-secondary {
+  background: #374151;
+  border-color: #374151;
+}
+
+html.dark .btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #4b5563;
+  border-color: #4b5563;
+}
+
+html.dark .btn-outline-secondary {
+  color: #9ca3af;
+  border-color: #4b5563;
+}
+
+html.dark .btn-outline-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #374151;
+  color: white;
+  border-color: #374151;
+}
+
+/* ===== BOTONES NEOMÓRFICOS - MODO OSCURO CON CLASE ===== */
+
+/* Botón neomórfico básico en modo oscuro */
+html.dark .btn-neomorphic {
+  background: #2d3748;
+  color: #e2e8f0;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.02);
+}
+
+html.dark .btn-neomorphic:hover:not(:disabled):not([aria-disabled="true"]) {
+  transform: translateY(-1px);
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.5),
+    -6px -6px 12px rgba(255, 255, 255, 0.03);
+}
+
+html.dark .btn-neomorphic:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.5),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.03);
+}
+
+/* Variantes de color neomórficas en modo oscuro */
+html.dark .btn-neomorphic.btn-primary {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(37, 99, 235, 0.3),
+    -8px -8px 16px rgba(59, 130, 246, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(37, 99, 235, 0.4),
+    -6px -6px 12px rgba(59, 130, 246, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+html.dark .btn-neomorphic.btn-primary:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(37, 99, 235, 0.4),
+    inset -4px -4px 8px rgba(59, 130, 246, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-success {
+  background: linear-gradient(145deg, #10b981, #059669);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(5, 150, 105, 0.3),
+    -8px -8px 16px rgba(16, 185, 129, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-success:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(5, 150, 105, 0.4),
+    -6px -6px 12px rgba(16, 185, 129, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+html.dark .btn-neomorphic.btn-success:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(5, 150, 105, 0.4),
+    inset -4px -4px 8px rgba(16, 185, 129, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-danger {
+  background: linear-gradient(145deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(220, 38, 38, 0.3),
+    -8px -8px 16px rgba(239, 68, 68, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(220, 38, 38, 0.4),
+    -6px -6px 12px rgba(239, 68, 68, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+html.dark .btn-neomorphic.btn-danger:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(220, 38, 38, 0.4),
+    inset -4px -4px 8px rgba(239, 68, 68, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-warning {
+  background: linear-gradient(145deg, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(217, 119, 6, 0.3),
+    -8px -8px 16px rgba(245, 158, 11, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-warning:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(217, 119, 6, 0.4),
+    -6px -6px 12px rgba(245, 158, 11, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+html.dark .btn-neomorphic.btn-warning:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(217, 119, 6, 0.4),
+    inset -4px -4px 8px rgba(245, 158, 11, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-info {
+  background: linear-gradient(145deg, #06b6d4, #0891b2);
+  color: white;
+  box-shadow: 
+    8px 8px 16px rgba(8, 145, 178, 0.3),
+    -8px -8px 16px rgba(6, 182, 212, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-info:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(8, 145, 178, 0.4),
+    -6px -6px 12px rgba(6, 182, 212, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+html.dark .btn-neomorphic.btn-info:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(8, 145, 178, 0.4),
+    inset -4px -4px 8px rgba(6, 182, 212, 0.1);
+}
+
+html.dark .btn-neomorphic.btn-secondary {
+  background: linear-gradient(145deg, #4b5563, #374151);
+  color: #e5e7eb;
+  box-shadow: 
+    8px 8px 16px rgba(17, 24, 39, 0.4),
+    -8px -8px 16px rgba(75, 85, 99, 0.1),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+html.dark .btn-neomorphic.btn-secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 
+    6px 6px 12px rgba(17, 24, 39, 0.5),
+    -6px -6px 12px rgba(75, 85, 99, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.08);
+}
+
+html.dark .btn-neomorphic.btn-secondary:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(17, 24, 39, 0.5),
+    inset -4px -4px 8px rgba(75, 85, 99, 0.1);
+}
+
+/* Estados deshabilitados en modo oscuro */
+html.dark .btn-neomorphic:disabled,
+html.dark .btn-neomorphic[aria-disabled="true"] {
+  background: #1f2937;
+  color: #6b7280;
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.2),
+    -4px -4px 8px rgba(255, 255, 255, 0.01);
+}
+
+/* Asegurar que el foco sea visible en modo oscuro */
+html.dark .btn:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}
+
+html.dark .btn-neomorphic:focus {
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.02),
+    0 0 0 3px rgba(99, 102, 241, 0.4);
+}
