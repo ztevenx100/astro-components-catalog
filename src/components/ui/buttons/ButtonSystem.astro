@@ -20,6 +20,12 @@ const code = `
 <button class="btn btn-outline-secondary">Outline Secundario</button>
 <button class="btn btn-outline-danger">Outline Peligro</button>
 
+<!-- Variantes neomórficas -->
+<button class="btn btn-neomorphic">Neomórfico Básico</button>
+<button class="btn btn-neomorphic btn-primary">Neomórfico Primario</button>
+<button class="btn btn-neomorphic btn-success">Neomórfico Éxito</button>
+<button class="btn btn-neomorphic btn-danger">Neomórfico Peligro</button>
+
 <!-- Estados -->
 <button class="btn btn-primary" disabled>Deshabilitado</button>
 <button class="btn btn-primary btn-loading">
@@ -81,7 +87,9 @@ const code = `
     border-radius: 6px;
   }
 
+  /* .btn-md es redundante ya que la clase base .btn tiene estos valores por defecto */
   .btn-md {
+    /* Estas propiedades ya están definidas en .btn */
     padding: 10px 20px;
     font-size: 1rem;
     min-height: 44px;
@@ -253,11 +261,69 @@ const code = `
     box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
   }
 
+  /* ===== VARIANTE NEOMÓRFICA ===== */
+  .btn-neomorphic {
+    background: var(--surface-color, #f1f5f9);
+    border: none;
+    border-radius: 16px;
+    color: #374151;
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.1),
+      -8px -8px 16px rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-neomorphic:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 
+      6px 6px 12px rgba(0, 0, 0, 0.15),
+      -6px -6px 12px rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-neomorphic:active {
+    transform: translateY(1px);
+    box-shadow: 
+      inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-neomorphic.btn-primary {
+    background: linear-gradient(145deg, #4f94ff, #3b82f6);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(59, 130, 246, 0.2),
+      -8px -8px 16px rgba(79, 148, 255, 0.2);
+  }
+
+  .btn-neomorphic.btn-success {
+    background: linear-gradient(145deg, #34d399, #10b981);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(16, 185, 129, 0.2),
+      -8px -8px 16px rgba(52, 211, 153, 0.2);
+  }
+
+  .btn-neomorphic.btn-danger {
+    background: linear-gradient(145deg, #f87171, #ef4444);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(239, 68, 68, 0.2),
+      -8px -8px 16px rgba(248, 113, 113, 0.2);
+  }
+
   /* ===== ESTADO DESHABILITADO ===== */
-  .btn:disabled {
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+    filter: grayscale(20%);
+  }
+
+  /* Asegurar que los estados hover no se apliquen a botones deshabilitados */
+  .btn:disabled:hover,
+  .btn[aria-disabled="true"]:hover {
     transform: none !important;
     box-shadow: none !important;
   }
@@ -266,6 +332,18 @@ const code = `
   .btn-block {
     display: flex;
     width: 100%;
+    justify-content: center;
+  }
+
+  /* Asegurar que los botones de bloque se mantengan centrados incluso con iconos */
+  .btn-block .btn-icon {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .btn-block .btn-icon + * {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* ===== ESTADO DE CARGA ===== */
@@ -327,10 +405,37 @@ const code = `
     .btn-spinner {
       animation: none;
     }
+
+    .btn:hover:not(:disabled) {
+      transform: none;
+    }
+
+    .btn:active {
+      transform: none;
+    }
+  }
+
+  /* Soporte para alto contraste */
+  @media (prefers-contrast: high) {
+    .btn {
+      border-width: 3px;
+    }
+
+    .btn:focus {
+      outline: 3px solid;
+      outline-offset: 2px;
+    }
+  }
+
+  /* Mejorar la legibilidad para usuarios con discapacidades visuales */
+  .btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 
   /* ===== MODO OSCURO ===== */
   @media (prefers-color-scheme: dark) {
+    /* Mejorar contraste para botones secundarios en modo oscuro */
     .btn-secondary {
       background: #374151;
       border-color: #374151;
@@ -343,12 +448,66 @@ const code = `
 
     .btn-outline-secondary {
       color: #9ca3af;
-      border-color: #9ca3af;
+      border-color: #6b7280;
     }
 
     .btn-outline-secondary:hover:not(:disabled) {
       background: #374151;
       color: white;
+      border-color: #374151;
+    }
+
+    /* Ajustes neomórficos para modo oscuro */
+    .btn-neomorphic {
+      background: var(--surface-color-dark, #2d3748);
+      box-shadow: 
+        8px 8px 16px rgba(0, 0, 0, 0.5),
+        -8px -8px 16px rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-neomorphic:hover:not(:disabled) {
+      box-shadow: 
+        4px 4px 8px rgba(0, 0, 0, 0.6),
+        -4px -4px 8px rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-neomorphic:active {
+      box-shadow: 
+        inset 4px 4px 8px rgba(0, 0, 0, 0.6),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.08);
+    }
+
+    /* Colores neomórficos en modo oscuro */
+    .btn-neomorphic.btn-primary {
+      background: linear-gradient(145deg, #3b82f6, #1e40af);
+      box-shadow: 
+        8px 8px 16px rgba(30, 64, 175, 0.4),
+        -8px -8px 16px rgba(59, 130, 246, 0.2);
+    }
+
+    .btn-neomorphic.btn-success {
+      background: linear-gradient(145deg, #10b981, #047857);
+      box-shadow: 
+        8px 8px 16px rgba(4, 120, 87, 0.4),
+        -8px -8px 16px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-neomorphic.btn-danger {
+      background: linear-gradient(145deg, #ef4444, #b91c1c);
+      box-shadow: 
+        8px 8px 16px rgba(185, 28, 28, 0.4),
+        -8px -8px 16px rgba(239, 68, 68, 0.2);
+    }
+
+    /* Asegurar que el foco sea visible en modo oscuro */
+    .btn:focus {
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Mejorar visibilidad del spinner en modo oscuro */
+    .btn-loading .btn-spinner {
+      border-top-color: currentColor;
+      opacity: 0.8;
     }
   }
 </style>
@@ -402,6 +561,16 @@ const code = `
           <span class="btn-icon">✓</span>
           Con Icono
         </button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <h4>✨ Variantes Neomórficas</h4>
+      <div class="button-showcase">
+        <button class="btn btn-neomorphic">Neomórfico Básico</button>
+        <button class="btn btn-neomorphic btn-primary">Neomórfico Primario</button>
+        <button class="btn btn-neomorphic btn-success">Neomórfico Éxito</button>
+        <button class="btn btn-neomorphic btn-danger">Neomórfico Peligro</button>
       </div>
     </div>
 
@@ -628,17 +797,68 @@ const code = `
     box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
   }
 
-  .btn:disabled {
+  /* ===== VARIANTE NEOMÓRFICA ===== */
+  .btn-neomorphic {
+    background: var(--surface-color, #f1f5f9);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 
+      8px 8px 16px rgba(0, 0, 0, 0.1),
+      -8px -8px 16px rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-neomorphic:hover:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 
+      4px 4px 8px rgba(0, 0, 0, 0.15),
+      -4px -4px 8px rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-neomorphic:active {
+    transform: translateY(4px);
+    box-shadow: 
+      inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-neomorphic.btn-primary {
+    background: linear-gradient(145deg, #4f94ff, #2563eb);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(37, 99, 235, 0.3),
+      -8px -8px 16px rgba(79, 148, 255, 0.3);
+  }
+
+  .btn-neomorphic.btn-success {
+    background: linear-gradient(145deg, #34d399, #059669);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(5, 150, 105, 0.3),
+      -8px -8px 16px rgba(52, 211, 153, 0.3);
+  }
+
+  .btn-neomorphic.btn-danger {
+    background: linear-gradient(145deg, #f87171, #dc2626);
+    color: white;
+    box-shadow: 
+      8px 8px 16px rgba(220, 38, 38, 0.3),
+      -8px -8px 16px rgba(248, 113, 113, 0.3);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
     transform: none !important;
     box-shadow: none !important;
+    filter: grayscale(20%);
   }
 
   .btn-block {
     display: flex;
     width: 100%;
+    justify-content: center;
   }
 
   .btn-loading {

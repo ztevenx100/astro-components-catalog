@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 
 // Navegación
-import ButtonNavigation from '../components/ui/navigation/ButtonNavigation.astro';
+import UnifiedNav from '../components/ui/navigation/UnifiedNav.astro';
 
 // Importar componentes de botones
 // Sistema Unificado (Nuevos)
@@ -13,9 +13,6 @@ import WhatsNext from '../components/ui/demo/WhatsNext.astro';
 import GradientButtonSystem from '../components/ui/buttons/GradientButtonSystem.astro';
 import IconButtonSystem from '../components/ui/buttons/IconButtonSystem.astro';
 import FormButtonSystem from '../components/ui/buttons/FormButtonSystem.astro';
-
-// Componentes Legacy (Solo el que se mantiene como ejemplo)
-import NeomorphicButton from '../components/ui/buttons/NeomorphicButton.astro';
 
 // Importar componentes de tarjetas
 import BasicCard from '../components/ui/cards/BasicCard.astro';
@@ -75,16 +72,22 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			<p>Colección de componentes visuales modernos hechos con HTML y CSS puro</p>
 		</header>
 
-		<nav class="catalog-nav">
-			<a href="#theme-demo" class="nav-link">🎨 Tema</a>
-			<a href="#buttons" class="nav-link">🔘 Botones</a>
-			<a href="#button-system" class="nav-link">⚡ Sistema</a>
-			<a href="#cards" class="nav-link">Tarjetas</a>
-			<a href="#forms" class="nav-link">Formularios</a>
-			<a href="#feedback" class="nav-link">💬 Feedback</a>
-			<a href="#interactive" class="nav-link">🔄 Interactivos</a>
-			<a href="#navigation" class="nav-link">Navegación</a>
-		</nav>
+		<!-- Navegación Principal del Catálogo -->
+		<UnifiedNav 
+			variant="pills" 
+			size="md" 
+			showIcons={true} 
+			items={[
+				{ href: "#theme-demo", icon: "🎨", label: "Tema" },
+				{ href: "#buttons", icon: "🔘", label: "Botones" },
+				{ href: "#button-system", icon: "⚡", label: "Sistema" },
+				{ href: "#cards", icon: "🃏", label: "Tarjetas" },
+				{ href: "#forms", icon: "📝", label: "Formularios" },
+				{ href: "#feedback", icon: "💬", label: "Feedback" },
+				{ href: "#interactive", icon: "🔄", label: "Interactivos" },
+				{ href: "#navigation", icon: "🧭", label: "Navegación" }
+			]} 
+		/>
 
 		<section id="theme-demo" class="section">
 			<h2>🎨 Sistema de Temas</h2>
@@ -93,16 +96,20 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			</div>
 		</section>
 
-		<!-- Navegación de Botones -->
-		<ButtonNavigation />
-
-		<section id="buttons" class="section">
-			<h2>🔘 Botones Legacy</h2>
-			<p class="section-description">Componente de ejemplo con estilo neomorphic - Ver el nuevo sistema unificado más abajo ⬇️</p>
-			<div class="components-grid legacy-grid">
-				<NeomorphicButton />
-			</div>
-		</section>
+		<!-- Navegación Específica de Botones -->
+		<UnifiedNav 
+			variant="cards" 
+			size="sm" 
+			showIcons={true} 
+			showDescriptions={true}
+			items={[
+				{ href: "#button-system", icon: "⚡", label: "Sistema Base", description: "Clase .btn y variantes" },
+				{ href: "#gradients", icon: "🌈", label: "Gradientes", description: "Efectos visuales" },
+				{ href: "#icons", icon: "🎯", label: "Iconos", description: "Botones con iconos" },
+				{ href: "#forms", icon: "📝", label: "Formularios", description: "Patrones de forma" },
+				{ href: "#buttons", icon: "📚", label: "Legacy", description: "Ejemplos anteriores" }
+			]} 
+		/>
 
 		<section id="button-system" class="section button-system-section">
 			<div class="system-header">
@@ -265,49 +272,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 		color: #a0aec0;
 	}
 
-	.catalog-nav {
-		display: flex;
-		justify-content: center;
-		gap: 2rem;
-		margin-bottom: 3rem;
-		padding: 1.5rem;
-		background: var(--surface-color);
-		border-radius: 50px;
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-		flex-wrap: wrap;
-		transition: background 0.3s ease;
-	}
-
-	html.dark .catalog-nav {
-		background: var(--surface-color);
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-	}
-
-	.nav-link {
-		text-decoration: none;
-		color: #666;
-		font-weight: 600;
-		padding: 0.8rem 1.5rem;
-		border-radius: 25px;
-		transition: all 0.3s ease;
-		position: relative;
-	}
-
-	html.dark .nav-link {
-		color: #a0aec0;
-	}
-
-	.nav-link:hover {
-		color: #667eea;
-		background: rgba(102, 126, 234, 0.1);
-		transform: translateY(-2px);
-	}
-
-	html.dark .nav-link:hover {
-		color: #a3bffa;
-		background: rgba(163, 191, 250, 0.1);
-	}
-
 	.section {
 		margin-bottom: 4rem;
 	}
@@ -460,16 +424,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 		.catalog-header p {
 			font-size: 1rem;
-		}
-
-		.catalog-nav {
-			gap: 1rem;
-			padding: 1rem;
-		}
-
-		.nav-link {
-			padding: 0.6rem 1rem;
-			font-size: 0.9rem;
 		}
 
 		.section h2 {

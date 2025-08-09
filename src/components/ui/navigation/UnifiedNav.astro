@@ -1,0 +1,275 @@
+---
+export interface NavItem {
+  href: string;
+  icon: string;
+  label: string;
+  description?: string;
+}
+
+export interface NavProps {
+  items: NavItem[];
+  variant?: 'horizontal' | 'pills' | 'cards';
+  size?: 'sm' | 'md' | 'lg';
+  showIcons?: boolean;
+  showDescriptions?: boolean;
+  centered?: boolean;
+}
+
+const { 
+  items, 
+  variant = 'pills', 
+  size = 'md', 
+  showIcons = true, 
+  showDescriptions = false,
+  centered = true 
+} = Astro.props as NavProps;
+---
+
+<nav class={`unified-nav unified-nav--${variant} unified-nav--${size} ${centered ? 'unified-nav--centered' : ''}`}>
+  <div class="unified-nav__container">
+    {items.map(item => (
+      <a href={item.href} class="unified-nav__link">
+        {showIcons && (
+          <span class="unified-nav__icon">{item.icon}</span>
+        )}
+        <div class="unified-nav__content">
+          <span class="unified-nav__label">{item.label}</span>
+          {showDescriptions && item.description && (
+            <span class="unified-nav__description">{item.description}</span>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  /* ===== BASE STYLES ===== */
+  .unified-nav {
+    margin-bottom: 2rem;
+  }
+
+  .unified-nav__container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .unified-nav__link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-secondary, #666);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .unified-nav__link:hover {
+    color: var(--primary-color, #3b82f6);
+    transform: translateY(-2px);
+  }
+
+  .unified-nav__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .unified-nav__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .unified-nav__label {
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .unified-nav__description {
+    font-size: 0.875rem;
+    color: var(--text-tertiary, #999);
+    line-height: 1.3;
+    margin-top: 0.25rem;
+  }
+
+  /* ===== VARIANT: HORIZONTAL ===== */
+  .unified-nav--horizontal .unified-nav__container {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .unified-nav--horizontal .unified-nav__link {
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+  }
+
+  .unified-nav--horizontal .unified-nav__link:hover {
+    border-bottom-color: var(--primary-color, #3b82f6);
+    transform: none;
+  }
+
+  .unified-nav--horizontal .unified-nav__icon {
+    font-size: 1.2rem;
+  }
+
+  /* ===== VARIANT: PILLS ===== */
+  .unified-nav--pills {
+    padding: 1.5rem;
+    background: var(--surface-color, #f8fafc);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .unified-nav--pills .unified-nav__container {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .unified-nav--pills .unified-nav__link {
+    padding: 0.8rem 1.5rem;
+    background: var(--background-color, white);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 25px;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .unified-nav--pills .unified-nav__link:hover {
+    background: var(--primary-color, #3b82f6);
+    color: white;
+    border-color: var(--primary-color, #3b82f6);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  /* ===== VARIANT: CARDS ===== */
+  .unified-nav--cards .unified-nav__container {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .unified-nav--cards .unified-nav__link {
+    flex-direction: column;
+    padding: 1.25rem;
+    background: var(--surface-color, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    gap: 0.75rem;
+    min-width: 120px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .unified-nav--cards .unified-nav__link:hover {
+    background: var(--primary-color, #3b82f6);
+    color: white;
+    border-color: var(--primary-color, #3b82f6);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+
+  .unified-nav--cards .unified-nav__icon {
+    font-size: 1.5rem;
+  }
+
+  .unified-nav--cards .unified-nav__description {
+    color: inherit;
+    opacity: 0.8;
+  }
+
+  /* ===== SIZES ===== */
+  .unified-nav--sm .unified-nav__link {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .unified-nav--sm .unified-nav__icon {
+    font-size: 1rem;
+  }
+
+  .unified-nav--lg .unified-nav__link {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+
+  .unified-nav--lg .unified-nav__icon {
+    font-size: 1.5rem;
+  }
+
+  /* ===== CENTERED MODIFIER ===== */
+  .unified-nav--centered .unified-nav__container {
+    justify-content: center;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .unified-nav--pills,
+    .unified-nav--cards {
+      padding: 1rem;
+    }
+
+    .unified-nav__container {
+      gap: 0.5rem;
+    }
+
+    .unified-nav--horizontal .unified-nav__container {
+      gap: 1rem;
+    }
+
+    .unified-nav--cards .unified-nav__link {
+      min-width: 100px;
+      padding: 1rem;
+    }
+
+    .unified-nav--pills .unified-nav__link {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* ===== DARK MODE ===== */
+  @media (prefers-color-scheme: dark) {
+    .unified-nav--pills {
+      background: var(--surface-color-dark, #1a202c);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .unified-nav--pills .unified-nav__link {
+      background: var(--background-color-dark, #2d3748);
+      border-color: var(--border-color-dark, #4a5568);
+    }
+
+    .unified-nav--cards .unified-nav__link {
+      background: var(--surface-color-dark, #1a202c);
+      border-color: var(--border-color-dark, #4a5568);
+    }
+
+    .unified-nav__description {
+      color: var(--text-tertiary-dark, #a0aec0);
+    }
+  }
+
+  /* ===== ACCESSIBILITY ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .unified-nav__link {
+      transition: none;
+    }
+
+    .unified-nav__link:hover {
+      transform: none;
+    }
+  }
+
+  .unified-nav__link:focus {
+    outline: 2px solid var(--primary-color, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  .unified-nav__link:focus-visible {
+    outline: 2px solid var(--primary-color, #3b82f6);
+    outline-offset: 2px;
+  }
+</style>
