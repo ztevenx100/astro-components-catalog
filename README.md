@@ -17,11 +17,35 @@ Un catálogo interactivo de componentes visuales modernos construidos exclusivam
 
 ## 📦 Componentes Incluidos
 
-### 🔘 Botones
-- **Botón Primario**: Botón principal con gradiente y animaciones
-- **Botón Fantasma**: Botón con borde y efecto de llenado al hover
-- **Botón Neomórfico**: Botón con efecto de profundidad 3D
-- **Botón de Carga**: Botón con spinner de carga animado
+### 🔘 Sistema de Botones Avanzado
+Un sistema completo de botones con CSS puro que incluye múltiples variantes, estados y efectos visuales modernos.
+
+#### **Variantes Principales:**
+- **Botones Sólidos**: Primario, Secundario, Éxito, Peligro, Advertencia, Información
+- **Botones Outline**: Versiones con borde para cada variante de color
+- **Botones Neomórficos**: Efecto 3D táctil con sombras avanzadas
+
+#### **Características del Sistema:**
+- **🎨 Modo Oscuro Completo**: Soporte automático y manual para tema oscuro
+- **📱 Totalmente Responsive**: Adaptación perfecta a todos los dispositivos
+- **♿ Accesibilidad**: Estados de foco visibles y navegación por teclado
+- **🔄 Estados Interactivos**: Hover, activo, deshabilitado y carga
+- **📏 Múltiples Tamaños**: Pequeño (sm), Mediano (md), Grande (lg)
+- **🎭 Efectos Visuales**: Transiciones suaves y animaciones fluidas
+
+#### **Botones Neomórficos Avanzados:**
+- **Efecto 3D Realista**: Sombras duales que simulan profundidad física
+- **Variantes de Color Completas**: Todos los colores del sistema con gradientes
+- **Modo Oscuro Especializado**: Adaptación específica para tema oscuro
+- **Estados Interactivos**: Efecto de presión (pressed) y elevación (hover)
+- **Optimización Visual**: Gradientes y sombras ajustadas por color
+
+#### **Estados y Funcionalidades:**
+- **Loading State**: Spinner animado integrado
+- **Disabled State**: Estilo deshabilitado con reducción de opacidad
+- **Block Button**: Botón de ancho completo
+- **Icon Support**: Soporte para iconos con espaciado automático
+- **Focus Management**: Indicadores de foco para navegación accesible
 
 ### 📋 Tarjetas
 - **Tarjeta Básica**: Tarjeta simple con sombra y hover
@@ -185,6 +209,86 @@ src/
 - **Grid Layout**: Sistema de grillas responsivas con auto-fit
 - **Componentes**: Arquitectura modular y reutilizable
 
+## 🔘 Sistema de Botones - Documentación Técnica
+
+### Arquitectura del Sistema
+El sistema de botones está construido con una arquitectura modular y escalable:
+
+#### **Estructura de Archivos:**
+- `src/components/ui/buttons/ButtonSystem.astro` - Componente principal con showcase
+- `src/styles/button-system.css` - Librería CSS standalone completa
+- Documentación integrada con `CodeViewer.astro`
+
+#### **Implementación CSS:**
+```css
+/* Clase base para todos los botones */
+.btn {
+  /* Propiedades base comunes */
+}
+
+/* Variantes de color */
+.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info
+
+/* Variantes outline */
+.btn-outline-primary, .btn-outline-secondary, etc.
+
+/* Variantes neomórficas */
+.btn-neomorphic + modificadores de color
+
+/* Tamaños */
+.btn-sm, .btn-md, .btn-lg
+
+/* Estados especiales */
+.btn-loading, .btn-block, :disabled
+```
+
+#### **Modo Oscuro Avanzado:**
+- **Detección Automática**: `@media (prefers-color-scheme: dark)`
+- **Control Manual**: Clase `html.dark` para toggle manual
+- **Neomórfico Especializado**: Sombras y gradientes adaptados para tema oscuro
+- **Variables CSS**: Sistema de colores adaptativos
+
+#### **Características Neomórficas:**
+```css
+/* Efecto 3D con múltiples sombras */
+box-shadow: 
+  8px 8px 16px rgba(0, 0, 0, 0.1),      /* Sombra principal */
+  -8px -8px 16px rgba(255, 255, 255, 1), /* Luz superior */
+  inset 1px 1px 2px rgba(255, 255, 255, 0.3); /* Brillo interno */
+```
+
+#### **Estados Interactivos:**
+- **Hover**: Elevación visual con `transform: translateY(-1px)`
+- **Active**: Efecto de presión con sombras internas (`inset`)
+- **Focus**: Contorno visible para accesibilidad
+- **Loading**: Spinner CSS animado integrado
+- **Disabled**: Reducción de opacidad y desactivación de eventos
+
+#### **Uso Básico:**
+```html
+<!-- Botón básico -->
+<button class="btn btn-primary">Botón Primario</button>
+
+<!-- Botón neomórfico -->
+<button class="btn btn-neomorphic btn-success">Neomórfico Verde</button>
+
+<!-- Botón con carga -->
+<button class="btn btn-primary btn-loading">
+  <span class="btn-spinner"></span>
+  Cargando...
+</button>
+
+<!-- Botón outline grande -->
+<button class="btn btn-outline-danger btn-lg">Outline Peligro</button>
+```
+
+#### **Compatibilidad y Accesibilidad:**
+- ✅ **WCAG 2.1 AA**: Contrastes de color válidos
+- ✅ **Navegación por Teclado**: Estados de focus visibles
+- ✅ **Screen Readers**: Atributos ARIA apropiados
+- ✅ **Responsive**: Funciona en todos los dispositivos
+- ✅ **Cross-browser**: Compatible con navegadores modernos
+
 ## 🎮 Componentes Interactivos Destacados
 
 ### Modales y Diálogos
@@ -323,7 +427,40 @@ El proyecto implementa un sistema de estandarización mediante `card-base.css` q
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
 
-## 🙏 Agradecimientos
+## � Changelog y Mejoras Recientes
+
+### ✨ Últimas Actualizaciones
+
+#### **🔘 Sistema de Botones Neomórficos v2.0**
+- **🆕 Botones Neomórficos Completos**: Implementación de efectos 3D táctiles con sombras duales
+- **🌙 Modo Oscuro Avanzado**: Soporte completo para tema oscuro con adaptación automática y manual
+- **🎨 Variantes de Color Extendidas**: Todos los colores del sistema (primary, success, danger, warning, info, secondary) disponibles en versión neomórfica
+- **⚡ Estados Interactivos Mejorados**: Efectos de hover (elevación) y active (presión) más realistas
+- **♿ Accesibilidad Mejorada**: Estados de focus visibles y navegación por teclado optimizada
+
+#### **🧭 Navegación Unificada**
+- **🔗 Sistema Unificado**: Fusión de las navegaciones `catalog-nav` y `button-nav` en un sistema coherente
+- **📱 Responsive Mejorado**: Adaptación perfecta a dispositivos móviles y tablets
+- **🎯 UX Optimizada**: Navegación más intuitiva y accesible
+
+#### **💻 Arquitectura Técnica**
+- **📁 Estructura Modularizada**: Separación clara entre componentes y estilos
+- **🎨 CSS Standalone**: `button-system.css` como librería independiente reutilizable
+- **🔧 Sistema de Variables**: Configuración centralizada para temas y colores
+- **📖 Documentación Integrada**: CodeViewer para ejemplos en vivo
+
+#### **🛠️ Mejoras en Desarrollo**
+- **⚡ Performance**: Optimización de CSS y reducción de redundancias
+- **🧹 Cleanup**: Eliminación de código duplicado y archivos obsoletos
+- **📚 Documentación**: Guías técnicas detalladas en `/docs`
+
+### 🎯 Próximas Mejoras Planificadas
+- **🎮 Componentes Interactivos**: Expansión de modales y dropdowns
+- **🎨 Temas Personalizables**: Sistema de temas con múltiples paletas de colores
+- **📊 Componentes de Data**: Tablas, gráficos y dashboards
+- **🔍 Componentes de Búsqueda**: Filtros avanzados y autocompletado
+
+## �🙏 Agradecimientos
 
 - Inspirado en bibliotecas de componentes modernas
 - Colores y gradientes basados en tendencias actuales de diseño
