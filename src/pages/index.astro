@@ -8,7 +8,6 @@ import UnifiedNav from '../components/ui/navigation/UnifiedNav.astro';
 // Sistema Unificado (Nuevos)
 import ButtonSystem from '../components/ui/buttons/ButtonSystem.astro';
 import ButtonShowcase from '../components/ui/buttons/ButtonShowcase.astro';
-import ButtonStats from '../components/ui/demo/ButtonStats.astro';
 import WhatsNext from '../components/ui/demo/WhatsNext.astro';
 import GradientButtonSystem from '../components/ui/buttons/GradientButtonSystem.astro';
 import IconButtonSystem from '../components/ui/buttons/IconButtonSystem.astro';
@@ -40,6 +39,12 @@ import SidebarNav from '../components/ui/navigation/SidebarNav.astro';
 import Breadcrumbs from '../components/ui/navigation/Breadcrumbs.astro';
 import TabNavigation from '../components/ui/navigation/TabNavigation.astro';
 import MobileMenu from '../components/ui/navigation/MobileMenu.astro';
+
+// Importar componentes de layout
+import ContainerSystem from '../components/ui/layout/ContainerSystem.astro';
+import GridSystem from '../components/ui/layout/GridSystem.astro';
+import SpecializedLayouts from '../components/ui/layout/SpecializedLayouts.astro';
+import StructuralElements from '../components/ui/layout/StructuralElements.astro';
 
 // Importar componentes de feedback
 import ToastNotification from '../components/ui/feedback/ToastNotification.astro';
@@ -83,6 +88,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				{ href: "#button-system", icon: "⚡", label: "Sistema" },
 				{ href: "#cards", icon: "🃏", label: "Tarjetas" },
 				{ href: "#forms", icon: "📝", label: "Formularios" },
+				{ href: "#layout", icon: "🏗️", label: "Layout" },
 				{ href: "#feedback", icon: "💬", label: "Feedback" },
 				{ href: "#interactive", icon: "🔄", label: "Interactivos" },
 				{ href: "#navigation", icon: "🧭", label: "Navegación" }
@@ -150,12 +156,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 					</div>
 				</div>
 			</div>
-
-			<!-- Estadísticas del Sistema -->
-			<ButtonStats />
-
-			<!-- Qué Sigue -->
-			<WhatsNext />
 		</section>
 
 		<section id="cards" class="section">
@@ -183,6 +183,16 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				<RatingInput />
 				<SimpleFileUpload />
 				<MultiStepForm />
+			</div>
+		</section>
+
+		<section id="layout" class="section">
+			<h2>🏗️ Layout y Contenedores</h2>
+			<div class="components-grid">
+				<ContainerSystem />
+				<GridSystem />
+				<SpecializedLayouts />
+				<StructuralElements />
 			</div>
 		</section>
 
@@ -223,6 +233,11 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 				<TabNavigation />
 				<MobileMenu />
 			</div>
+		</section>
+
+		<!-- Sección "¿Qué sigue?" -->
+		<section class="whats-next section">
+			<WhatsNext />
 		</section>
 
 		<footer class="catalog-footer">
@@ -300,12 +315,8 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 	/* Estilos específicos para el sistema de botones */
 	.button-system-section {
-		background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
-		border-radius: 20px;
-		padding: 2rem;
 		margin: 3rem 0;
-		border: 1px solid var(--border-color);
-		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+		padding: 0;
 	}
 
 	.system-header {
@@ -436,7 +447,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 		/* Responsive para sistema de botones */
 		.button-system-section {
-			padding: 1.5rem;
 			margin: 2rem 0;
 		}
 
@@ -456,7 +466,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 	@media (max-width: 480px) {
 		.button-system-section {
-			padding: 1rem;
+			margin: 1rem 0;
 		}
 
 		.system-header {

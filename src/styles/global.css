@@ -17,11 +17,6 @@ html {
   box-shadow: var(--shadow-sm);
 }
 
-.component-preview:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
 .component-preview h3 {
   margin: 0 0 1rem 0;
   color: var(--text-color);

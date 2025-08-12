@@ -1,0 +1,715 @@
+---
+import CodeViewer from '../../util/CodeViewer.astro';
+
+const code = `
+<!-- Separadores -->
+<div class="divider"></div>
+<div class="divider divider-thick"></div>
+<div class="divider divider-gradient"></div>
+<div class="divider divider-dotted"></div>
+
+<!-- Separadores con texto -->
+<div class="divider divider-text">
+  <span>O continúa con</span>
+</div>
+
+<div class="divider divider-text divider-icon">
+  <span>⭐ Destacado</span>
+</div>
+
+<!-- Espaciadores -->
+<div class="spacer spacer-sm"></div>
+<div class="spacer spacer-md"></div>
+<div class="spacer spacer-lg"></div>
+<div class="spacer spacer-xl"></div>
+
+<!-- Elementos sticky -->
+<div class="sticky-top">
+  <div class="sticky-header">Header fijo</div>
+</div>
+
+<div class="sticky-bottom">
+  <div class="sticky-footer">Footer fijo</div>
+</div>
+
+<!-- Masonry Grid -->
+<div class="masonry-grid">
+  <div class="masonry-item masonry-small">Item 1</div>
+  <div class="masonry-item masonry-medium">Item 2</div>
+  <div class="masonry-item masonry-large">Item 3</div>
+  <div class="masonry-item masonry-small">Item 4</div>
+</div>
+
+<style>
+/* ===== SEPARADORES ===== */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+  margin: 1.5rem 0;
+  border: none;
+}
+
+.divider-thick {
+  height: 2px;
+  background: var(--text-secondary);
+}
+
+.divider-gradient {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.divider-dotted {
+  height: 0;
+  border-top: 2px dotted var(--border-color);
+  background: none;
+}
+
+/* Separadores con texto */
+.divider-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background: none;
+  height: auto;
+}
+
+.divider-text::before,
+.divider-text::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.divider-text span {
+  padding: 0 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: var(--background-color);
+}
+
+.divider-icon span {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* ===== ESPACIADORES ===== */
+.spacer {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.spacer-sm { height: 1rem; }
+.spacer-md { height: 2rem; }
+.spacer-lg { height: 3rem; }
+.spacer-xl { height: 4rem; }
+
+/* ===== ELEMENTOS STICKY ===== */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+.sticky-header,
+.sticky-footer {
+  padding: 1rem 1.5rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== MASONRY GRID ===== */
+.masonry-grid {
+  columns: 3;
+  column-gap: 1rem;
+  margin: 2rem 0;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.masonry-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.masonry-small { height: 100px; }
+.masonry-medium { height: 150px; }
+.masonry-large { height: 200px; }
+
+/* Responsive masonry */
+@media (max-width: 768px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-grid {
+    columns: 1;
+  }
+}
+</style>
+`;
+---
+
+<div class="component-preview">
+  <h3>🔧 Elementos Estructurales</h3>
+  <p>Separadores, espaciadores y elementos de layout para organizar y estructurar el contenido.</p>
+  
+  <div class="demo-container">
+    <div class="structural-showcase">
+      
+      <!-- Separadores -->
+      <div class="demo-section">
+        <h4>➖ Separadores</h4>
+        
+        <div class="content-block">
+          <p>Contenido antes del separador</p>
+          
+          <div class="divider"></div>
+          <p>Separador básico</p>
+          
+          <div class="divider divider-thick"></div>
+          <p>Separador grueso</p>
+          
+          <div class="divider divider-gradient"></div>
+          <p>Separador con gradiente</p>
+          
+          <div class="divider divider-dotted"></div>
+          <p>Separador punteado</p>
+        </div>
+      </div>
+
+      <!-- Separadores con texto -->
+      <div class="demo-section">
+        <h4>📝 Separadores con Texto</h4>
+        
+        <div class="content-block">
+          <p>Inicia sesión con tu cuenta</p>
+          
+          <div class="divider divider-text">
+            <span>O continúa con</span>
+          </div>
+          
+          <p>Opciones de redes sociales</p>
+          
+          <div class="divider divider-text divider-icon">
+            <span>⭐ Contenido Destacado</span>
+          </div>
+          
+          <p>Sección especial</p>
+        </div>
+      </div>
+
+      <!-- Espaciadores -->
+      <div class="demo-section">
+        <h4>📏 Espaciadores</h4>
+        
+        <div class="content-block">
+          <div class="spacer-demo">Elemento 1</div>
+          <div class="spacer spacer-sm"></div>
+          <div class="spacer-demo">Espaciador pequeño (1rem)</div>
+          
+          <div class="spacer spacer-md"></div>
+          <div class="spacer-demo">Espaciador mediano (2rem)</div>
+          
+          <div class="spacer spacer-lg"></div>
+          <div class="spacer-demo">Espaciador grande (3rem)</div>
+          
+          <div class="spacer spacer-xl"></div>
+          <div class="spacer-demo">Espaciador extra grande (4rem)</div>
+        </div>
+      </div>
+
+      <!-- Masonry Grid -->
+      <div class="demo-section">
+        <h4>🧱 Masonry Grid</h4>
+        
+        <div class="masonry-grid">
+          <div class="masonry-item masonry-small">
+            <h5>Card 1</h5>
+            <p>Contenido corto</p>
+          </div>
+          <div class="masonry-item masonry-medium">
+            <h5>Card 2</h5>
+            <p>Contenido mediano con más texto para demostrar la altura variable del grid.</p>
+          </div>
+          <div class="masonry-item masonry-large">
+            <h5>Card 3</h5>
+            <p>Contenido largo con mucho más texto para mostrar cómo el masonry grid se adapta a diferentes alturas de contenido automáticamente.</p>
+          </div>
+          <div class="masonry-item masonry-small">
+            <h5>Card 4</h5>
+            <p>Otra card corta</p>
+          </div>
+          <div class="masonry-item masonry-medium">
+            <h5>Card 5</h5>
+            <p>Contenido mediano que se acomoda perfectamente.</p>
+          </div>
+          <div class="masonry-item masonry-small">
+            <h5>Card 6</h5>
+            <p>Final</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Elements -->
+      <div class="demo-section">
+        <h4>📌 Elementos Sticky (Simulación)</h4>
+        
+        <div class="sticky-demo-container">
+          <div class="sticky-demo-header">
+            <div class="sticky-header">📌 Header Sticky (se mantiene arriba)</div>
+          </div>
+          
+          <div class="demo-content">
+            <p>Contenido que se desplaza...</p>
+            <p>El header sticky se mantiene fijo en la parte superior mientras el usuario hace scroll.</p>
+            <p>Esto es útil para navegación, headers, y elementos de acción importantes.</p>
+          </div>
+          
+          <div class="sticky-demo-footer">
+            <div class="sticky-footer">📌 Footer Sticky (se mantiene abajo)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<CodeViewer code={code} />
+
+<style>
+  .component-preview {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .component-preview h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .component-preview p {
+    margin: 0 0 2rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .demo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .structural-showcase {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .demo-section {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .demo-section h4 {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .content-block {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .content-block p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    text-align: left;
+  }
+
+  /* Separadores */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border-color);
+    margin: 1.5rem 0;
+    border: none;
+  }
+
+  .divider-thick {
+    height: 2px;
+    background: var(--text-secondary);
+  }
+
+  .divider-gradient {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  }
+
+  .divider-dotted {
+    height: 0;
+    border-top: 2px dotted var(--border-color);
+    background: none;
+  }
+
+  /* Separadores con texto */
+  .divider-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: none;
+    height: auto;
+  }
+
+  .divider-text::before,
+  .divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+  }
+
+  .divider-text span {
+    padding: 0 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--surface-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .divider-icon span {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  /* Espaciadores */
+  .spacer {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .spacer-sm { height: 1rem; }
+  .spacer-md { height: 2rem; }
+  .spacer-lg { height: 3rem; }
+  .spacer-xl { height: 4rem; }
+
+  .spacer-demo {
+    padding: 0.5rem 1rem;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  /* Sticky elements demo */
+  .sticky-demo-container {
+    position: relative;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sticky-demo-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .sticky-demo-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+  }
+
+  .sticky-header,
+  .sticky-footer {
+    padding: 1rem 1.5rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+  }
+
+  .demo-content {
+    padding: 2rem 1.5rem;
+    min-height: 400px;
+  }
+
+  .demo-content p {
+    margin: 1rem 0;
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  /* Masonry Grid */
+  .masonry-grid {
+    columns: 3;
+    column-gap: 1rem;
+    margin: 1rem 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+    word-wrap: break-word;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .masonry-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+  }
+
+  .masonry-item h5 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .masonry-item p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .masonry-small { 
+    min-height: 80px;
+    max-height: 120px;
+  }
+  
+  .masonry-small p {
+    -webkit-line-clamp: 2;
+  }
+  
+  .masonry-medium { 
+    min-height: 100px;
+    max-height: 150px;
+  }
+  
+  .masonry-medium p {
+    -webkit-line-clamp: 3;
+  }
+  
+  .masonry-large { 
+    min-height: 120px;
+    max-height: 180px;
+  }
+  
+  .masonry-large p {
+    -webkit-line-clamp: 4;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .structural-showcase {
+      max-width: 700px;
+      gap: 2.5rem;
+    }
+    
+    .masonry-grid {
+      column-gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .structural-showcase {
+      max-width: 600px;
+      gap: 2rem;
+    }
+    
+    .content-block {
+      padding: 1.25rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .masonry-grid {
+      columns: 2;
+      column-gap: 0.75rem;
+    }
+    
+    .structural-showcase {
+      gap: 2rem;
+    }
+    
+    .sticky-demo-container {
+      height: 280px;
+    }
+    
+    .masonry-item {
+      padding: 0.875rem;
+    }
+    
+    .masonry-small { 
+      min-height: 70px;
+      max-height: 100px;
+    }
+    
+    .masonry-medium { 
+      min-height: 90px;
+      max-height: 130px;
+    }
+    
+    .masonry-large { 
+      min-height: 110px;
+      max-height: 160px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .masonry-grid {
+      columns: 2;
+    }
+
+    .structural-showcase {
+      gap: 2rem;
+    }
+
+    .content-block {
+      padding: 1rem;
+    }
+    
+    .component-preview {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .masonry-grid {
+      columns: 1;
+      column-gap: 0;
+    }
+
+    .component-preview {
+      padding: 1.5rem;
+    }
+
+    .sticky-demo-container {
+      height: 250px;
+    }
+
+    .demo-content {
+      padding: 1.5rem 1rem;
+      min-height: 300px;
+    }
+    
+    .masonry-item {
+      padding: 0.75rem;
+    }
+    
+    .structural-showcase {
+      gap: 1.5rem;
+    }
+    
+    .content-block {
+      padding: 0.75rem;
+    }
+    
+    .masonry-small,
+    .masonry-medium,
+    .masonry-large { 
+      min-height: 60px;
+      max-height: 120px;
+    }
+    
+    .masonry-small p,
+    .masonry-medium p,
+    .masonry-large p {
+      -webkit-line-clamp: 2;
+      font-size: 0.85rem;
+    }
+  }
+</style>
