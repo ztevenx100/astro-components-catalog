@@ -8,7 +8,6 @@ import UnifiedNav from '../components/ui/navigation/UnifiedNav.astro';
 // Sistema Unificado (Nuevos)
 import ButtonSystem from '../components/ui/buttons/ButtonSystem.astro';
 import ButtonShowcase from '../components/ui/buttons/ButtonShowcase.astro';
-import ButtonStats from '../components/ui/demo/ButtonStats.astro';
 import WhatsNext from '../components/ui/demo/WhatsNext.astro';
 import GradientButtonSystem from '../components/ui/buttons/GradientButtonSystem.astro';
 import IconButtonSystem from '../components/ui/buttons/IconButtonSystem.astro';
@@ -157,12 +156,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 					</div>
 				</div>
 			</div>
-
-			<!-- Estadísticas del Sistema -->
-			<ButtonStats />
-
-			<!-- Qué Sigue -->
-			<WhatsNext />
 		</section>
 
 		<section id="cards" class="section">
@@ -242,6 +235,11 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 			</div>
 		</section>
 
+		<!-- Sección "¿Qué sigue?" -->
+		<section class="whats-next section">
+			<WhatsNext />
+		</section>
+
 		<footer class="catalog-footer">
 			<p>Hecho con ❤️ y CSS puro • Sin frameworks externos</p>
 		</footer>
@@ -317,12 +315,8 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 	/* Estilos específicos para el sistema de botones */
 	.button-system-section {
-		background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
-		border-radius: 20px;
-		padding: 2rem;
 		margin: 3rem 0;
-		border: 1px solid var(--border-color);
-		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+		padding: 0;
 	}
 
 	.system-header {
@@ -453,7 +447,6 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 		/* Responsive para sistema de botones */
 		.button-system-section {
-			padding: 1.5rem;
 			margin: 2rem 0;
 		}
 
@@ -473,7 +466,7 @@ import ThemeDemo from '../components/ui/demo/ThemeDemo.astro';
 
 	@media (max-width: 480px) {
 		.button-system-section {
-			padding: 1rem;
+			margin: 1rem 0;
 		}
 
 		.system-header {

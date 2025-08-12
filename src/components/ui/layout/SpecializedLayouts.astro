@@ -69,6 +69,9 @@ const code = `
   color: white;
   border-radius: 16px;
   margin-bottom: 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .hero-content h1 {
@@ -76,6 +79,8 @@ const code = `
   font-weight: 700;
   margin: 0 0 1rem 0;
   line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .hero-content p {
@@ -83,6 +88,7 @@ const code = `
   margin: 0 0 2rem 0;
   opacity: 0.9;
   line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .hero-actions {
@@ -179,6 +185,8 @@ const code = `
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-card {
@@ -187,8 +195,9 @@ const code = `
   border: 1px solid var(--border-color);
   border-radius: 12px;
   transition: all 0.3s ease;
+  min-width: 0; /* Permite que el contenido se encoja */
+  word-wrap: break-word;
 }
-
 .dashboard-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -385,6 +394,9 @@ const code = `
     border-radius: 16px;
     background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
     margin-bottom: 2rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .component-preview h3 {
@@ -420,10 +432,14 @@ const code = `
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .demo-section {
     width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .demo-section h4 {
@@ -621,6 +637,8 @@ const code = `
     font-weight: 700;
     color: var(--primary-color);
     margin: 0;
+    line-height: 1;
+    word-break: break-all; /* Permite quebrar números largos */
   }
 
   .chart-card,
@@ -648,9 +666,64 @@ const code = `
   }
 
   /* Responsive */
+  @media (max-width: 1200px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero-placeholder {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
   @media (max-width: 1024px) {
     .sidebar-layout {
       grid-template-columns: 200px 1fr;
+    }
+    
+    .dashboard-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .hero-content h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .dashboard-card {
+      padding: 1rem;
+    }
+    
+    .stat-card .stat-number {
+      font-size: 2rem;
+    }
+    
+    .hero-section {
+      padding: 3rem 2rem;
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+    }
+    
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-placeholder {
+      width: 150px;
+      height: 150px;
     }
   }
 
@@ -659,6 +732,7 @@ const code = `
       grid-template-columns: 1fr;
       text-align: center;
       padding: 3rem 1.5rem;
+      gap: 2rem;
     }
     
     .hero-content h1 {
@@ -710,6 +784,12 @@ const code = `
     
     .hero-actions {
       flex-direction: column;
+      width: 100%;
+    }
+    
+    .hero-actions .btn {
+      width: 100%;
+      justify-content: center;
     }
     
     .hero-placeholder {
@@ -724,6 +804,20 @@ const code = `
 
     .component-preview {
       padding: 1.5rem;
+    }
+    
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    
+    .dashboard-card {
+      padding: 0.75rem;
+      min-width: 0;
+    }
+    
+    .stat-card .stat-number {
+      font-size: 1.8rem;
     }
   }
 </style>
