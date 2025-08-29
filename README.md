@@ -507,7 +507,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 - Inspirado en bibliotecas de componentes modernas
 - Colores y gradientes basados en tendencias actuales de diseño
-- Efectos de animación inspirados en principios de Material Design y diseño neomórfico
+- Efectos de animación inspirados en principios de Material Design
 
 ---
 
